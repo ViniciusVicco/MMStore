@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/Materiais/Cards.dart';
-import 'package:michellemirandastore/pages/paginaCarrinho.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
 import 'package:michellemirandastore/models/produto.dart';
 import 'package:michellemirandastore/models/pedido.dart';
 
@@ -96,44 +96,4 @@ class HomePageState extends State<HomePage> {
 
 
 
-class BottomNavyBar extends StatefulWidget {
-  @override
-  _BottomNavyBarState createState() => _BottomNavyBarState();
-}
 
-class _BottomNavyBarState extends State<BottomNavyBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      height: 56,
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginToBuy()),
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Carrinho()),
-              );
-            },
-          )
-//          Icon(Icons.home),
-//          Icon(Icons.favorite_border),
-//          Icon(Icons.search),
-//          Icon(Icons.person),
-        ],
-      ),
-    );
-  }
-}
