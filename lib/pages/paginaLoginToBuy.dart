@@ -12,6 +12,7 @@ class _LoginToBuyState extends State<LoginToBuy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
     body: SafeArea(
       top: _enabled,
       left: _enabled,

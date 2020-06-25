@@ -7,6 +7,8 @@ import 'package:michellemirandastore/models/produto.dart';
 import 'package:michellemirandastore/models/pedido.dart';
 
 
+//Teste Booleano _enabled == true ? _enabled = false : _enabled = true;
+
 class Home extends StatelessWidget {
   // This widget is the root of your application.
   @override
