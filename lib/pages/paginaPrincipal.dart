@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/Models/ProdutoClass.dart';
+import 'package:michellemirandastore/Materiais/Cards.dart';
+import 'package:michellemirandastore/pages/paginaCarrinho.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/models/produto.dart';
+import 'package:michellemirandastore/models/pedido.dart';
 
 
 class Home extends StatelessWidget {
@@ -9,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Titulo",
-      home: HomePage(titulo: "MeuApp",),
+      home: HomePage(titulo: "Michelli Miranda Store",),
     );
   }
 }
@@ -33,10 +37,15 @@ class HomePageState extends State<HomePage> {
     Produto(id: 2,preco: 32.0,estoque: 10,descricao: "Regata Branca",marca: "PACO"),
   ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  List<Pedido> listaDePedidos = [
+
+  ];
+
+
+  Widget cardProdutos(produto){
+    return ListView(
+
+    );
   }
 
   @override
@@ -53,22 +62,31 @@ class HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.settings,
+              Icons.person,
               color: Colors.white,
             ),
             onPressed: () {
-              // do something
+            Navigator.push(
+            context,
+              MaterialPageRoute(builder: (context) => LoginToBuy()),
+            );
             },
           )
         ],
       ),
       body: Center(
         child: Column(
-          children: listaDeProdutos.map((listaProdutos) => Container(
-              child: Text(
-                "${listaProdutos.preco}"
-              ),
-          )).toList(),
+
+          children: listaDeProdutos.map((produto) => ProdutoCard(
+          produto: produto,
+    delete: ()  {
+    setState(() {
+    listaDeProdutos.remove(produto);
+    });
+    }
+    )).toList()
+
+
         ),
       ),
       bottomNavigationBar: BottomNavyBar(),
@@ -98,6 +116,15 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoginToBuy()),
+              );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Carrinho()),
               );
             },
           )
