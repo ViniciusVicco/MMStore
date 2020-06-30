@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/Materiais/Cards.dart';
+import 'package:michellemirandastore/Materiais/CardsProduto.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
 import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
 import 'package:michellemirandastore/models/produto.dart';
@@ -34,9 +34,7 @@ class HomePageState extends State<HomePage> {
   int _counter = 0;
 
   List<Produto> listaDeProdutos = [
-    Produto(id: 1,preco: 65.0,estoque: 20,descricao: "Camisa Vermelha",marca: "PACO"),
-    Produto(id: 2,preco: 130.0,estoque: 10,descricao: "Calça Azul",marca: "PACO"),
-    Produto(id: 2,preco: 32.0,estoque: 10,descricao: "Regata Branca",marca: "PACO"),
+
   ];
 
   List<Pedido> listaDePedidos = [
@@ -76,8 +74,11 @@ class HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Center(
+      body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: listaDeProdutos.map((produto) => ProdutoCard(
           produto: produto,
