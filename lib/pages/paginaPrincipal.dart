@@ -1,7 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/Models/ProdutoClass.dart';
+import 'package:michellemirandastore/Materiais/CardsProduto.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
+import 'package:michellemirandastore/models/produto.dart';
+import 'package:michellemirandastore/models/pedido.dart';
 
+
+//Teste Booleano _enabled == true ? _enabled = false : _enabled = true;
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -9,7 +15,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Titulo",
-      home: HomePage(titulo: "MeuApp",),
+      home: HomePage(titulo: "Michelli Miranda Store",),
     );
   }
 }
@@ -28,15 +34,18 @@ class HomePageState extends State<HomePage> {
   int _counter = 0;
 
   List<Produto> listaDeProdutos = [
-    Produto(id: 1,preco: 65.0,estoque: 20,descricao: "Camisa Vermelha",marca: "PACO"),
-    Produto(id: 2,preco: 130.0,estoque: 10,descricao: "Calça Azul",marca: "PACO"),
-    Produto(id: 2,preco: 32.0,estoque: 10,descricao: "Regata Branca",marca: "PACO"),
+
   ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  List<Pedido> listaDePedidos = [
+
+  ];
+
+
+  Widget cardProdutos(produto){
+    return ListView(
+
+    );
   }
 
   @override
@@ -53,22 +62,34 @@ class HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.settings,
+              Icons.person,
               color: Colors.white,
             ),
             onPressed: () {
-              // do something
+            Navigator.push(
+            context,
+              MaterialPageRoute(builder: (context) => LoginToBuy()),
+            );
             },
           )
         ],
       ),
-      body: Center(
+      body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
         child: Column(
-          children: listaDeProdutos.map((listaProdutos) => Container(
-              child: Text(
-                "${listaProdutos.preco}"
-              ),
-          )).toList(),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+
+          children: listaDeProdutos.map((produto) => ProdutoCard(
+          produto: produto,
+    delete: ()  {
+    setState(() {
+    listaDeProdutos.remove(produto);
+    });
+    }
+    )).toList()
+
+
         ),
       ),
       bottomNavigationBar: BottomNavyBar(),
@@ -78,35 +99,4 @@ class HomePageState extends State<HomePage> {
 
 
 
-class BottomNavyBar extends StatefulWidget {
-  @override
-  _BottomNavyBarState createState() => _BottomNavyBarState();
-}
 
-class _BottomNavyBarState extends State<BottomNavyBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      height: 56,
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginToBuy()),
-              );
-            },
-          )
-//          Icon(Icons.home),
-//          Icon(Icons.favorite_border),
-//          Icon(Icons.search),
-//          Icon(Icons.person),
-        ],
-      ),
-    );
-  }
-}
