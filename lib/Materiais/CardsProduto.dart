@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/produto.dart';
 
@@ -9,40 +10,37 @@ class ProdutoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      height: MediaQuery.of(context).size.height/4,
+      width: MediaQuery.of(context).size.width/4,
+      color: Colors.black12,
 
-      color: Colors.grey[700],
-      margin: EdgeInsets.fromLTRB(16, 10, 16, 0),
-      child: SafeArea(
-        minimum: EdgeInsets.fromLTRB(60, 60, 15, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+      child: Card(
+        color: Colors.white,
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              'R\$ ' + produto.preco.toString(),
-              style: TextStyle(
-                fontSize: 18.0,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Container(
                 color: Colors.amber,
+                child: Text("Teste"),
               ),
+                Text("Nome"),
+                Text("Nome"),
+                Text("Nome"),
+                Text("Nome"),
+              ],
             ),
-            IconButton(
-              icon: Icon(Icons.person),
-              onPressed: (){},
-            ),
-            SizedBox(
-              height: 6.0,
-            ),
-            Text(
-              produto.descricao.toString(),
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.amber,
-              ),
-            ),
-            SizedBox(
-              height: 6.0,
-            ),
+            Text("Nome"),
+            Text("Nome"),
+            Text("Nome"),
+            Text("Nome"),
+            Text("Nome"),
+
           ],
         ),
       ),

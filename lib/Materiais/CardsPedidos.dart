@@ -10,7 +10,6 @@ class PedidoCard extends StatelessWidget {
 
       ),
       bottomNavigationBar: BottomNavyBar(
-        status: 1
       ),
     );
   }

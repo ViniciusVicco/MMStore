@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Titulo",
+
       home: HomePage(titulo: "Michelli Miranda Store",),
     );
   }
@@ -34,7 +34,10 @@ class HomePageState extends State<HomePage> {
   int _counter = 0;
 
   List<Produto> listaDeProdutos = [
-
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
   ];
 
   List<Pedido> listaDePedidos = [
@@ -77,9 +80,7 @@ class HomePageState extends State<HomePage> {
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-
+        child: ListView(
           children: listaDeProdutos.map((produto) => ProdutoCard(
           produto: produto,
     delete: ()  {

@@ -26,7 +26,6 @@ class Carrinho extends StatelessWidget {
             )
           ),
       bottomNavigationBar: BottomNavyBar(
-        status: 2,
       ),
     );
   }

@@ -7,11 +7,11 @@ import 'package:michellemirandastore/pages/paginaPrincipal.dart';
 import 'dart:async';
 
 class BottomNavyBar extends StatefulWidget {
-  int status;
+
 
   @override
   _BottomNavyBarState createState() => _BottomNavyBarState();
-  BottomNavyBar({this.status});
+
 }
 
 
