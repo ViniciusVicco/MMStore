@@ -14,8 +14,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Titulo",
-      home: HomePage(titulo: "Michelli Miranda Store",),
+
+      home: HomePage(titulo: "Michelle Miranda Store",),
     );
   }
 }
@@ -34,7 +34,10 @@ class HomePageState extends State<HomePage> {
   int _counter = 0;
 
   List<Produto> listaDeProdutos = [
-
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
   ];
 
   List<Pedido> listaDePedidos = [
@@ -53,33 +56,41 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${widget.titulo}",
+          "${"Michelli Miranda Store"}",
           style: TextStyle(
             fontFamily: "Pacifico",
 
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              color: Colors.white,
+          Container(
+            height: 30,
+            width: 90,
+            color: Colors.blue,
+            child: Row(
+              children: [
+                //Usar um label pra juntar texto + icone;
+                FlatButton.icon(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  onPressed: () {},
+                  icon: Icon(Icons.call_missed_outgoing,
+                    color: Colors.white,),
+                  label: Text("Logout",
+                    style: TextStyle(color: Colors.white,
+                        fontFamily: "Pacifico",
+                        fontSize: 15
+                    ),
+                  ),
+                )
+              ],
             ),
-            onPressed: () {
-            Navigator.push(
-            context,
-              MaterialPageRoute(builder: (context) => LoginToBuy()),
-            );
-            },
           )
         ],
       ),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-
+        child: ListView(
           children: listaDeProdutos.map((produto) => ProdutoCard(
           produto: produto,
     delete: ()  {

@@ -6,12 +6,40 @@ class Carrinho extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Titulo"
+          "${"Michelli Miranda Store"}",
+          style: TextStyle(
+            fontFamily: "Pacifico",
+
+          ),
         ),
+        actions: [
+          Container(
+            height: 30,
+            width: 90,
+            color: Colors.blue,
+            child: Row(
+              children: [
+                //Usar um label pra juntar texto + icone;
+                FlatButton.icon(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  onPressed: () {},
+                  icon: Icon(Icons.call_missed_outgoing,
+                    color: Colors.white,),
+                  label: Text("Logout",
+                    style: TextStyle(color: Colors.white,
+                        fontFamily: "Pacifico",
+                        fontSize: 15
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
       body: Container(
         constraints: BoxConstraints.expand(),
-            color: Colors.red,
+            color: Colors.grey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -26,7 +54,6 @@ class Carrinho extends StatelessWidget {
             )
           ),
       bottomNavigationBar: BottomNavyBar(
-        status: 2,
       ),
     );
   }
