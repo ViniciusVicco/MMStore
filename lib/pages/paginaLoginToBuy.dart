@@ -24,28 +24,33 @@ class _LoginToBuyState extends State<LoginToBuy> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              color: Colors.white,
+          Container(
+            height: 30,
+            width: 90,
+            color: Colors.blue,
+            child: Row(
+              children: [
+                //Usar um label pra juntar texto + icone;
+                Text("Logout"),
+                Icon(
+                  Icons.call_missed_outgoing,
+                  color: Colors.white,
+                  size: 30,
+                )
+              ],
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginToBuy()),
-              );
-            },
           )
         ],
       ),
       body: Container(
-        child: Text("Olá"),
+        width: double.maxFinite,
+        height: double.maxFinite,
+        color: Colors.grey,
       ),
-      drawer: Center(
-        child: Text("-"),
-      ),
+//      drawer: Center(
+//        child: Text("-"),
+//      ),
       bottomNavigationBar: BottomNavyBar(
-
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:michellemirandastore/Materiais/CardsPedidos.dart';
 import 'package:michellemirandastore/Materiais/CarrinhoDeCompras.dart';
 import 'package:michellemirandastore/pages/paginaCarrinho.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/pages/paginaPedidos.dart';
 import 'package:michellemirandastore/pages/paginaPrincipal.dart';
 import 'dart:async';
 
@@ -30,7 +31,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
     NavegationItem(Icon(Icons.home), Text('Home'), homeColor, Home()),
     NavegationItem(Icon(Icons.person), Text('Conta'), contaColor, LoginToBuy()),
     NavegationItem(Icon(Icons.shopping_cart), Text('Carrinho'), carrinhoColor, Carrinho()),
-    NavegationItem(Icon(Icons.markunread_mailbox), Text('Pedidos'), pedidosColor, PedidoCard()),
+    NavegationItem(Icon(Icons.markunread_mailbox), Text('Pedidos'), pedidosColor, paginaPedidos()),
   ];
 
   Widget _buildItem(NavegationItem item, bool isSelected){

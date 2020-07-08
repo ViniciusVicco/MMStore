@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
-class Pedidos extends StatefulWidget {
+class paginaPedidos extends StatefulWidget {
   @override
-  _PedidosState createState() => _PedidosState();
+  _paginaPedidosState createState() => _paginaPedidosState();
+
 }
 
-class _PedidosState extends State<Pedidos> {
+class _paginaPedidosState extends State<paginaPedidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      home: HomePage(titulo: "Michelli Miranda Store",),
+      home: HomePage(titulo: "Michelle Miranda Store",),
     );
   }
 }
