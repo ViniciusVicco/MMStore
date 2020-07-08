@@ -31,11 +31,17 @@ class _LoginToBuyState extends State<LoginToBuy> {
             child: Row(
               children: [
                 //Usar um label pra juntar texto + icone;
-                Text("Logout"),
-                Icon(
-                  Icons.call_missed_outgoing,
-                  color: Colors.white,
-                  size: 30,
+                FlatButton.icon(
+                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    onPressed: () {},
+                    icon: Icon(Icons.call_missed_outgoing,
+                    color: Colors.white,),
+                    label: Text("Logout",
+                    style: TextStyle(color: Colors.white,
+                      fontFamily: "Pacifico",
+                      fontSize: 15
+                    ),
+                    ),
                 )
               ],
             ),
