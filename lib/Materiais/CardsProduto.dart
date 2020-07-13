@@ -27,7 +27,7 @@ class ProdutoCard extends StatelessWidget {
               children: [
               Container(
                 color: Colors.amber,
-                child: Text("Teste"),
+                child: Text('${produto.id}'),
               ),
                 Text("Nome"),
                 Text("Nome"),

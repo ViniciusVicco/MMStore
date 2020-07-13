@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/Materiais/AppBarNativa.dart';
 import 'package:michellemirandastore/Materiais/CardsProduto.dart';
+import 'package:michellemirandastore/Materiais/ElementoCores.dart';
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
 import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
 import 'package:michellemirandastore/models/produto.dart';
 import 'package:michellemirandastore/models/pedido.dart';
+import 'package:provider/provider.dart';
 
 
 //Teste Booleano _enabled == true ? _enabled = false : _enabled = true;
@@ -13,9 +16,14 @@ class Home extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (_) => ElementoCores(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomePage(titulo: "Michelle Miranda Store",),
 
-      home: HomePage(titulo: "Michelle Miranda Store",),
+
+      ),
     );
   }
 }
@@ -35,9 +43,13 @@ class HomePageState extends State<HomePage> {
 
   List<Produto> listaDeProdutos = [
     Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
-    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
-    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
-    Produto(id: 1,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 2,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 3,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 4,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 5,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 6,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 7,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
+    Produto(id: 8,marca: "PACO",descricao: "Blusa Azul", estoque: 30,preco: 60,categoria: Categoria.roupas,imagem: Image.network('https://picsum.photos/250?image=9',)),
   ];
 
   List<Pedido> listaDePedidos = [
@@ -54,39 +66,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${"Michelli Miranda Store"}",
-          style: TextStyle(
-            fontFamily: "Pacifico",
-
-          ),
-        ),
-        actions: [
-          Container(
-            height: 30,
-            width: 90,
-            color: Colors.blue,
-            child: Row(
-              children: [
-                //Usar um label pra juntar texto + icone;
-                FlatButton.icon(
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  onPressed: () {},
-                  icon: Icon(Icons.call_missed_outgoing,
-                    color: Colors.white,),
-                  label: Text("Logout",
-                    style: TextStyle(color: Colors.white,
-                        fontFamily: "Pacifico",
-                        fontSize: 15
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+      appBar: AppBarNativa(Colors.pink),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -107,7 +87,3 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
-
