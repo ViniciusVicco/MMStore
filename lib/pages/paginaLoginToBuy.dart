@@ -16,11 +16,10 @@ class _LoginToBuyState extends State<LoginToBuy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarNativa(Colors.pink),
+      appBar: AppBarNativa(),
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        color: Colors.grey[800],
       ),
 //      drawer: Center(
 //        child: Text("-"),

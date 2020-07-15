@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/Materiais/AppBarNativa.dart';
 import 'package:michellemirandastore/Materiais/CardsProduto.dart';
-import 'package:michellemirandastore/Materiais/ElementoCores.dart';
+
 import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
 import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
 import 'package:michellemirandastore/models/produto.dart';
@@ -16,15 +16,21 @@ class Home extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ElementoCores(),
-      child: MaterialApp(
+    return  MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(titulo: "Michelle Miranda Store",),
-
-
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 4, 125, 141),//Para barras
+        scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141), //Para o fundo de telas
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          color: Colors.pink
+        )
       ),
-    );
+
+
+      );
+
   }
 }
 
@@ -66,7 +72,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarNativa(Colors.pink),
+      appBar: AppBarNativa(),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -87,3 +93,5 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
+
+//ToDO -> Criar uma página para os tipos de card, por exemplo um drawer para roupas e camisas etc, passar por parametro o tipo do card ex: cards de roupas, acessórios etc.

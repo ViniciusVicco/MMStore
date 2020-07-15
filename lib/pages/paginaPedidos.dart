@@ -11,9 +11,8 @@ class _paginaPedidosState extends State<paginaPedidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarNativa(Colors.pink),
+      appBar: AppBarNativa(),
       body: Container(
-        color: Colors.grey,
       ),
       bottomNavigationBar: BottomNavyBar(),
     );

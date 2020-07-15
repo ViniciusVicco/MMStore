@@ -18,6 +18,7 @@ class BottomNavyBar extends StatefulWidget {
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
   int selectedIndex;
+  static PageController pageController = PageController();
   Color backgroundColor = Colors.white;
   static Color homeColor = Colors.red;
   static Color contaColor = Colors.yellow[900];
@@ -28,10 +29,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
 
   List<NavegationItem> itens = [
-    NavegationItem(Icon(Icons.home), Text('Home'), homeColor, Home()),
-    NavegationItem(Icon(Icons.person), Text('Conta'), contaColor, LoginToBuy()),
-    NavegationItem(Icon(Icons.shopping_cart), Text('Carrinho'), carrinhoColor, Carrinho()),
-    NavegationItem(Icon(Icons.markunread_mailbox), Text('Pedidos'), pedidosColor, paginaPedidos()),
+    NavegationItem(Icon(Icons.home), Text('Home'), homeColor, Home(),pageController,1),
+    NavegationItem(Icon(Icons.person), Text('Conta'), contaColor, LoginToBuy(),pageController,2),
+    NavegationItem(Icon(Icons.shopping_cart), Text('Carrinho'), carrinhoColor, Carrinho(),pageController,3),
+    NavegationItem(Icon(Icons.markunread_mailbox), Text('Pedidos'), pedidosColor, paginaPedidos(),pageController,4),
   ];
 
   Widget _buildItem(NavegationItem item, bool isSelected){
@@ -91,14 +92,14 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
         children:
         itens.map((iten){
         var itenIndex = itens.indexOf(iten);
-        if(iten.pagina == Home()){
+        if(iten.rota == Home()){
           iten.cor = Colors.white;
         }
         return GestureDetector(
           onTap: (){
             var timer = Timer(Duration(milliseconds: 500), () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => iten.pagina), ),
+              MaterialPageRoute(builder: (context) => iten.rota), ),
 
 );
             setState(() {
@@ -117,8 +118,19 @@ class NavegationItem {
   final Icon icon;
   Text title;
   Color cor;
-  final Widget pagina;
-  NavegationItem(this.icon, this.title, this.cor, this.pagina);
+  final Widget rota;
+  int pagina;
+  PageController _pageController;
+
+  NavegationItem(this.icon, this.title, this.cor, this.rota, this._pageController,this.pagina);
+
+  int page = 0;
+
+  void setPage(int value){
+    if(value == page) return;
+    page = value;
+    _pageController.jumpToPage(value);
+  }
 }
 //home,person,cart,mail
 //IconButton(

@@ -5,10 +5,9 @@ class Carrinho extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarNativa(Colors.pinkAccent),
+      appBar: AppBarNativa(),
       body: Container(
         constraints: BoxConstraints.expand(),
-            color: Colors.grey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
