@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/Materiais/CardsPedidos.dart';
 import 'package:michellemirandastore/Materiais/CarrinhoDeCompras.dart';
 import 'package:michellemirandastore/pages/paginaCarrinho.dart';
-import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/pages/paginaLoginFalse.dart';
+import 'package:michellemirandastore/pages/paginaLoginTrue.dart';
 import 'package:michellemirandastore/pages/paginaPedidos.dart';
 import 'package:michellemirandastore/pages/paginaPrincipal.dart';
 import 'dart:async';
@@ -30,7 +31,7 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
 
   List<NavegationItem> itens = [
     NavegationItem(Icon(Icons.home), Text('Home'), homeColor, Home(),pageController,1),
-    NavegationItem(Icon(Icons.person), Text('Conta'), contaColor, LoginToBuy(),pageController,2),
+    NavegationItem(Icon(Icons.person), Text('Conta'), contaColor, LoginScreen(),pageController,2),
     NavegationItem(Icon(Icons.shopping_cart), Text('Carrinho'), carrinhoColor, Carrinho(),pageController,3),
     NavegationItem(Icon(Icons.markunread_mailbox), Text('Pedidos'), pedidosColor, paginaPedidos(),pageController,4),
   ];

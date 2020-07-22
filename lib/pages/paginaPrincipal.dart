@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/Materiais/AppBarNativa.dart';
 import 'package:michellemirandastore/Materiais/CardsProduto.dart';
 
-import 'package:michellemirandastore/pages/paginaLoginToBuy.dart';
+import 'package:michellemirandastore/pages/paginaLoginTrue.dart';
 import 'package:michellemirandastore/Materiais/BottomNavyBar.dart';
 import 'package:michellemirandastore/models/produto.dart';
 import 'package:michellemirandastore/models/pedido.dart';
