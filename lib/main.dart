@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
+import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     
-    return Provider(
+    return ChangeNotifierProvider( // O change notifier é usado quando se quer testar alterações/mudanças
       create: (_) => UserManager(),
       child: MaterialApp(
         title: 'MM Store',
@@ -30,7 +31,20 @@ class MyApp extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: BaseScreen()
+        initialRoute: '/base',
+        onGenerateRoute: (settings){
+          switch(settings.name){
+            case '/signup':
+              return MaterialPageRoute(
+                builder: (_) => SignUpScreen()
+              );
+            case '/base':
+            default:
+              return MaterialPageRoute(
+                  builder: (_) => BaseScreen()
+              );
+          }
+        },
       ),
     );
   }
