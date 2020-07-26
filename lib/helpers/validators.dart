@@ -10,3 +10,10 @@ bool senhaValid(String senha){
   }
   else return true;
 }
+
+bool senhasIguais(String senha, String confirmaSenha){
+  if(senha == confirmaSenha){
+    return true;
+  }
+  else return false;
+}

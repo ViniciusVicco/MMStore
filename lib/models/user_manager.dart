@@ -7,9 +7,8 @@ import 'User.dart';
 
 class UserManager extends ChangeNotifier{
 
-  // Construtor
   UserManager(){
-   _loadCurrentUser();
+    _loadCurrentUser();
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -21,17 +20,18 @@ class UserManager extends ChangeNotifier{
     loading = true;
     try {
       final AuthResult result = await auth.signInWithEmailAndPassword(
-          email: user.email, password: user.passworld);
-      await Future.delayed(Duration(seconds: 3));
+          email: user.email, password: user.password);
+      this.user = result.user;
+
       onSucess();
-    }  on PlatformException catch(e){
+    } on PlatformException catch(e){
       onFail(getErrorString(e.code));
     }
-      loading = false;
+    loading = false;
   }
 
   set loading(bool value){
-    this._loading = value;
+    _loading = value;
     notifyListeners();
   }
 
@@ -43,4 +43,5 @@ class UserManager extends ChangeNotifier{
       notifyListeners();
     }
   }
+
 }

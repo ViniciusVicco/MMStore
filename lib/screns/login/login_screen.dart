@@ -127,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                           userManager.signIn(
                             user: User(
                               email: emailController.text,
-                              passworld: passwordController.text,
+                              password: passwordController.text,
                             ),
                             onSucess: () {
                               print("$emailController.text Está Logado");
