@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:michellemirandastore/helpers/firebase_erros.dart';
 import 'User.dart';
 
+
+
+
 class UserManager extends ChangeNotifier{
 
   UserManager(){
@@ -12,7 +15,8 @@ class UserManager extends ChangeNotifier{
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseUser user;
+  final Firestore firestore = Firestore.instance;
+  User user;
   bool _loading = false;
   bool get loading => _loading;
 
@@ -21,10 +25,28 @@ class UserManager extends ChangeNotifier{
     try {
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
-      this.user = result.user;
+
+      await _loadCurrentUser(firebaseUser: result.user);
 
       onSucess();
     } on PlatformException catch(e){
+      onFail(getErrorString(e.code));
+    }
+    loading = false;
+  }
+
+  Future<void> signUp({User user, Function onFail, Function onSucess}) async{
+    loading = true;
+    try {
+      final AuthResult result = await auth.createUserWithEmailAndPassword(email: user.email, password: user.password);
+
+      user.id = result.user.uid;
+      this.user = user;
+
+      await user.saveData();
+
+      onSucess();
+    } on PlatformException catch (e){
       onFail(getErrorString(e.code));
     }
     loading = false;
@@ -35,13 +57,12 @@ class UserManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async{
-    final FirebaseUser currentUser = await auth.currentUser();
+  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async{
+    final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if(currentUser != null){
-      user = currentUser;
-      print(user.uid);
+      final DocumentSnapshot docUser = await firestore.collection('users').document(currentUser.uid).get();
+      user = User.fromDocument(docUser);
       notifyListeners();
     }
   }
-
 }

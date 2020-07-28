@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/helpers/validators.dart';
 import 'package:michellemirandastore/models/User.dart';
+import 'package:michellemirandastore/models/user_manager.dart';
+import 'package:provider/provider.dart';
 class SignUpScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -87,21 +89,31 @@ class SignUpScreen extends StatelessWidget {
                     disabledColor: Theme.of(context).primaryColor.withAlpha(100),
                     textColor: Colors.white,
                     onPressed: () {
-                      if(formKey.currentState.validate()){ // Ao validar os campos dentro do validate ele deixa entrar
-                        print("Os campos foram validados");
-                        formKey.currentState.save(); // Vai chamar o texto que está dentro do método onSave de cada TextFormField
-                        if(senhasIguais(user.password, user.confirmedPassword)){
-                          print("Senhas iguais");
-                        }
-                        else{
+                      if(formKey.currentState.validate()){
+                        formKey.currentState.save();
+                        if(!senhasIguais(user.password, user.confirmedPassword)){
                           scaffoldKey.currentState.showSnackBar(
                               SnackBar(
-                                content: Text("Senhas não coincidem"),
+                                content: const Text('Senhas não coincidem!'),
                                 backgroundColor: Colors.red,
                               )
                           );
+                          return;
                         }
-                        return;
+                        context.read<UserManager>().signUp(
+                            user: user,
+                            onSucess: (){
+                              debugPrint("Sucesso");
+                              // TODO: POP
+                            },
+                            onFail: (e){
+                              scaffoldKey.currentState.showSnackBar(
+                                  SnackBar(
+                                    content: Text("Erro ao acesar $e"),
+                                  )
+                              );
+                            }
+                        );
                       }
                     },
                     child: const Text("Criar Conta"),
