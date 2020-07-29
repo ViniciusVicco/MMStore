@@ -130,7 +130,7 @@ class LoginScreen extends StatelessWidget {
                               password: passwordController.text,
                             ),
                             onSucess: () {
-                              print("$emailController.text Está Logado");
+                              Navigator.of(context).pop();
                             },
                             onFail: (e){
                               scaffoldKey.currentState.showSnackBar(

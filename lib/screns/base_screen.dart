@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/common/custom_drawer.dart';
+import 'file:///C:/Users/vinic/AndroidStudioProjects/michellemirandastore/lib/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +14,11 @@ class BaseScreen extends StatelessWidget {
 //      physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          LoginScreen(
-
+          Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              title: const Text("Início"),
+            ),
           ),
           Scaffold(
             drawer: CustomDrawer(),
@@ -29,15 +32,6 @@ class BaseScreen extends StatelessWidget {
               title: const Text("Meus Pedidos"),
             ),
           ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text("Lojas"),
-            ),
-          ),
-          Container(color: Colors.red,),
-          Container(color: Colors.yellow,),
-          Container(color: Colors.green,),
         ],
       ),
     );
