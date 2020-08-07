@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:michellemirandastore/helpers/firebase_erros.dart';
-import 'User.dart';
+import 'user.dart';
 
 
 
@@ -17,6 +17,7 @@ class UserManager extends ChangeNotifier{
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final Firestore firestore = Firestore.instance;
+  bool senha;
   User user;
   bool _loading = false;
   bool get loading => _loading;
@@ -72,5 +73,10 @@ class UserManager extends ChangeNotifier{
       user = User.fromDocument(docUser);
       notifyListeners();
     }
+  }
+
+  bool escurecerSenha(bool password){
+     senha = !password;
+    notifyListeners();
   }
 }

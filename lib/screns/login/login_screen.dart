@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:michellemirandastore/models/User.dart';
+import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                       controller: emailController,
                       decoration: const InputDecoration(hintText: 'E-mail'),
                       keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
+                      autocorrect: true,
                       validator: (email){ if(!emailValid(email)) {
                         return 'E-mail inválido';
                       }

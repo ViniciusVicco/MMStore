@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/models/User.dart';
+import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
@@ -18,10 +20,18 @@ class MyApp extends StatelessWidget {
 
 
   Widget build(BuildContext context) {
-    
-    return ChangeNotifierProvider( // O change notifier é usado quando se quer testar alterações/mudanças
-      create: (_) => UserManager(),
-      lazy: false,
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProductManager(),
+          lazy: false,
+        ),
+      ],
       child: MaterialApp(
         title: 'MM Store',
         debugShowCheckedModeBanner: false,

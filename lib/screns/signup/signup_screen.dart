@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/helpers/validators.dart';
-import 'package:michellemirandastore/models/User.dart';
+import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
 class SignUpScreen extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/vinic/AndroidStudioProjects/michellemirandastore/lib/custom_drawer/custom_drawer.dart';
+import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:provider/provider.dart';
