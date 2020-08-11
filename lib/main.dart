@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/models/User.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
