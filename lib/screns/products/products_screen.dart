@@ -12,12 +12,58 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
-        title: const Text('Produtos'),
+        title: Consumer<ProductManager>(
+          builder: (_,productManager,__){
+            if(productManager.search.isEmpty){
+              return const Text('Produtos');
+            } else{
+              return LayoutBuilder(
+                builder: (_,constraints){
+                  return GestureDetector(
+                    onTap: () async{
+                      final search = await showDialog<String>(context: context, builder:  (_) => SearchDialog(productManager.search)); //Dialog aparecerá por cima da tela
+                      if(search != null){
+                        productManager.search = search;
+                      }
+                    },
+                    child: Container(
+                      width: constraints.biggest.width,
+                      child: Text(
+                          productManager.search,
+                          textAlign: TextAlign.center,
+                      ),
+                    )
+
+                );
+                },
+              );
+            }
+          },
+        ) ,
         actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: (){
-            showDialog(context: context, builder:  (_) => SearchDialog()); //Dialog aparecerá por cima da tela
+          Consumer<ProductManager>(
+            builder: (_, productManager, __){
+              if(productManager.search.isEmpty){
+                return IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () async {
+                    final search = await showDialog<String>(context: context, builder:  (_) => SearchDialog(productManager.search)); //Dialog aparecerá por cima da tela
+                    if(search != null){
+                      productManager.search = search;
+                    }
+                  },
+                );
+              } else {
+               return IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () async {
+                    final search = await showDialog<String>(context: context, builder:  (_) => SearchDialog(productManager.search)); //Dialog aparecerá por cima da tela
+                    if(search != null){
+                      productManager.search = '';
+                    }
+                  },
+                );
+              }
             },
           )
         ],
@@ -25,11 +71,12 @@ class ProductsScreen extends StatelessWidget {
       ),
       body: Consumer<ProductManager>(
         builder: (_, productManager, __){
+          final filteredProducts = productManager.filteredProducts;
           return ListView.builder(
               padding: const EdgeInsets.all(4),
-              itemCount: productManager.allProducts.length,
+              itemCount: productManager.filteredProducts.length,
               itemBuilder: (_, index){
-                return ProductListTile(productManager.allProducts[index]); } );
+                return ProductListTile(productManager.filteredProducts[index]); } );
         },
       ),
     );

@@ -32,6 +32,7 @@ dependencies:
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.0
   firebase_storage: ^3.1.5
+  carousel_pro: ^1.0.0
 
 
 dev_dependencies:

@@ -3,8 +3,11 @@ import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
+import 'package:michellemirandastore/screns/product/product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'models/product.dart';
 
 
 void main(){
@@ -50,6 +53,12 @@ class MyApp extends StatelessWidget {
             case '/login':
               return MaterialPageRoute(
                   builder: (_) => LoginScreen()
+              );
+            case '/product':
+              return MaterialPageRoute(
+                builder: (_) => ProductScreen(
+                  settings.arguments as Product
+                )
               );
             case '/base':
             default:
