@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:michellemirandastore/models/item_size.dart';
 import 'package:michellemirandastore/models/product.dart';
 
@@ -9,6 +10,16 @@ class CartProduct{
     size = product.selectedSize.name;
   }
 
+  CartProduct.fromDocument(DocumentSnapshot document){
+    productId = document.data['pid'] as String;
+    quantity = document.data['quantity'] as int;
+    size = document.data['size'] as String;
+
+    firestore.document('products/$productId').get().then((doc) => product = Product.fromDocument(doc));
+
+  }
+
+  final Firestore firestore = Firestore.instance;
 
   String productId;
   int quantity;
@@ -29,4 +40,17 @@ class CartProduct{
     }
     return itemSize?.price ?? 0;
   }
+
+  Map<String, dynamic> toCartItemMap(){
+    return {
+      'pid': productId,
+      'quantity': quantity,
+      'size': size,
+    };
+  }
+
+  bool stackable(Product product){
+    return product.id == productId && product.selectedSize.name == size;
+  }
+
 }
