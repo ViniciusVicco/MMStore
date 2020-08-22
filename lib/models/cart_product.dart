@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/item_size.dart';
 import 'package:michellemirandastore/models/product.dart';
 
-class CartProduct{
+class CartProduct extends ChangeNotifier{
 
   CartProduct.fromProduct(this.product){
     productId = product.id;
@@ -11,6 +12,7 @@ class CartProduct{
   }
 
   CartProduct.fromDocument(DocumentSnapshot document){
+    id = document.documentID;
     productId = document.data['pid'] as String;
     quantity = document.data['quantity'] as int;
     size = document.data['size'] as String;
@@ -20,6 +22,8 @@ class CartProduct{
   }
 
   final Firestore firestore = Firestore.instance;
+
+  String id;
 
   String productId;
   int quantity;
@@ -51,6 +55,19 @@ class CartProduct{
 
   bool stackable(Product product){
     return product.id == productId && product.selectedSize.name == size;
+  }
+
+  void increment(){
+    quantity++;
+    notifyListeners();
+  }
+
+  void decrement(){
+    if(quantity==1){
+      return;
+    }
+    quantity--;
+    notifyListeners();
   }
 
 }
