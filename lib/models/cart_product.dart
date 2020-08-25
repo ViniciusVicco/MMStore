@@ -63,9 +63,6 @@ class CartProduct extends ChangeNotifier{
   }
 
   void decrement(){
-    if(quantity==1){
-      return;
-    }
     quantity--;
     notifyListeners();
   }

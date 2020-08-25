@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/cart_product.dart';
 import 'package:michellemirandastore/models/product.dart';
 import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 
-class CartManager{
+class CartManager extends ChangeNotifier{
 
   List<CartProduct> items = [];
 
@@ -34,15 +35,26 @@ class CartManager{
       final cartProduct = CartProduct.fromProduct(product);
       cartProduct.addListener(_onItemUpdated);
       items.add(cartProduct);
-      user.cartReference.add(cartProduct.toCartItemMap());
+      user.cartReference.add(cartProduct.toCartItemMap()).then((doc) => cartProduct.id = doc.documentID);
     }
+    notifyListeners();
   }
 
   void _onItemUpdated(){
     for(final cartProduct in items){
+      if(cartProduct.quantity == 0){
+        removeFromCart(cartProduct);
+      }
       _updateCartProduct(cartProduct);
 
     }
+  }
+
+  void removeFromCart(CartProduct cartProduct){
+    items.removeWhere((p) => p.id == cartProduct.id);
+    user.cartReference.document(cartProduct.id).delete();
+    cartProduct.removeListener(_onItemUpdated);
+    notifyListeners();
   }
 
   void _updateCartProduct(cartProduct){
