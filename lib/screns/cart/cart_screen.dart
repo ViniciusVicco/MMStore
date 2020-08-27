@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/common/price_card.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,17 @@ class CartScreen extends StatelessWidget {
       body: Consumer<CartManager>(
         builder: (_, cartManager, __){
           if(context.read<UserManager>().isLoggedIn) {
-            return Column(
-              children: cartManager.items.map((cartProduct) =>
-                  CartTile(cartProduct)).toList(),
+
+            return ListView(
+              children: <Widget>[
+                Column(
+                children: cartManager.items.map((cartProduct) =>
+                    CartTile(cartProduct)).toList(),
+              ),
+                PriceCard(buttonText: "Continuar para Entrega",
+                onPressed: cartManager.isCartValid ? (){} : null,
+                ),
+              ],
             );
           } else {
             return Center(
