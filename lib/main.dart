@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.black,//Para barras
-          scaffoldBackgroundColor: Colors.pink, //Para o fundo de telas
+          scaffoldBackgroundColor: Colors.red[200], //Para o fundo de telas
           appBarTheme: const AppBarTheme(
             elevation: 0,
           ),
