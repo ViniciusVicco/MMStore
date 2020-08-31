@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/section.dart';
 
-class HomeManager {
+class HomeManager extends ChangeNotifier {
 
   HomeManager(){
     _loadSections();
@@ -18,6 +19,7 @@ class HomeManager {
         sections.add(Section.fromDocument(document));
       }
       print(sections);
+      notifyListeners();
     });
   }
 }
