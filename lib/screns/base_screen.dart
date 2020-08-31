@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
+import 'package:michellemirandastore/screns/home/home_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/products/products_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,12 +16,7 @@ class BaseScreen extends StatelessWidget {
 //      physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text("Início"),
-            ),
-          ),
+          HomeScreen(),
           ProductsScreen(),
           Scaffold(
             drawer: CustomDrawer(),

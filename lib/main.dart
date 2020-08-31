@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
+import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
@@ -38,6 +39,10 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, cartManager) => cartManager..updateUser(userManager),
         ),
+        Provider(
+          create: (_) => HomeManager(),
+          lazy: false,
+        )
       ],
       child: MaterialApp(
         title: 'MM Store',
