@@ -35,7 +35,8 @@ dependencies:
   firebase_auth: ^0.16.0
   firebase_storage: ^3.1.5
   carousel_pro: ^1.0.0
-
+  alphabet_list_scroll_view: ^1.0.6
+  faker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
