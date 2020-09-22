@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
@@ -68,6 +69,12 @@ class MyApp extends StatelessWidget {
             case '/signup':
               return MaterialPageRoute(
                 builder: (_) => SignUpScreen()
+              );
+            case '/edit_product':
+              return MaterialPageRoute(
+                  builder: (_) => EditProductScreen(
+                    settings.arguments as Product
+                  )
               );
             case '/cart':
               return MaterialPageRoute(

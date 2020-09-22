@@ -108,13 +108,6 @@ class LoginScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            FlatButton(
-                              padding: EdgeInsets.zero ,
-                              child: Text(
-                                "Esqueci minha senha",
-                              ),
-                              onPressed: () {},
-                            ),
                           ]
                       ),
                     ),
