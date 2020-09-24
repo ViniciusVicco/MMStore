@@ -8,13 +8,22 @@ import 'package:michellemirandastore/models/product.dart';
 import 'image_source_sheet.dart';
 
 class ImagesForm extends StatelessWidget {
+
   Product product;
   ImagesForm(this.product);
   @override
   Widget build(BuildContext context) {
+
+
+
     return FormField<List<dynamic>>(
-      initialValue: product.images,
+      initialValue: List.from(product.images),
       builder: (state){
+        void onImageSelected(File file){
+          state.value.add(file);
+          state.didChange(state.value);
+          Navigator.of(context).pop();
+        }
         return AspectRatio(
           aspectRatio: 1,
           child: Carousel(
@@ -55,9 +64,9 @@ class ImagesForm extends StatelessWidget {
                   icon: Icon(Icons.add_a_photo),
                   onPressed: (){
                     if(Platform.isAndroid)
-                    showModalBottomSheet(context: context, builder: (_) => ImageSourceSheet());
+                    showModalBottomSheet(context: context, builder: (_) => ImageSourceSheet(onImageSelected: onImageSelected));
                     else
-                      showCupertinoModalPopup(context: null, builder: (_) => ImageSourceSheet());
+                      showCupertinoModalPopup(context: null, builder: (_) => ImageSourceSheet(onImageSelected: onImageSelected));
                   },
                 ),
               )
