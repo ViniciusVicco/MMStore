@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:michellemirandastore/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
@@ -7,6 +6,7 @@ import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/cart/cart_screen.dart';
+import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';

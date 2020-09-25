@@ -18,6 +18,12 @@ class ImagesForm extends StatelessWidget {
 
     return FormField<List<dynamic>>(
       initialValue: List.from(product.images),
+      validator: (images){
+        if(images.isEmpty){
+          return 'Insira ao menos uma Imagem';
+        } else return null;
+      },
+
       builder: (state){
         void onImageSelected(File file){
           state.value.add(file);
