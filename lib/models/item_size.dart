@@ -3,6 +3,8 @@ class ItemSize{
   num price;
   int stock;
 
+  ItemSize();
+
   bool get hasStock => stock > 0;
 
   ItemSize.fromMap(Map<String, dynamic> map){
