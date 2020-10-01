@@ -16,6 +16,14 @@ class EditItemSize extends StatelessWidget {
           Expanded(
             flex: 30,
             child: TextFormField(
+              validator: (name){
+                if(name.isEmpty){
+                  return 'Invalido';
+                } else{
+                  return null;
+                }
+              },
+              onChanged: (name) => size.name = name,
               initialValue: size.name,
               decoration: InputDecoration(
                 labelText: 'Titulo',
@@ -27,6 +35,14 @@ class EditItemSize extends StatelessWidget {
           Expanded(
             flex: 30,
             child: TextFormField(
+              validator: (stock){
+                if(stock.isEmpty|| int.tryParse(stock) == null){
+                  return 'Invalido';
+                } else {
+                  return null;
+                }
+              },
+              onChanged: (stock) => size.stock = int.tryParse(stock),
               initialValue: size.stock?.toString(),
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -39,6 +55,14 @@ class EditItemSize extends StatelessWidget {
           Expanded(
             flex: 40,
             child: TextFormField(
+              validator: (price){
+                if(price.isEmpty||double.tryParse(price) == null){
+                  return 'Invalido';
+                } else{
+                  return null;
+                }
+              },
+              onChanged: (price) => size.price = num.tryParse(price),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               initialValue: size.price?.toStringAsFixed(2),
               decoration: InputDecoration(
