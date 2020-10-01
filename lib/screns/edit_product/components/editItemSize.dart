@@ -4,9 +4,11 @@ import 'package:michellemirandastore/models/item_size.dart';
 
 class EditItemSize extends StatelessWidget {
   @override
-  const EditItemSize({this.size,this.onRemove});
+  const EditItemSize({Key key,this.size,this.onRemove,this.onMoveDown,this.onMoveUp}) : super(key:key); // Key serve pra identificar um elemento na árvore
   final ItemSize size;
   final VoidCallback onRemove;
+  final VoidCallback onMoveUp;
+  final VoidCallback onMoveDown; // Tipo callback para executar um método
 
   Widget build(BuildContext context) {
     return Row(
@@ -54,14 +56,15 @@ class EditItemSize extends StatelessWidget {
             },
           ),
           CustomIconButton(
+
             iconData: Icons.arrow_drop_up,
             color: Colors.black,
-            onTap: () {},
+            onTap: onMoveUp,
           ),
           CustomIconButton(
             iconData: Icons.arrow_drop_down,
             color: Colors.black,
-            onTap: () {},
+            onTap: onMoveDown,
           ),
         ],
     );
