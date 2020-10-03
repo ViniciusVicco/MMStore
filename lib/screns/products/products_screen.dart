@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/productManager.dart';
+import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'components/product_list_tile.dart';
 import 'components/search_dialog.dart';
@@ -65,7 +66,21 @@ class ProductsScreen extends StatelessWidget {
                 );
               }
             },
-          )
+          ),
+          Consumer<UserManager>(
+            builder: (_,userManager,__){
+              if(userManager.adminEnabled){
+                return IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: (){
+                    Navigator.of(context).pushReplacementNamed('/edit_product');
+                  },
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         ],
         centerTitle: true,
       ),

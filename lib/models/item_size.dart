@@ -3,7 +3,7 @@ class ItemSize{
   num price;
   int stock;
 
-  ItemSize();
+  ItemSize({this.name,this.price,this.stock});
 
   bool get hasStock => stock > 0;
 
@@ -13,7 +13,13 @@ class ItemSize{
     stock = map['stock'] as int;
   }
 
-
+  ItemSize clone(){
+    return ItemSize(
+      name: name,
+      price: price,
+      stock: stock,
+    );
+  }
   @override
   String toString() {
     return 'ItemSize{name: $name, price: $price, stock: $stock}';

@@ -6,10 +6,11 @@ import 'components/sizes_form.dart';
 
 class EditProductScreen extends StatelessWidget {
   final Product product;
+  final bool editing;
 
-
-
-  EditProductScreen(this.product);
+  EditProductScreen(Product p) :
+        editing = p != null,
+        product = p != null ? p.clone() : Product();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -21,7 +22,9 @@ class EditProductScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Editar Anúncio',
+          editing ?
+          'Editar Anúncio':
+          'Criar anuncio',
         ),
         centerTitle: true,
       ),
@@ -64,6 +67,8 @@ class EditProductScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
+                    product.basePrice.isInfinite ?
+                    'R\$...':
                     'R\$ ${product.basePrice.toStringAsFixed(2)}',
                     style: TextStyle(
                         fontSize: 20,
@@ -100,16 +105,28 @@ class EditProductScreen extends StatelessWidget {
                     },
                   ),
                   SizesForm(product),
-                  RaisedButton(
-                    onPressed: (){
-                      if(formKey.currentState.validate()){
-                        print("Valido");
-                      } else {
-                        print("Invalido");
-                      }
+                  const SizedBox(height: 20,),
+                  SizedBox(
+                    height: 44,
+                    child: RaisedButton(
+                      onPressed: (){
+                        if(formKey.currentState.validate()){
+                          print("Valido");
+                        } else {
+                          print("Invalido");
+                        }
 
-                    },
-                    child: const Text("Salvar"),
+                      },
+                      color: primaryCollor,
+                      disabledColor: primaryCollor.withAlpha(100),
+                      child: const Text("Salvar",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white
+                      ),
+                      ),
+
+                    ),
                   ),
                 ],
               ),

@@ -19,7 +19,7 @@ class SizesForm extends StatelessWidget {
           return null;
         }
       },
-      initialValue: List.from(product.sizes),
+      initialValue: product.sizes,
       builder: (state){
         print(state.value);
       return Column(
