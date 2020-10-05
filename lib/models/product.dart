@@ -20,11 +20,18 @@ class Product extends ChangeNotifier {
     print(sizes);
   }
 
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, description: $description, images: $images, sizes: $sizes, newImages: $newImages}';
+  }
+
   String id;
   String name;
   String description;
   List<String> images;
   List<ItemSize> sizes;
+
+  List<dynamic> newImages;
 
   ItemSize _selectedSize;
   ItemSize get selectedSize => _selectedSize;
