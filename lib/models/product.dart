@@ -44,12 +44,20 @@ class Product extends ChangeNotifier {
 
   List<dynamic> newImages;
 
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
   //TODO: Como exportar uma lista de Map de objeto (size)
   List<Map<String, dynamic>> exportSizeList(){
     return sizes.map((size) => size.toMap()).toList();
   }
 
   Future<void> save() async{ // Para se enviar dados (salvar no Firebase)
+    loading = true;
     //TODO: Primeiro passo é transformar em um mapa:
     final Map<String, dynamic> data = {
       'name':name,
@@ -99,7 +107,9 @@ class Product extends ChangeNotifier {
       }
     }
 
-    firestoreRef.updateData({'images' : updateImages});
+    await firestoreRef.updateData({'images' : updateImages});
+    images = updateImages;
+    loading = false;
   }
 
   ItemSize _selectedSize;

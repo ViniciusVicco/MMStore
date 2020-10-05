@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/product.dart';
+import 'package:michellemirandastore/models/productManager.dart';
+import 'package:provider/provider.dart';
 
 import 'components/images_form.dart';
 import 'components/sizes_form.dart';
@@ -18,125 +20,137 @@ class EditProductScreen extends StatelessWidget {
 
     final primaryCollor = Theme.of(context).primaryColor;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          editing ?
-          'Editar Anúncio':
-          'Criar Produto',
+    return ChangeNotifierProvider.value(
+      value: product,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            editing ?
+            'Editar Anúncio':
+            'Criar Produto',
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Form(
-        key: formKey,
-        child: ListView(
-          children: [
-            ImagesForm(product),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextFormField(
-                    initialValue: product.name,
-                    decoration: const InputDecoration(
-                      hintText: "Título",
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600
-                    ),
-                    validator: (name){
-                      if(name.length<6){
-                        return 'Muito Curto';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (name) => product.name = name,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4,bottom: 4),
-                    child: Text(
-                      'A partir de',
-                      style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 16,
+        body: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              ImagesForm(product),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextFormField(
+                      initialValue: product.name,
+                      decoration: const InputDecoration(
+                        hintText: "Título",
+                        border: InputBorder.none,
                       ),
-                    ),
-                  ),
-                  Text(
-                    product.basePrice.isInfinite ?
-                    'R\$...':
-                    'R\$ ${product.basePrice.toStringAsFixed(2)}',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        color: Theme.of(context).primaryColor
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16,bottom: 8),
-                    child: Text(
-                      'Descrição',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    initialValue: product.description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                    decoration: const InputDecoration(
-                      hintText: "Descrição",
-                      border: InputBorder.none,
-                    ),
-                    maxLines: null,
-                    validator: (desc){
-                      if(desc.length<10){
-                        return "Descrição muito Curta";
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (desc) => product.description = desc,
-                  ),
-                  SizesForm(product),
-                  const SizedBox(height: 20,),
-                  SizedBox(
-                    height: 44,
-                    child: RaisedButton(
-                      onPressed: (){
-                        if(formKey.currentState.validate()){
-                          formKey.currentState.save();
-                          product.save();
+                      validator: (name){
+                        if(name.length<6){
+                          return 'Muito Curto';
                         } else {
-
+                          return null;
                         }
-
                       },
-                      color: primaryCollor,
-                      disabledColor: primaryCollor.withAlpha(100),
-                      child: const Text("Salvar",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.white
-                      ),
-                      ),
-
+                      onSaved: (name) => product.name = name,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4,bottom: 4),
+                      child: Text(
+                        'A partir de',
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      product.basePrice.isInfinite ?
+                      'R\$...':
+                      'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: Theme.of(context).primaryColor
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16,bottom: 8),
+                      child: Text(
+                        'Descrição',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: product.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      decoration: const InputDecoration(
+                        hintText: "Descrição",
+                        border: InputBorder.none,
+                      ),
+                      maxLines: null,
+                      validator: (desc){
+                        if(desc.length<10){
+                          return "Descrição muito Curta";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSaved: (desc) => product.description = desc,
+                    ),
+                    SizesForm(product),
+                    const SizedBox(height: 20,),
+                    Consumer<Product>(
+                      builder: (_,product,__){
+                        return SizedBox(
+                          height: 44,
+                          child: RaisedButton(
+                            onPressed: !product.loading ? () async{
+                              if(formKey.currentState.validate()){
+                                formKey.currentState.save();
+                                await product.save();
+                                context.read<ProductManager>().update(product);
+                                Navigator.of(context).pop();
+                              } else {
+
+                              }
+
+                            } : null,
+                            color: primaryCollor,
+                            disabledColor: primaryCollor.withAlpha(100),
+                            child: product.loading?
+                            CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            ):
+                            const Text("Salvar",
+                              style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            TextFormField(
-            )
-          ],
+              TextFormField(
+              )
+            ],
+          ),
         ),
       ),
     );

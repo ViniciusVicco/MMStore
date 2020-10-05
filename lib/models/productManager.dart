@@ -28,6 +28,11 @@ class ProductManager extends ChangeNotifier{
     return filteredProducts;
   }
 
+  void update(Product product){
+    allProducts.removeWhere((p) => p.id == product.id);
+    allProducts.add(product);
+    notifyListeners();
+  }
 
   Future<void> _loadAllProducts() async{
     final QuerySnapshot snapProducts = await firestore.collection('products').getDocuments();
