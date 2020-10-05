@@ -114,11 +114,9 @@ class EditProductScreen extends StatelessWidget {
                       onPressed: (){
                         if(formKey.currentState.validate()){
                           formKey.currentState.save();
-                          print(product.sizes);
-                          print("Valido");
-                          print(product);
+                          product.save();
                         } else {
-                          print("Invalido");
+
                         }
 
                       },

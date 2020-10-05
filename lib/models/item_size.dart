@@ -13,6 +13,15 @@ class ItemSize{
     stock = map['stock'] as int;
   }
 
+  //TODO: Criando um simples map de um objeto (ItemSize)
+  Map<String, dynamic> toMap(){
+    return {
+      'name': name,
+      'price': price,
+      'stock': stock,
+    };
+  }
+
   ItemSize clone(){
     return ItemSize(
       name: name,
