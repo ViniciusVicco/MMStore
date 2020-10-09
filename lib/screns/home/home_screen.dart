@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
+import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
 
 import 'components/section_list.dart';
@@ -41,6 +42,43 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.white,
                   onPressed: () => Navigator.of(context).pushNamed('/cart'),
                   
+                ),
+                Consumer2<UserManager, HomeManager>(
+                  builder: (_, userManager, homeManager, __){
+                    if(userManager.adminEnabled){
+                      if(homeManager.editing){
+                        return PopupMenuButton(
+                          onSelected: (e){
+                            if(e == 'Salvar'){
+                            homeManager.saveEditing();
+                            } else {
+                            homeManager.discardEditing();
+                            }
+                          },
+                          itemBuilder: (_){
+                            return ['Salvar', 'Descartar'].map((e) {
+                              return PopupMenuItem(
+                                child: Text(e),
+                                value: e,
+                              );
+                            }).toList();
+                          },
+                        );
+                      } else {
+
+                      }
+                      return IconButton(
+                        icon: IconButton(
+                          color: Colors.white,
+                          icon: Icon(Icons.edit),
+                          onPressed: homeManager.enterEditting
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+
+                  },
                 )
               ],
             ),
