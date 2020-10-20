@@ -10,6 +10,7 @@ import 'package:michellemirandastore/screns/cart/cart_screen.dart';
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
+import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -70,6 +71,10 @@ class MyApp extends StatelessWidget {
             case '/signup':
               return MaterialPageRoute(
                 builder: (_) => SignUpScreen()
+              );
+            case '/select_product':
+              return MaterialPageRoute(
+                  builder: (_) => SelectProductScreen()
               );
             case '/edit_product':
               return MaterialPageRoute(
