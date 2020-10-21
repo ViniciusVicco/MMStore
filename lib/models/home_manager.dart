@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/section.dart';
+import 'package:michellemirandastore/models/user_manager.dart';
 
 class HomeManager extends ChangeNotifier {
 
@@ -8,7 +9,7 @@ class HomeManager extends ChangeNotifier {
     _loadSections();
   }
 
-  List<Section> _sections = [];
+  final List<Section> _sections = [];
 
   List<Section> _editingSections = [];
 
@@ -24,7 +25,7 @@ class HomeManager extends ChangeNotifier {
   }
 
   Future<void> _loadSections() async {
-    firestore.collection('home').snapshots().listen((snapshot) {
+    firestore.collection('home').snapshots().listen((snapshot) { // snapshots.listen -> faz com que fique ouvindo a qualquer momento as atualizações
       _sections.clear();
       for(final DocumentSnapshot document in snapshot.documents){
         _sections.add(Section.fromDocument(document));
@@ -41,9 +42,18 @@ class HomeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveEditing() {
-    editing = false;
-    notifyListeners();
+  void saveEditing() async{
+    bool valid = true;
+    for(final section in _editingSections){
+      if(!section.valid()) valid = false;
+    }
+    if(!valid) return;
+
+    print("Salvo");
+
+    for(final section in _editingSections){
+      await section.save();
+    }
   }
 
   void discardEditing() {

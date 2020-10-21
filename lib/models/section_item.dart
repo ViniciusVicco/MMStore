@@ -21,5 +21,12 @@ class SectionItem{
       product: product,
     );
   }
+
+ Map<String, dynamic> toMap() {
+    return{
+      "image": image,
+      "product": product,
+    };
+  }
 }
 
