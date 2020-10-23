@@ -14,8 +14,29 @@ class HomeManager extends ChangeNotifier {
   List<Section> _editingSections = [];
 
   bool editing = false;
+  bool loading = false;
 
   final Firestore firestore = Firestore.instance;
+
+  Future<void> _loadSections() async {
+    firestore.collection('home').orderBy('pos').snapshots().listen((snapshot) {
+      _sections.clear();
+      for(final DocumentSnapshot document in snapshot.documents){
+        _sections.add(Section.fromDocument(document));
+      }
+      notifyListeners();
+    });
+  }
+
+  void addSection(Section section){
+    _editingSections.add(section);
+    notifyListeners();
+  }
+
+  void removeSection(Section section){
+    _editingSections.remove(section);
+    notifyListeners();
+  }
 
   List<Section> get sections {
     if(editing)
@@ -24,50 +45,43 @@ class HomeManager extends ChangeNotifier {
       return _sections;
   }
 
-  Future<void> _loadSections() async {
-    firestore.collection('home').snapshots().listen((snapshot) { // snapshots.listen -> faz com que fique ouvindo a qualquer momento as atualizações
-      _sections.clear();
-      for(final DocumentSnapshot document in snapshot.documents){
-        _sections.add(Section.fromDocument(document));
-      }
-      print(_sections);
-      notifyListeners();
-    });
-  }
-
-  void enterEditting(){
+  void enterEditing(){
     editing = true;
+
     _editingSections = _sections.map((s) => s.clone()).toList();
 
     notifyListeners();
   }
 
-  void saveEditing() async{
+  Future<void> saveEditing() async {
     bool valid = true;
     for(final section in _editingSections){
       if(!section.valid()) valid = false;
     }
     if(!valid) return;
 
-    print("Salvo");
+    loading = true;
+    notifyListeners();
 
+    int pos = 0;
     for(final section in _editingSections){
-      await section.save();
+      await section.save(pos);
+      pos++;
     }
-  }
 
-  void discardEditing() {
+    for(final section in List.from(_sections)){
+      if(!_editingSections.any((element) => element.id == section.id)){
+        await section.delete();
+      }
+    }
+
+    loading = false;
     editing = false;
     notifyListeners();
   }
 
-  void addSection(Section section) {
-    _editingSections.add(section);
-    notifyListeners();
-  }
-
-  void removeSection(Section section) {
-    _editingSections.remove(section);
+  void discardEditing(){
+    editing = false;
     notifyListeners();
   }
 

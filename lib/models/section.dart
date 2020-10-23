@@ -8,7 +8,7 @@ import 'package:uuid/uuid.dart';
 
 class Section extends ChangeNotifier {
 
-  Section({this.id,this.name,this.type,this.items}){
+  Section({this.id, this.name, this.type, this.items}){
     items = items ?? [];
     originalItems = List.from(items);
   }
@@ -18,14 +18,14 @@ class Section extends ChangeNotifier {
     name = document.data['name'] as String;
     type = document.data['type'] as String;
     items = (document.data['items'] as List).map(
-            (item) => SectionItem.fromMap(item as Map<String, dynamic>)).toList();
+            (i) => SectionItem.fromMap(i as Map<String, dynamic>)).toList();
   }
 
+  final Firestore firestore = Firestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
-  @override
-  String toString() {
-    return 'Section{name: $name, type: $type, items: $items}';
-  }
+  DocumentReference get firestoreRef => firestore.document('home/$id');
+  StorageReference get storageRef => storage.ref().child('home/$id');
 
   String id;
   String name;
@@ -33,82 +33,80 @@ class Section extends ChangeNotifier {
   List<SectionItem> items;
   List<SectionItem> originalItems;
 
-  // Referencias do FireBase:
-  final Firestore firestore = Firestore.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
-  DocumentReference get firestoreRef => firestore.document('home/$id'); // Faz a referencia ao documento do FireBase puxando a coleção home + id do documento.
-  StorageReference get storageRef =>  storage.ref().child('home/$id');
-
-
   String _error;
-
   String get error => _error;
-
   set error(String value){
     _error = value;
     notifyListeners();
   }
 
-  Section clone() {
-  return Section(
-    id: id,
-    name: name,
-    type: type,
-    items: items.map((i) => i.clone()).toList(), // Para cada item, se faz um clone
-  );
-  }
-
-  void addItem(SectionItem item) {
+  void addItem(SectionItem item){
     items.add(item);
     notifyListeners();
-    
   }
 
-  void removeItem(SectionItem item) {
+  void removeItem(SectionItem item){
     items.remove(item);
     notifyListeners();
-
   }
 
-
-
-  Future<void> save() async {
+  Future<void> save(int pos) async {
     final Map<String, dynamic> data = {
-
-      "name":name,
-      "type":type,
+      'name': name,
+      'type': type,
+      'pos': pos,
     };
 
-      if(id == null){
-        final doc = await firestore.collection('home').add(data); // adiciona a data, caso o id seja nullo, Data -> já mapeada
-        id = doc.documentID; // após adicionar, pega o id do documento e coloca dentro do id.
-      } else {
-        await firestoreRef.updateData(data);
-      }
+    if(id == null){
+      final doc = await firestore.collection('home').add(data);
+      id = doc.documentID;
+    } else {
+      await firestoreRef.updateData(data);
+    }
 
-      for(final item in items){
-        if(item.image is File){
-          final StorageUploadTask task = storageRef.child(Uuid().v1()).putFile(item.image as File);
-          final StorageTaskSnapshot snapshot = await task.onComplete;
-          final String url = await snapshot.ref.getDownloadURL() as String;
-          item.image = url;
-        }
+    for(final item in items){
+      if(item.image is File){
+        final StorageUploadTask task = storageRef.child(Uuid().v1())
+            .putFile(item.image as File);
+        final StorageTaskSnapshot snapshot = await task.onComplete;
+        final String url = await snapshot.ref.getDownloadURL() as String;
+        item.image = url;
       }
+    }
 
-      for(final original in originalItems){
-        if(!items.contains(original)){
-          try {
-            final ref = await storage.getReferenceFromUrl(
-                original.image as String
-            );
-            await ref.delete();
-          } catch (e) {}
-        }
+    for(final original in originalItems){
+      if(!items.contains(original)
+          && (original.image as String).contains('firebase')){
+        try {
+          final ref = await storage.getReferenceFromUrl(
+              original.image as String
+          );
+          await ref.delete();
+          // ignore: empty_catches
+        } catch (e){}
       }
+    }
+
     final Map<String, dynamic> itemsData = {
-        'items': items.map((e) => e.toMap()).toList(),
+      'items': items.map((e) => e.toMap()).toList()
     };
-      await firestoreRef.updateData(itemsData);
+
+    await firestoreRef.updateData(itemsData);
+  }
+
+  Future<void> delete() async {
+    await firestoreRef.delete();
+    for(final item in items){
+      if((item.image as String).contains('firebase')){
+        try {
+          final ref = await storage.getReferenceFromUrl(
+              item.image as String
+          );
+          await ref.delete();
+          // ignore: empty_catches
+        } catch (e){}
+      }
+    }
   }
 
   bool valid(){
@@ -122,12 +120,17 @@ class Section extends ChangeNotifier {
     return error == null;
   }
 
-//  List<Map<String,dynamic>> exportItemsList() {
-//    return items.map((item) => item.toMap()).toList();
-//  }
+  Section clone(){
+    return Section(
+      id: id,
+      name: name,
+      type: type,
+      items: items.map((e) => e.clone()).toList(),
+    );
+  }
 
-
+  @override
+  String toString() {
+    return 'Section{name: $name, type: $type, items: $items}';
+  }
 }
-
-
-

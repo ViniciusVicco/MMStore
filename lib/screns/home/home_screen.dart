@@ -42,11 +42,11 @@ class HomeScreen extends StatelessWidget {
                   icon: Icon(Icons.shopping_cart),
                   color: Colors.white,
                   onPressed: () => Navigator.of(context).pushNamed('/cart'),
-                  
+
                 ),
                 Consumer2<UserManager, HomeManager>(
                   builder: (_, userManager, homeManager, __){
-                    if(userManager.adminEnabled){
+                    if(userManager.adminEnabled && !homeManager.loading){
                       if(homeManager.editing){
                         return PopupMenuButton(
                           onSelected: (e){
@@ -66,15 +66,15 @@ class HomeScreen extends StatelessWidget {
                           },
                         );
                       } else {
-
+                        return IconButton(
+                          icon: IconButton(
+                              color: Colors.white,
+                              icon: Icon(Icons.edit),
+                              onPressed: homeManager.enterEditing,
+                          ),
+                        );
                       }
-                      return IconButton(
-                        icon: IconButton(
-                          color: Colors.white,
-                          icon: Icon(Icons.edit),
-                          onPressed: homeManager.enterEditting
-                        ),
-                      );
+
                     } else {
                       return Container();
                     }
@@ -85,6 +85,14 @@ class HomeScreen extends StatelessWidget {
             ),
             Consumer<HomeManager>(
               builder: (_, homeManager, __){
+                if(homeManager.loading){
+                  return SliverToBoxAdapter(
+                    child: LinearProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  );
+                }
                 final List<Widget> children = homeManager.sections.map<Widget>((section) {
                   switch (section.type){
                     case 'Staggered':
