@@ -7,6 +7,7 @@ import 'package:michellemirandastore/models/section.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/cart/cart_screen.dart';
+import 'package:michellemirandastore/screns/cart/components/address/address_screen.dart';
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
@@ -81,6 +82,10 @@ class MyApp extends StatelessWidget {
                   builder: (_) => EditProductScreen(
                     settings.arguments as Product
                   )
+              );
+            case '/address':
+              return MaterialPageRoute(
+                  builder: (_) => AdressScreen()
               );
             case '/cart':
               return MaterialPageRoute(
