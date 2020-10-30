@@ -38,11 +38,14 @@ class HomeScreen extends StatelessWidget {
                 centerTitle: true,
               ) ,
               actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.shopping_cart),
-                  color: Colors.white,
-                  onPressed: () => Navigator.of(context).pushNamed('/cart'),
+                SizedBox(
+                  width: 25,
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    color: Colors.white,
+                    onPressed: () => Navigator.of(context).pushNamed('/cart'),
 
+                  ),
                 ),
                 Consumer2<UserManager, HomeManager>(
                   builder: (_, userManager, homeManager, __){

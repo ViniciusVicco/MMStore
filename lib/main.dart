@@ -13,6 +13,7 @@ import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
 import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
+import 'package:michellemirandastore/services/cepaberto_service.dart';
 import 'package:provider/provider.dart';
 
 import 'models/product.dart';
@@ -20,13 +21,13 @@ import 'models/product.dart';
 
 void main(){
   runApp(MyApp());
+  CepAbertoService().getAddressFromCep('77018530');
 }
 
 class MyApp extends StatelessWidget {
   @override
 
-
-
+  
   Widget build(BuildContext context) {
 
     return MultiProvider(
