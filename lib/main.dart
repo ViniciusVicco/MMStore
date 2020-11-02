@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
+import 'package:michellemirandastore/models/cepaberto_address.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/section.dart';
@@ -21,7 +22,6 @@ import 'models/product.dart';
 
 void main(){
   runApp(MyApp());
-  CepAbertoService().getAddressFromCep('77018530');
 }
 
 class MyApp extends StatelessWidget {

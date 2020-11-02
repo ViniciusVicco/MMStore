@@ -4,6 +4,7 @@ import 'package:michellemirandastore/models/cart_product.dart';
 import 'package:michellemirandastore/models/product.dart';
 import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
+import 'package:michellemirandastore/services/cepaberto_service.dart';
 
 class CartManager extends ChangeNotifier{
 
@@ -76,6 +77,19 @@ class CartManager extends ChangeNotifier{
       if(!cartProduct.hasStock) return false;
     }
     return true;
+  }
+
+  // ADDRESS
+
+  Future<void> getAddress(String cep) async {
+    final cepAbertoService = CepAbertoService();
+    try{
+      final address = await cepAbertoService.getAddressFromCep(cep);
+      print(address);
+    } catch (e){
+    debugPrint(e);
+    }
+
   }
 
 
