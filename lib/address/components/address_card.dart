@@ -28,7 +28,7 @@ class AddressCard extends StatelessWidget {
                     ),
                   ),
                   CepInputField(),
-                  if(address.zipCode != null)
+                  if(address.zipCode != null) // Checa se o cep ta nulo pra chamar a tela de inserircamposdeendereço
                     AddressInputField(address),
                 ],
               ),
