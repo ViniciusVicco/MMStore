@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatelessWidget {
   @override
-  const CustomIconButton({this.iconData,this.color,this.onTap});
+  const CustomIconButton({this.iconData,this.color,this.onTap, this.size});
 
   final IconData iconData;
   final Color color;
   final VoidCallback onTap;
+  final double size;
 
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -19,6 +20,7 @@ class CustomIconButton extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Icon(
               iconData,
+              size: size ?? 24, // Se não passar nenhum tamanho, será 24 se passar será o tamanho
               color: onTap != null ? color : Colors.grey[400],
             ),
           ),
