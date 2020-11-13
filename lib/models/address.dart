@@ -1,7 +1,9 @@
-class Address{
+import 'package:flutter/cupertino.dart';
+
+class Address extends ChangeNotifier{
 
   Address({this.streat, this.number, this.complement, this.district,
-      this.zipCode, this.city, this.state, this.lat, this.long});
+      this.zipCode, this.city, this.state, this.lat, this.long, this.error});
 
   String streat;
   String number;
@@ -10,6 +12,7 @@ class Address{
   String zipCode;
   String city;
   String state;
+  bool error;
 
 
   @override

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:michellemirandastore/models/address.dart';
 import 'package:michellemirandastore/models/cart_product.dart';
 import 'package:michellemirandastore/models/product.dart';
@@ -110,12 +111,34 @@ class CartManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAddress(Address address){
+    this.address = address; // o This acessa o atributo da classe em si.
+    calculateDelivery(address.lat, address.long);
+  }
+
+  void calculateDelivery(double lat, double long) async{
+    final DocumentSnapshot doc = await Firestore.instance.document('aux/delivery').get();
 
 
-  void removeAddres(){
+    final latStore = doc.data['lat'] as double;
+    final longStore = doc.data['long'] as double;
+    final maxkm = doc.data['maskm'] as num;
+
+    double dis = await
+    Geolocator().distanceBetween(latStore, longStore, lat, long);
+
+    dis /= 1000.0;
+    print('Distance $dis');
+
+  }
+
+  void removeAddres() async {
     address = null; // Fazendo o address obter nullo, e notificando
     notifyListeners();
   }
+
+
+
 
 }
 

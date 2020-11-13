@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:michellemirandastore/models/address.dart';
+import 'package:michellemirandastore/models/cart_manager.dart';
+import 'package:provider/provider.dart';
 
 class AddressInputField extends StatelessWidget {
   @override
@@ -91,7 +93,10 @@ class AddressInputField extends StatelessWidget {
             color: Colors.black,
             disabledColor: Colors.grey,
             onPressed: () {
-
+              if(Form.of(context).validate()){
+                Form.of(context).save(); // Chama o onSaved e salva cada valor de texto na variável passada. ex: onSaved: (t) => addressdistrict = t,
+                context.read<CartManager>().setAddress(address);
+              }
             },
             child: const Text(
               "Cálcular Frete",
