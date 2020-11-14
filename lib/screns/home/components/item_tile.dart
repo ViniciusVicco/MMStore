@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
-import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/product.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/section.dart';
 import 'package:michellemirandastore/models/section_item.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:provider/provider.dart';
 
 class ItemTile extends StatelessWidget {
 

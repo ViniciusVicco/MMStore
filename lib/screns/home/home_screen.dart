@@ -70,11 +70,10 @@ class HomeScreen extends StatelessWidget {
                         );
                       } else {
                         return IconButton(
-                          icon: IconButton(
-                              color: Colors.white,
-                              icon: Icon(Icons.edit),
-                              onPressed: homeManager.enterEditing,
-                          ),
+                          color: Colors.white,
+                          icon: Icon(Icons.edit),
+                          onPressed: homeManager.enterEditing,
+
                         );
                       }
 

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/section.dart';
-import 'package:michellemirandastore/models/user_manager.dart';
 
 class HomeManager extends ChangeNotifier {
 

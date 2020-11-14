@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';

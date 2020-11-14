@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';

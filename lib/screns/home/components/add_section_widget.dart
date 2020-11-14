@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/section.dart';
-import 'package:provider/provider.dart';
 
 class AddSectionWidget extends StatelessWidget {
-  @override
   final HomeManager homeManager;
   AddSectionWidget(this.homeManager);
   Widget build(BuildContext context) {

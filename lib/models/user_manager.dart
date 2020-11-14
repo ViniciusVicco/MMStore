@@ -84,8 +84,5 @@ class UserManager extends ChangeNotifier{
 
   bool get adminEnabled => user != null && user.admin;
 
-  bool escurecerSenha(bool password){
-     senha = !password;
-    notifyListeners();
-  }
+
 }

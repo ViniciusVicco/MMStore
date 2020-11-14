@@ -12,7 +12,6 @@ class CepAbertoService {
     // Como eliminar pontos e traços do cep:
     final cleanCep = cep.replaceAll('.','').replaceAll('-', '');
     final endPoint = "https://www.cepaberto.com/api/v3/cep?cep=$cleanCep";
-    bool errors = false;
 
     final Dio dio = Dio();
 
@@ -27,8 +26,7 @@ class CepAbertoService {
 
       return address;
 
-    } on DioError catch (e){
-      errors = true;
+    } on DioError {
     return Future.error('Erro ao buscar Cep');
     }
 

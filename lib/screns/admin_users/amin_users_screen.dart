@@ -2,7 +2,6 @@ import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
-import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
 

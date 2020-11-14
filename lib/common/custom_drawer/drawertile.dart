@@ -10,11 +10,10 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   final int curPage = context.watch<PageManager>().page; //Pega o índice da página atual
-  final Color primaryColor = Theme.of(context).primaryColor;
     return InkWell(
       onTap: (){
         context.read<PageManager>().setPage(page);
-        debugPrint('${page} foi tocada');
+        debugPrint('$page foi tocada');
       },
       child: SizedBox(
         height: 60,
