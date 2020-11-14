@@ -92,9 +92,19 @@ class AddressInputField extends StatelessWidget {
           RaisedButton(
             color: Colors.black,
             disabledColor: Colors.grey,
-            onPressed: () {
+            onPressed: () async {
               if(Form.of(context).validate()){
                 Form.of(context).save(); // Chama o onSaved e salva cada valor de texto na variável passada. ex: onSaved: (t) => addressdistrict = t,
+                try {
+                  await context.read<CartManager>().setAddress(address);
+                } catch (e){
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('$e'),
+                      backgroundColor: Colors.red,
+                    )
+                  );
+                }
                 context.read<CartManager>().setAddress(address);
               }
             },
