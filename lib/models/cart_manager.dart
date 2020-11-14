@@ -17,6 +17,8 @@ class CartManager extends ChangeNotifier {
   num productsPrice = 0.0;
   num deliveryPrice;
 
+  num get totalPrice => productsPrice + (deliveryPrice ?? 0 );
+
   void updateUser(UserManager userManager) {
     user = userManager.user;
     items.clear();
@@ -86,6 +88,8 @@ class CartManager extends ChangeNotifier {
     return true;
   }
 
+  bool get isAddressValid => address != null && deliveryPrice != null;
+
   // ADDRESS
 
   Future<void> getAddress(String cep) async {
@@ -116,6 +120,7 @@ class CartManager extends ChangeNotifier {
     this.address = address; // o This acessa o atributo da classe em si.
     if(await calculateDelivery(address.lat, address.long)){
       print('Preço: $deliveryPrice');
+      notifyListeners();
     } else {
       return Future.error('Endereço fora do raio de entrega :(');
     }
@@ -146,6 +151,7 @@ class CartManager extends ChangeNotifier {
 
   void removeAddres() async {
     address = null; // Fazendo o address obter nullo, e notificando
+    deliveryPrice = null;
     notifyListeners();
   }
 

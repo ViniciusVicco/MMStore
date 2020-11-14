@@ -4,6 +4,7 @@ import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
+import 'package:michellemirandastore/screns/address/components/address_screen.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/cart/cart_screen.dart';
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
@@ -12,7 +13,6 @@ import 'package:michellemirandastore/screns/product/product_screen.dart';
 import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
-import 'address/components/address_screen.dart';
 import 'models/product.dart';
 
 
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
               );
             case '/address':
               return MaterialPageRoute(
-                  builder: (_) => AdressScreen()
+                  builder: (_) => AddressScreen()
               );
             case '/cart':
               return MaterialPageRoute(

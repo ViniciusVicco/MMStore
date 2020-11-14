@@ -5,18 +5,18 @@ import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:provider/provider.dart';
 
 class AddressInputField extends StatelessWidget {
-  @override
   final Address address;
 
   const AddressInputField(this.address);
 
   Widget build(BuildContext context) {
+    final cartManager = context.watch<CartManager>();
     String emptyValidator(String text) {
       text.isEmpty ? 'Campo Obrigatório' : null;
     }
     //TODO -> Colocar tudo dentro de um scaffol, quando tiver erro exibir que não conseguiu chamar devido a etc e que é para tentar novamente.
     // TODO -> Usar um showSnackBar para mostrar o erro.
-    if(address.zipCode != null) {
+    if(address.zipCode != null && cartManager.deliveryPrice == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -126,7 +126,13 @@ class AddressInputField extends StatelessWidget {
         ],
       );
     }
-    else {
+    else if(address.zipCode != null){
+      return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Text('${address.streat}, ${address.number}, ${address.district}' '\n ${address.city}\n ${address.state}'),
+
+        );
+    } else {
       return Container();
     }
   }
