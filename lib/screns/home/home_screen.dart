@@ -47,6 +47,7 @@ class HomeScreen extends StatelessWidget {
 
                   ),
                 ),
+                //TODO: Passar esse consumer pra cima e ajustar o cart pra não ficar quebrado no homepage.
                 Consumer2<UserManager, HomeManager>(
                   builder: (_, userManager, homeManager, __){
                     if(userManager.adminEnabled && !homeManager.loading){

@@ -21,6 +21,7 @@ class AddressInputField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            enabled: !cartManager.loading,
             initialValue: address.streat,
             decoration: const InputDecoration(
                 isDense: true, labelText: 'Rua/Avenida', hintText: 'Av.Brasil'),
@@ -47,6 +48,7 @@ class AddressInputField extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
+                  enabled: !cartManager.loading,
                   initialValue: address.complement,
                   decoration: const InputDecoration(
                       isDense: true,
@@ -89,10 +91,15 @@ class AddressInputField extends StatelessWidget {
           SizedBox(
             height: 8,
           ),
+          if(cartManager.loading)
+          LinearProgressIndicator(
+            backgroundColor: Colors.black,
+            valueColor: AlwaysStoppedAnimation(Colors.pink[50]),
+          ),
           RaisedButton(
             color: Colors.black,
             disabledColor: Colors.grey,
-            onPressed: () async {
+            onPressed: !cartManager.loading? () async {
               if(Form.of(context).validate()){
                 Form.of(context).save(); // Chama o onSaved e salva cada valor de texto na variável passada. ex: onSaved: (t) => addressdistrict = t,
                 try {
@@ -107,7 +114,7 @@ class AddressInputField extends StatelessWidget {
                 }
                 context.read<CartManager>().setAddress(address);
               }
-            },
+            }: null,
             child: const Text(
               "Cálcular Frete",
               style: TextStyle(

@@ -19,6 +19,16 @@ class CartManager extends ChangeNotifier {
 
   num get totalPrice => productsPrice + (deliveryPrice ?? 0 );
 
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  set loading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
+
   void updateUser(UserManager userManager) {
     user = userManager.user;
     items.clear();
@@ -93,6 +103,7 @@ class CartManager extends ChangeNotifier {
   // ADDRESS
 
   Future<void> getAddress(String cep) async {
+    loading = true;
     final cepAbertoService = CepAbertoService();
     try {
       final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
@@ -109,22 +120,28 @@ class CartManager extends ChangeNotifier {
 
         );
       }
+      loading = false;
       print(cepAbertoAddress);
     } catch (e) {
       debugPrint(e);
+      loading = false;
+      return Future.error('CEP Inválido');
+
     }
-    notifyListeners();
+    loading = false; // Já tem um notify dentro do loading.
   }
 
   Future<void> setAddress(Address address) async{
+    loading = true;
     this.address = address; // o This acessa o atributo da classe em si.
     if(await calculateDelivery(address.lat, address.long)){
       print('Preço: $deliveryPrice');
       notifyListeners();
+      loading = false;
     } else {
+      loading = false;
       return Future.error('Endereço fora do raio de entrega :(');
     }
-
   }
 
   Future<bool> calculateDelivery(double lat, double long) async{
