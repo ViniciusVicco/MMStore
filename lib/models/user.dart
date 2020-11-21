@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:michellemirandastore/models/address.dart';
 
 class User{
   String id;
@@ -7,6 +8,7 @@ class User{
   String name;
   String confirmedPassword;
   bool admin = false;
+  Address address;
 
   User({this.id,this.email,this.password, this.name});
 
@@ -29,6 +31,13 @@ class User{
     return {
       'name': name,
       'email': email,
+      if(address != null)
+          'address' : address.toMap(),
     };
+  }
+
+  Future<void> setAddress(Address address) {
+    this.address = address;
+    saveData();
   }
 }

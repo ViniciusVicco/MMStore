@@ -22,11 +22,11 @@ class AddressInputField extends StatelessWidget {
         children: [
           TextFormField(
             enabled: !cartManager.loading,
-            initialValue: address.streat,
+            initialValue: address.street,
             decoration: const InputDecoration(
                 isDense: true, labelText: 'Rua/Avenida', hintText: 'Av.Brasil'),
             validator: emptyValidator,
-            onSaved: (t) => address.streat = t,
+            onSaved: (t) => address.street = t,
           ),
           Row(
             children: [
@@ -136,7 +136,7 @@ class AddressInputField extends StatelessWidget {
     else if(address.zipCode != null){
       return Padding(
           padding: const EdgeInsets.only(bottom: 16),
-          child: Text('${address.streat}, ${address.number}, ${address.district}' '\n ${address.city}\n ${address.state}'),
+          child: Text('${address.street}, ${address.number}, ${address.district}' '\n ${address.city}\n ${address.state}'),
 
         );
     } else {

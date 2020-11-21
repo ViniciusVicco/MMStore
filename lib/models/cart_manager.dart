@@ -113,7 +113,7 @@ class CartManager extends ChangeNotifier {
             district: cepAbertoAddress.bairro,
             city: cepAbertoAddress.cidade.nome,
             zipCode: cepAbertoAddress.cep,
-            streat: cepAbertoAddress.logradouro,
+            street: cepAbertoAddress.logradouro,
             long: cepAbertoAddress.longitude,
             lat: cepAbertoAddress.latitude,
             state: cepAbertoAddress.estado.sigla
@@ -134,7 +134,9 @@ class CartManager extends ChangeNotifier {
   Future<void> setAddress(Address address) async{
     loading = true;
     this.address = address; // o This acessa o atributo da classe em si.
+
     if(await calculateDelivery(address.lat, address.long)){
+      user.setAddress(address);
       print('Preço: $deliveryPrice');
       notifyListeners();
       loading = false;
