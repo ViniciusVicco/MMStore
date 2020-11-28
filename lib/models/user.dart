@@ -16,6 +16,10 @@ class User{
     id = document.documentID;
     name = document.data['name'] as String;
     email = document.data['email'] as String;
+    if(document.data.containsKey('address')){
+      address = Address.fromMap(
+        document.data['address'] as Map<String, dynamic>);
+    }
   }
 
   DocumentReference get firestoreRef => Firestore.instance.document('users/$id');

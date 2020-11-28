@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/common/empty_cart_card.dart';
+import 'package:michellemirandastore/common/login_card.dart';
 import 'package:michellemirandastore/common/price_card.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
@@ -16,56 +18,25 @@ class CartScreen extends StatelessWidget {
       ),
       body: Consumer<CartManager>(
         builder: (_, cartManager, __){
-          if(context.read<UserManager>().isLoggedIn) {
-
-            return ListView(
-              children: <Widget>[
-                Column(
+          if(cartManager.user == null) {
+            return LoginCard(tittle: "Carrinho",);
+          }
+          if(cartManager.items.isEmpty){
+            return EmptyCartCard(iconData: Icons.remove_shopping_cart, title: "Nenhum Produto no Carrinho",);
+          }
+          return ListView(
+            children: <Widget>[
+              Column(
                 children: cartManager.items.map((cartProduct) =>
                     CartTile(cartProduct)).toList(),
               ),
-                PriceCard(buttonText: "Continuar para Entrega",
+              PriceCard(buttonText: "Continuar para Entrega",
                 onPressed: cartManager.isCartValid ? (){
                   Navigator.of(context).pushNamed('/address');
                 } : null,
-                ),
-              ],
-            );
-          } else {
-            return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Por favor Faça Login para ver seu carrinho",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    RaisedButton(
-                      padding: EdgeInsets.all(15),
-                      shape: RoundedRectangleBorder(borderRadius:  BorderRadius.circular(20)),
-                      color: Theme.of(context).primaryColor,
-                      child: Text(""
-                          "Clique Aqui para efetuar Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/login');
-                      },
-                    )
-                  ],
-                ),
-            );
-          }
+              ),
+            ],
+          );
         },
       ),
     );

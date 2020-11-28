@@ -31,11 +31,24 @@ class CartManager extends ChangeNotifier {
 
   void updateUser(UserManager userManager) {
     user = userManager.user;
+    productsPrice = 0.0;
     items.clear();
+    removeAddres();
     if (user != null) {
       _loadCartItems();
+      _loadUserAddress();
+
     }
   }
+
+  Future<void> _loadUserAddress() async{
+    if(user.address != null && await calculateDelivery(user.address.lat, user.address.long)){
+      address = user.address;
+      notifyListeners();
+    }
+
+  }
+
 
   _loadCartItems() async {
     final QuerySnapshot cartSnap = await user.cartReference.getDocuments();
