@@ -12,10 +12,11 @@ class CheckoutManager extends ChangeNotifier{
     print(cartManager.productsPrice);
   }
 
-  Future<void> checkout() async{
+  Future<void> checkout({Function onStockFail}) async{
     try {
       _decrementStock();
     } catch(e){
+      onStockFail(e);
       debugPrint(e.toString());
     }
 
