@@ -15,16 +15,21 @@ class CheckoutScreen extends StatelessWidget {
           title: const Text("Pagamento"),
           centerTitle: true,
         ),
-        body: ListView(
-          children: [
-            PriceCard(
-              buttonText: 'Finalizar Pedido',
-              onPressed: () {
-                Navigator.of(context).pushNamed('/checkout');
-              },
-            )
-          ],
-        ),
+        body: Consumer<CheckoutManager>(
+          builder: (_, checkoutManager, __){
+            return ListView(
+              children: [
+                PriceCard(
+                  buttonText: 'Finalizar Pedido',
+                  onPressed: () {
+                    checkoutManager.checkout();
+                    Navigator.of(context).pushNamed('/checkout');
+                  },
+                )
+              ],
+            );
+          },
+        )
       ),
     );
   }

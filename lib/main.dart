@@ -7,7 +7,7 @@ import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/address/components/address_screen.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/cart/cart_screen.dart';
-import 'package:michellemirandastore/screns/checkout/checkoutScreen.dart';
+import 'package:michellemirandastore/screns/checkout/checkout_screen.dart';
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
