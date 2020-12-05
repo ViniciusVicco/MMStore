@@ -23,7 +23,6 @@ class CheckoutScreen extends StatelessWidget {
                   buttonText: 'Finalizar Pedido',
                   onPressed: () {
                     checkoutManager.checkout();
-                    Navigator.of(context).pushNamed('/checkout');
                   },
                 )
               ],

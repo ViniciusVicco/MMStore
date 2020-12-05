@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
+import 'package:michellemirandastore/models/product.dart';
 
 class CheckoutManager extends ChangeNotifier{
 
@@ -11,8 +12,13 @@ class CheckoutManager extends ChangeNotifier{
     print(cartManager.productsPrice);
   }
 
-  void checkout() {
-    _decrementStock();
+  Future<void> checkout() async{
+    try {
+      _decrementStock();
+    } catch(e){
+      debugPrint(e.toString());
+    }
+
     _getOrderId().then((value) => print(value));
   }
 
@@ -33,11 +39,53 @@ class CheckoutManager extends ChangeNotifier{
     }
   }
 
-  void _decrementStock(){
-    // 1 - Ler todos os estoques.
-    // 2 - Se meu estoque for valido, decremento localmente.
-    // 3 - Salvar os estoques no Firebase.
+  Future<void> _decrementStock(){
+    // 1. Ler todos os estoques 3xM	    // 1. Ler todos os estoques 3xM
+    // 2. Decremento localmente os estoques 2xM	    // 2. Decremento localmente os estoques 2xM
+    // 3. Salvar os estoques no firebase 2xM	    // 3. Salvar os estoques no firebase 2xM
 
+    return firestore.runTransaction((tx) async {
+      final List<Product> productsToUpdate = [];
+      final List<Product> productsWithoutStock = [];
+
+      for(final cartProduct in cartManager.items){
+
+        Product product;
+
+        if(productsToUpdate.any((p) => p.id == cartProduct.productId)){
+          product = productsToUpdate.firstWhere(
+                  (p) => p.id == cartProduct.productId);
+        } else {
+          final doc = await tx.get(
+              firestore.document('products/${cartProduct.productId}')
+          );
+          product = Product.fromDocument(doc);
+        }
+
+        cartProduct.product = product;
+
+        final size = product.findSize(cartProduct.size);
+        if(size.stock - cartProduct.quantity < 0){
+          productsWithoutStock.add(product);
+        } else {
+          size.stock -= cartProduct.quantity;
+          productsToUpdate.add(product);
+        }
+
+        cartProduct.product = product;
+
+      }
+
+      if(productsWithoutStock.isNotEmpty){
+        return Future.error(
+            '${productsWithoutStock.length} produtos sem estoque');
+      }
+
+      for(final product in productsToUpdate){
+        tx.update(firestore.document('products/${product.id}'),
+            {'sizes': product.exportSizeList()});
+      }
+    });
 
   }
 
