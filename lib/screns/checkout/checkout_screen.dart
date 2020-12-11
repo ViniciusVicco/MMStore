@@ -28,12 +28,35 @@ class CheckoutScreen extends StatelessWidget {
           ),
           body: Consumer<CheckoutManager>(
             builder: (_, checkoutManager, __) {
+              if(checkoutManager.loading){
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                      const SizedBox(height: 16,),
+                      Text("Processando seu pagamento...",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16,
+                      ),)
+                    ],
+                  ),
+                );
+              }
               return ListView(
                 children: [
                   PriceCard(
                     buttonText: 'Finalizar Pedido',
-                    onPressed: () async {
+                    onPressed: (){
                       checkoutManager.checkout(
+                        onSuccess: (){
+                          //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
+                          Navigator.popUntil(context, (route) => route.settings.name == '/base');
+                        },
                         onStockFail: (e) {
                           Navigator.popUntil(context, (route) => route.settings.name == '/cart');
                         }

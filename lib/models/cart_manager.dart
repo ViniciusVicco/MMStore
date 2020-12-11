@@ -187,9 +187,20 @@ class CartManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clear() {
+    for(CartProduct cartProduct in items) {
+      user.cartReference.document(cartProduct.id).delete();
+    }
+    items.clear();
+    notifyListeners();
+  }
+
+
+  }
 
 
 
-}
+
+
 
 

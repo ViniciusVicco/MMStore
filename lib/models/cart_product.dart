@@ -82,4 +82,12 @@ class CartProduct extends ChangeNotifier{
     return size.stock >= quantity;
   }
 
+  Map<String, dynamic> toOrderItemMap() {
+    return {
+      'pid': productId,
+      'quantity': quantity,
+      'size': size,
+    };
+  }
+
 }

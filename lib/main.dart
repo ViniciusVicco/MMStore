@@ -107,7 +107,8 @@ class MyApp extends StatelessWidget {
             case '/base':
             default:
               return MaterialPageRoute(
-                  builder: (_) => BaseScreen()
+                  builder: (_) => BaseScreen(),
+                settings: settings
               );
           }
         },
