@@ -19,9 +19,14 @@ class CheckoutManager extends ChangeNotifier{
     } catch(e){
       onStockFail(e);
       debugPrint(e.toString());
+      return;
     }
 
-    _getOrderId().then((value) => print(value));
+    //TODO: Processar Pagamento
+
+    final orderId = await _getOrderId();
+
+
   }
 
   Future<int> _getOrderId() async{
