@@ -13,8 +13,9 @@ class CheckoutManager extends ChangeNotifier{
   }
 
   Future<void> checkout({Function onStockFail}) async{
+
     try {
-      _decrementStock();
+     await _decrementStock();
     } catch(e){
       onStockFail(e);
       debugPrint(e.toString());
