@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
+import 'package:michellemirandastore/models/orders_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/address/components/address_screen.dart';
@@ -41,6 +42,11 @@ class MyApp extends StatelessWidget {
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) => cartManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) => ordersManager..updateUser(userManager.user)
         ),
         ChangeNotifierProvider(
           create: (_) => HomeManager(),
