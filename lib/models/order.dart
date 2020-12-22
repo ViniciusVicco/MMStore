@@ -55,5 +55,7 @@ class Order{
 
   Timestamp date;
 
+  String get formattedId => '#${orderId.padLeft(6, '0')}';
+
 
 }

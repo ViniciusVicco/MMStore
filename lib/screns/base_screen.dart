@@ -4,6 +4,7 @@ import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/admin_users/amin_users_screen.dart';
 import 'package:michellemirandastore/screns/home/home_screen.dart';
+import 'package:michellemirandastore/screns/orders/orders_screen.dart';
 import 'package:michellemirandastore/screns/products/products_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -34,12 +35,7 @@ class _BaseScreenState extends State<BaseScreen> {
             children: [
               HomeScreen(),
               ProductsScreen(),
-              Scaffold(
-                drawer: CustomDrawer(),
-                appBar: AppBar(
-                  title: const Text("Meus Pedidos"),
-                ),
-              ),
+              OrdersScreen(),
               Scaffold(
                 drawer: CustomDrawer(),
                 appBar: AppBar(
