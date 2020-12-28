@@ -54,10 +54,11 @@ class CheckoutScreen extends StatelessWidget {
                     buttonText: 'Finalizar Pedido',
                     onPressed: (){
                       checkoutManager.checkout(
-                        onSuccess: (){
+                        onSuccess: (order){
                           //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
                           Navigator.popUntil(context, (route) => route.settings.name == '/base');
                           //context.read<PageManager>().setPage(2);
+                          Navigator.of(context).pushNamed('/confirmation', arguments: order);
                         },
                         onStockFail: (e) {
                           Navigator.popUntil(context, (route) => route.settings.name == '/cart');

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
+import 'package:michellemirandastore/models/order.dart';
 import 'package:michellemirandastore/models/orders_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
@@ -9,6 +10,7 @@ import 'package:michellemirandastore/screns/address/components/address_screen.da
 import 'package:michellemirandastore/screns/base_screen.dart';
 import 'package:michellemirandastore/screns/cart/cart_screen.dart';
 import 'package:michellemirandastore/screns/checkout/checkout_screen.dart';
+import 'package:michellemirandastore/screns/confirmation/confirmation_screen.dart';
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
@@ -95,6 +97,12 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) => CartScreen(),
                 settings: settings,
+              );
+            case '/confirmation':
+              return MaterialPageRoute(
+                builder: (_) => ConfirmationScreen(
+             settings.arguments as Order
+                ),
               );
             case '/login':
               return MaterialPageRoute(
