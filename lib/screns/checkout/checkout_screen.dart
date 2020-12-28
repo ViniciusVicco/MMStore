@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/price_card.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/checkout_manager.dart';
+import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -56,9 +57,11 @@ class CheckoutScreen extends StatelessWidget {
                         onSuccess: (){
                           //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
                           Navigator.popUntil(context, (route) => route.settings.name == '/base');
+                          //context.read<PageManager>().setPage(2);
                         },
                         onStockFail: (e) {
                           Navigator.popUntil(context, (route) => route.settings.name == '/cart');
+
                         }
                       );
 

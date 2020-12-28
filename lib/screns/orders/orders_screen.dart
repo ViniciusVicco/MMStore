@@ -21,17 +21,26 @@ class OrdersScreen extends StatelessWidget {
     }
           if(ordersManager.orders.isEmpty){
             return EmptyCartCard(
-              title: "Nenhuma Compra Encontrada",
-              iconData: Icons.border_clear,
+              title: "Nenhuma Pedido Encontrado",
+              iconData: Icons.backpack_outlined,
             );
           }
-          return ListView.builder(
-            itemCount: ordersManager.orders.length,
-            itemBuilder: (_, index){
-            return OrderTile(
-                  order: ordersManager.orders.reversed.toList()[index],
-                );
-          });
+          return Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: ordersManager.orders.length,
+                  itemBuilder: (_, index){
+                  return OrderTile(
+                        order: ordersManager.orders.reversed.toList()[index],
+                      );
+                }),
+              ),
+            ],
+          );
         },
       ),
     );
