@@ -12,6 +12,10 @@ enum Status {
 
 class Order {
 
+  void updateStatusQuerry(int paramStatus){
+    firestore.collection('orders').document(orderId).updateData({'status': paramStatus});
+  }
+
   Order.fromCartManager(CartManager cartManager){
     items = List.from(cartManager.items);
     price = cartManager.totalPrice;
@@ -31,6 +35,10 @@ class Order {
     userId = doc.data['user'] as String;
     address = Address.fromMap(doc.data['address'] as Map<String, dynamic>);
     date = doc.data['date'] as Timestamp;
+    status = Status.values[doc.data['status'] as int];
+  }
+
+  void updateFromDocument(DocumentSnapshot doc){
     status = Status.values[doc.data['status'] as int];
   }
 
@@ -92,17 +100,22 @@ class Order {
     return (status.index >= Status.transporting.index)?
     () {
       status = Status.values[status.index-1];
-      firestore.collection('orders').document(orderId).updateData({'status': status.index});
+      updateStatusQuerry(status.index);
     }: null;
 
 
+  }
+
+  void cancel(){
+    status = Status.canceled;
+    updateStatusQuerry(status.index);
   }
 
   Function() get advance{
     return (status.index <= Status.transporting.index)?
         () {
       status = Status.values[status.index+1];
-      firestore.collection('orders').document(orderId).updateData({'status': status.index});
+      updateStatusQuerry(status.index);
         }: null;
 
 
