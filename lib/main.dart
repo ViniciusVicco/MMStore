@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
+import 'package:michellemirandastore/models/admin_orders_manager.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/order.dart';
@@ -59,6 +60,14 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, adminUsersManager) =>
           adminUsersManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager,AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) =>
+          adminOrdersManager..updateAdmin(
+            adminEnabled: userManager.adminEnabled,
+          ),
         ),
       ],
       child: MaterialApp(

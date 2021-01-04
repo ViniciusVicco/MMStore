@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
+import 'package:michellemirandastore/screns/admin_orders/admin_orders_screen.dart';
 import 'package:michellemirandastore/screns/admin_users/amin_users_screen.dart';
 import 'package:michellemirandastore/screns/home/home_screen.dart';
 import 'package:michellemirandastore/screns/orders/orders_screen.dart';
@@ -44,12 +45,7 @@ class _BaseScreenState extends State<BaseScreen> {
               ),
               if(userManager.adminEnabled)...[
                 AdminUsersScreen(),
-                Scaffold(
-                  drawer: CustomDrawer(),
-                  appBar: AppBar(
-                    title: const Text("Gerênciar"),
-                  ),
-                ),
+                AdminOrdersScreen(),
               ]
             ],
           );
