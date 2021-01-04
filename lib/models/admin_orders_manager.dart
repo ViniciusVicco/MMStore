@@ -9,13 +9,15 @@ import 'order.dart';
 class AdminOrdersManager extends ChangeNotifier{
   User user;
 
-  List<Order> orders = [];
+  List<Order> _orders = [];
+
+  User userFilter;
 
   final Firestore firestore = Firestore.instance;
   StreamSubscription _subscription;
 
   void updateAdmin({bool adminEnabled}){
-    orders.clear();
+    _orders.clear();
 
     _subscription?.cancel();
     if(adminEnabled){
@@ -29,10 +31,10 @@ class AdminOrdersManager extends ChangeNotifier{
           for(final change in event.documentChanges){
             switch(change.type){
               case DocumentChangeType.added:
-                orders.add(Order.fromDocument(change.document));
+                _orders.add(Order.fromDocument(change.document));
                 break;
               case DocumentChangeType.modified:
-                final modOrder = orders.firstWhere((o) => o.orderId == change.document.documentID);
+                final modOrder = _orders.firstWhere((o) => o.orderId == change.document.documentID);
                 modOrder.updateFromDocument(change.document);
                 break;
               case DocumentChangeType.removed:
@@ -43,6 +45,19 @@ class AdminOrdersManager extends ChangeNotifier{
           }
           notifyListeners();
         });
+  }
+
+  void setUserFilter(User user){
+    userFilter = user;
+    notifyListeners();
+  }
+  List<Order> get filteredOrders{
+    List<Order> output = _orders.reversed.toList();
+    //TODO: Adicione Filtros aqui
+    if(userFilter != null){
+      output = output.where((o) => o.userId == userFilter.id).toList();
+    }
+    return output;
   }
 
   @override
