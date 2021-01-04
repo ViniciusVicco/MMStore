@@ -34,6 +34,7 @@ class AdminOrdersScreen extends StatelessWidget {
                     itemBuilder: (_, index){
                       return OrderTile(
                         order: ordersManager.orders.reversed.toList()[index],
+                        showControls: true,
                       );
                     }),
               ),

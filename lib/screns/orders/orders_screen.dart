@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/common/empty_cart_card.dart';
 import 'package:michellemirandastore/common/login_card.dart';
+import 'package:michellemirandastore/common/order_tile.dart';
 import 'package:michellemirandastore/models/orders_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../../common/order_tile.dart';
+
 
 class OrdersScreen extends StatelessWidget {
   @override
@@ -38,6 +39,7 @@ class OrdersScreen extends StatelessWidget {
                   itemBuilder: (_, index){
                   return OrderTile(
                         order: ordersManager.orders.reversed.toList()[index],
+                    showControls: false,
                       );
                 }),
               ),

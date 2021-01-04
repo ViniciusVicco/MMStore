@@ -39,6 +39,7 @@ dependencies:
   faker: ^1.2.1
   image_picker: ^0.6.7+11
   image_cropper: ^1.2.2
+  via_cep: ^1.0.6
   uuid: ^2.0.4
   dio: ^3.0.9
   brasil_fields: ^0.1.0
