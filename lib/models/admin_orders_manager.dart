@@ -9,9 +9,12 @@ import 'order.dart';
 class AdminOrdersManager extends ChangeNotifier{
   User user;
 
-  List<Order> _orders = [];
+  final List<Order> _orders = [];
 
   User userFilter;
+  
+  List<Status> statusFilter = [Status.preparing];
+  
 
   final Firestore firestore = Firestore.instance;
   StreamSubscription _subscription;
@@ -57,6 +60,10 @@ class AdminOrdersManager extends ChangeNotifier{
     if(userFilter != null){
       output = output.where((o) => o.userId == userFilter.id).toList();
     }
+
+      output = output.where((o) => statusFilter.contains(o.status)).toList();
+
+    
     return output;
   }
 
@@ -64,6 +71,15 @@ class AdminOrdersManager extends ChangeNotifier{
   void dispose(){
     super.dispose();
     _subscription?.cancel();
+  }
+
+  void setStatusFilter({Status status, bool enabled}) {
+    if(enabled) {
+      statusFilter.add(status);
+    } else {
+      statusFilter.remove(status);
+    }
+    notifyListeners();
   }
 
 }
