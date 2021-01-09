@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/common/order/order_product_tile.dart';
 import 'package:michellemirandastore/models/order.dart';
-import 'file:///C:/Users/vinic/AndroidStudioProjects/MMStore/lib/common/order_product_tile.dart';
+
 
 class ConfirmationScreen extends StatelessWidget {
 

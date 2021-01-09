@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:michellemirandastore/common/order/export_address_dialog.dart';
 import 'package:michellemirandastore/models/order.dart';
 
+import 'cancel_order_dialog.dart';
+
 import 'order_product_tile.dart';
+
 
 
 class OrderTile extends StatelessWidget {
@@ -67,7 +71,11 @@ class OrderTile extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  FlatButton(onPressed: (){order.cancel();},
+                  FlatButton(onPressed: (){
+                    showDialog(context: context,
+                    builder: (_) => CancelOrderDialog(order,),
+                    );
+                  },
                       child: const Text("Cancelar", style: TextStyle(color: Colors.red),),
                   ),
                   FlatButton(onPressed: order.back,
@@ -76,7 +84,11 @@ class OrderTile extends StatelessWidget {
                   FlatButton(onPressed: order.advance,
                     child: const Text("Avançar",),
                   ),
-                  FlatButton(onPressed: (){},
+                  FlatButton(onPressed: (){
+                    showDialog(context: context,
+                      builder: (_) => ExportAddressDialog(address: order.address,),
+                    );
+                  },
                     child: Text("Endereço", style: TextStyle(color: Theme.of(context).primaryColor),),
                   ),
 

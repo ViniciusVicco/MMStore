@@ -3,7 +3,7 @@ import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/common/custom_icon_button.dart';
 import 'package:michellemirandastore/common/empty_cart_card.dart';
 
-import 'package:michellemirandastore/common/order_tile.dart';
+import 'file:///C:/Users/vinic/AndroidStudioProjects/MMStore/lib/common/order/order_tile.dart';
 import 'package:michellemirandastore/models/admin_orders_manager.dart';
 import 'package:michellemirandastore/models/order.dart';
 import 'package:provider/provider.dart';
