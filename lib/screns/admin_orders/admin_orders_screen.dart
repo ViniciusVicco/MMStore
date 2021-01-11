@@ -9,11 +9,20 @@ import 'package:michellemirandastore/models/order.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class AdminOrdersScreen extends StatelessWidget {
+class AdminOrdersScreen extends StatefulWidget {
+  @override
+  _AdminOrdersScreenState createState() => _AdminOrdersScreenState();
+}
+
+class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
   final PanelController panelController = PanelController();
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       drawer: CustomDrawer(),
       appBar: AppBar(
         centerTitle: true,
@@ -67,6 +76,7 @@ class AdminOrdersScreen extends StatelessWidget {
                         itemBuilder: (_, index) {
                           return OrderTile(
                             order: filteredOrders[index],
+                            scaffoldKey: scaffoldKey,
                             showControls: true,
                           );
                         }),

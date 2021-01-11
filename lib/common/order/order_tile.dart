@@ -9,9 +9,11 @@ import 'order_product_tile.dart';
 
 
 class OrderTile extends StatelessWidget {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
-  const OrderTile({this.order, this.showControls});
+  OrderTile({this.order, this.showControls, this.scaffoldKey});
   final Order order;
   final bool showControls;
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class OrderTile extends StatelessWidget {
                   ),
                   FlatButton(onPressed: (){
                     showDialog(context: context,
-                      builder: (_) => ExportAddressDialog(address: order.address,),
+                      builder: (_) => ExportAddressDialog(address: order.address,scaffoldKey: scaffoldKey,),
                     );
                   },
                     child: Text("Endereço", style: TextStyle(color: Theme.of(context).primaryColor),),
