@@ -16,7 +16,7 @@ class Product extends ChangeNotifier {
   DocumentReference get firestoreRef => firestore.document('products/$id');
   StorageReference get storageRef => storage.ref().child('products').child(id);
 
-  Product({this.id,this.sizes,this.images,this.name,this.description}){
+  Product({this.id,this.sizes,this.images,this.name,this.description, this.deleted = false}){
     images = images ?? [];
     sizes = sizes?? [];
   }
@@ -26,6 +26,7 @@ class Product extends ChangeNotifier {
     name = document['name'] as String;
     description = document['description'] as String;
     images = List<String>.from(document.data['images'] as List<dynamic>);
+    deleted = (document.data['deleted'] ?? false) as bool;
     sizes = (document.data['sizes'] as List<dynamic> ?? []).map((s) => ItemSize.fromMap(s as Map<String, dynamic>)).toList();
 
     print(sizes);
@@ -43,6 +44,8 @@ class Product extends ChangeNotifier {
   List<ItemSize> sizes;
 
   List<dynamic> newImages;
+
+  bool deleted;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -63,6 +66,7 @@ class Product extends ChangeNotifier {
       'name':name,
       'description':description,
       'sizes':exportSizeList(),
+      'deleted':deleted
 
     };
 
@@ -157,7 +161,12 @@ class Product extends ChangeNotifier {
       description: description,
       images: List.from(images),
       sizes: sizes.map((size) => size.clone()).toList(),
+      deleted: deleted,
     );
+  }
+
+  void delete() {
+    firestoreRef.updateData({'deleted': true});
   }
 
 }

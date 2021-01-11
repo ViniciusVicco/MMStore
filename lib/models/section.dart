@@ -83,7 +83,9 @@ class Section extends ChangeNotifier {
           );
           await ref.delete();
           // ignore: empty_catches
-        } catch (e){}
+        } catch (e){
+
+        }
       }
     }
 

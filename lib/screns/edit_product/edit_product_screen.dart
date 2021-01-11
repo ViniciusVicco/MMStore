@@ -30,6 +30,17 @@ class EditProductScreen extends StatelessWidget {
             'Editar Anúncio':
             'Criar Produto',
           ),
+          actions: [
+            if(editing)
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: (){
+                  context.read<ProductManager>().delete(product);
+                  Navigator.of(context).pop();
+                },
+              ),
+
+          ],
           centerTitle: true,
         ),
         body: Form(

@@ -56,7 +56,7 @@ class CheckoutScreen extends StatelessWidget {
                       checkoutManager.checkout(
                         onSuccess: (order){
                           //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
-                          Navigator.popUntil(context, (route) => route.settings.name == '/base');
+                          Navigator.popUntil(context, (route) => route.settings.name == '/');
                           //context.read<PageManager>().setPage(2);
                           Navigator.of(context).pushNamed('/confirmation', arguments: order);
                         },

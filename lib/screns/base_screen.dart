@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:michellemirandastore/common/custom_drawer/custom_drawer.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
@@ -18,12 +19,22 @@ class _BaseScreenState extends State<BaseScreen> {
   final PageController pageController = PageController();
 
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp]
+    );
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
 //    List<int> lista = [1,2,3,4,5, if(1==2)...[7,8]];
 //    print(lista);
 
     // os ...[lista] permite inserir uma lista em qualquer lugar de um array, também é possível adicioanr um if
+
 
 
     return Provider(
@@ -53,4 +64,5 @@ class _BaseScreenState extends State<BaseScreen> {
       )
     );
   }
+
 }
