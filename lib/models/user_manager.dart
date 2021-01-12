@@ -84,5 +84,8 @@ class UserManager extends ChangeNotifier{
 
   bool get adminEnabled => user != null && user.admin;
 
+  void facebookLogin(){
+
+  }
 
 }

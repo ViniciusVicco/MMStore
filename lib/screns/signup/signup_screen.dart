@@ -88,44 +88,42 @@ class SignUpScreen extends StatelessWidget {
                       onSaved: (pass) => user.confirmedPassword = pass,
                     ),
                     const SizedBox(height: 16,),
-                    SizedBox(
-                      height: 44,
-                      child: RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-                        textColor: Colors.white,
-                        onPressed: userManager.loading ? null :() {
-                          if(formKey.currentState.validate()){
-                            formKey.currentState.save();
-                            if(!senhasIguais(user.password, user.confirmedPassword)){
-                              scaffoldKey.currentState.showSnackBar(
-                                  SnackBar(
-                                    content: const Text('Senhas não coincidem!'),
-                                    backgroundColor: Colors.red,
-                                  )
-                              );
-                              return;
-                            }
-                            userManager.signUp(
-                                user: user,
-                                onSucess: (){
-                                  debugPrint("Sucesso");
-                                  Navigator.of(context).pop();
-                                },
-                                onFail: (e){
-                                  scaffoldKey.currentState.showSnackBar(
-                                      SnackBar(
-                                        content: Text("Erro ao acesar $e"),
-                                      )
-                                  );
-                                }
+                    RaisedButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      color: Theme.of(context).primaryColor,
+                      disabledColor: Theme.of(context).primaryColor.withAlpha(100),
+                      textColor: Colors.white,
+                      onPressed: userManager.loading ? null :() {
+                        if(formKey.currentState.validate()){
+                          formKey.currentState.save();
+                          if(!senhasIguais(user.password, user.confirmedPassword)){
+                            scaffoldKey.currentState.showSnackBar(
+                                SnackBar(
+                                  content: const Text('Senhas não coincidem!', style: TextStyle(fontSize: 15),),
+                                  backgroundColor: Colors.red,
+                                )
                             );
+                            return;
                           }
-                        },
-                        child: userManager.loading ? CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        ) : const Text("Criar Conta"),
-                      ),
+                          userManager.signUp(
+                              user: user,
+                              onSucess: (){
+                                debugPrint("Sucesso");
+                                Navigator.of(context).pop();
+                              },
+                              onFail: (e){
+                                scaffoldKey.currentState.showSnackBar(
+                                    SnackBar(
+                                      content: Text("Erro ao acesar $e"),
+                                    )
+                                );
+                              }
+                          );
+                        }
+                      },
+                      child: userManager.loading ? CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ) : const Text("Criar Conta"),
                     ),
                   ],
                 );
