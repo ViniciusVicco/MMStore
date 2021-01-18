@@ -18,7 +18,7 @@ class CepAbertoService {
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Token token=$token';
 
     try{
-      final response = await dio.get<Map<String, dynamic>>(endPoint); // Map porque retorna um map de strings, numeros objetos etc.
+      final response = await dio.get<Map<String, dynamic>>(endPoint); // Map porque retorna um map de strings.xml, numeros objetos etc.
       if(response.data.isEmpty){
         return Future.error('Cep Inválido');
       }
