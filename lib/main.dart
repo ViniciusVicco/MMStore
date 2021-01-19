@@ -6,6 +6,7 @@ import 'package:michellemirandastore/models/home_manager.dart';
 import 'package:michellemirandastore/models/order.dart';
 import 'package:michellemirandastore/models/orders_manager.dart';
 import 'package:michellemirandastore/models/productManager.dart';
+import 'package:michellemirandastore/models/stores_manager.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:michellemirandastore/screns/address/components/address_screen.dart';
 import 'package:michellemirandastore/screns/base_screen.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeManager(),
           lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
         ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
           create: (_) => AdminUsersManager(),
