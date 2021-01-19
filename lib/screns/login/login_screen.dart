@@ -41,6 +41,13 @@ class LoginScreen extends StatelessWidget {
           child: Form(
             key: globalKey,
             child: Consumer<UserManager>(builder: (_, userManager, __) {
+              if(userManager.loadingFace)
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Theme.of(context).scaffoldBackgroundColor),
+                  ),
+                );
               return ListView(
                 padding: const EdgeInsets.all(16),
                 shrinkWrap: true,
