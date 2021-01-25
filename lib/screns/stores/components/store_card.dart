@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_icon_button.dart';
 import 'package:michellemirandastore/models/store.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StoreCard extends StatelessWidget {
   final Store store;
@@ -26,6 +27,15 @@ class StoreCard extends StatelessWidget {
       }
     }
 
+    void openPhone() async{
+      if(!await canLaunch('tel: ${store.cleanPhone}')){
+        launch('tel: ${store.cleanPhone}');
+      } else {
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
+      }
+
+
+    }
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -99,7 +109,7 @@ class StoreCard extends StatelessWidget {
                     CustomIconButton(
                       iconData: Icons.phone,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openPhone,
                     )
                   ],
                 )
@@ -110,4 +120,7 @@ class StoreCard extends StatelessWidget {
       ),
     );
   }
+
+
 }
+

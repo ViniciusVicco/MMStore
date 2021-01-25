@@ -40,6 +40,8 @@ class Store {
 
   StoreStatus status;
 
+  String get cleanPhone => phone.replaceAll(RegExp(r"[^\d]"), '');
+
   String get addressText =>
       '${address.street}, ${address.number}${address.complement.isNotEmpty ? ' - ${address.complement}' : ''} - '
       '${address.district}, ${address.city}/${address.state}';
