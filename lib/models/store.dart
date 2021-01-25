@@ -69,17 +69,30 @@ class Store {
     }
     final now = TimeOfDay.now();
     print('$period $now');
-    if (period == null) {
+    if(period == null){
       status = StoreStatus.closed;
-    } else if (period['from'].toMinutes() < now.toMinutes() &&
-        period['to'].toMinutes() - 15 > now.toMinutes()) {
+    } else if(period['from'].toMinutes() < now.toMinutes()
+        && period['to'].toMinutes() - 15 > now.toMinutes()){
       status = StoreStatus.open;
-    } else if (period['from'].toMinutes() < now.toMinutes() &&
-        period['to'].toMinutes() > now.toMinutes()) {
+    } else if(period['from'].toMinutes() < now.toMinutes()
+        && period['to'].toMinutes() > now.toMinutes()){
       status = StoreStatus.closing;
     } else {
       status = StoreStatus.closed;
     }
     print(status);
+  }
+
+  String get statusText {
+    switch(status){
+      case StoreStatus.closed:
+        return 'Fechada';
+      case StoreStatus.open:
+        return 'Aberta';
+      case StoreStatus.closing:
+        return 'Fechando';
+      default:
+        return '';
+    }
   }
 }
