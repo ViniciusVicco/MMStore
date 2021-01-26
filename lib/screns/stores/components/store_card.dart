@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:michellemirandastore/common/custom_icon_button.dart';
 import 'package:michellemirandastore/models/store.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,10 +34,41 @@ class StoreCard extends StatelessWidget {
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
       }
-
-
     }
 
+    void openMap() async{
+      try {
+        final availableMaps = await MapLauncher.installedMaps;
+
+        showModalBottomSheet(
+            context: context, builder: (_){
+          return SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for(final map in availableMaps)
+                  ListTile(
+                    onTap: (){
+                      map.showMarker(coords: Coords(store.address.lat, store.address.long), title: store.name, description: store.addressText);
+                      Navigator.of(context).pop();
+                    },
+                    title: Text(map.mapName),
+                    leading: Image(
+                      image: map.icon,
+                      width: 30,
+                      height: 30,
+                    ),
+                  )
+              ],
+            ),
+          );
+        }
+        );
+      } catch (e){
+
+      }
+
+    }
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -104,7 +136,7 @@ class StoreCard extends StatelessWidget {
                     CustomIconButton(
                       iconData: Icons.map,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openMap,
                     ),
                     CustomIconButton(
                       iconData: Icons.phone,
