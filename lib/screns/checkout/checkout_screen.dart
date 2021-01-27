@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/price_card.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
@@ -7,8 +8,11 @@ import 'package:michellemirandastore/models/checkout_manager.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:provider/provider.dart';
 
+import 'components/credit_card_widget.dart';
+
 class CheckoutScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,8 @@ class CheckoutScreen extends StatelessWidget {
               }
               return ListView(
                 children: [
+                  CreditCardWidget(
+                  ),
                   PriceCard(
                     buttonText: 'Finalizar Pedido',
                     onPressed: (){
