@@ -11,9 +11,7 @@ class StoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme
-        .of(context)
-        .primaryColor;
+    Color primaryColor = Theme.of(context).primaryColor;
 
     Color colorForStatus(StoreStatus status) {
       switch (status) {
@@ -27,48 +25,59 @@ class StoreCard extends StatelessWidget {
           return Colors.green;
       }
     }
+    void showError(){
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
+    }
 
-    void openPhone() async{
-      if(!await canLaunch('tel: ${store.cleanPhone}')){
+    void openPhone() async {
+      if (await canLaunch('tel: ${store.cleanPhone}')) {
         launch('tel: ${store.cleanPhone}');
       } else {
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
+        showError();
       }
     }
 
-    void openMap() async{
+
+
+    void openMap() async {
       try {
         final availableMaps = await MapLauncher.installedMaps;
 
         showModalBottomSheet(
-            context: context, builder: (_){
-          return SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for(final map in availableMaps)
-                  ListTile(
-                    onTap: (){
-                      map.showMarker(coords: Coords(store.address.lat, store.address.long), title: store.name, description: store.addressText);
-                      Navigator.of(context).pop();
-                    },
-                    title: Text(map.mapName),
-                    leading: Image(
-                      image: map.icon,
-                      width: 30,
-                      height: 30,
-                    ),
-                  )
-              ],
-            ),
-          );
-        }
-        );
-      } catch (e){
-
+            context: context,
+            builder: (_) {
+              return SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (final map in availableMaps)
+                      ListTile(
+                        onTap: () {
+                          map.showMarker(
+                              coords:
+                                  Coords(store.address.lat, store.address.long),
+                              title: store.name,
+                              description: store.addressText);
+                          Navigator.of(context).pop();
+                        },
+                        title: Text(map.mapName),
+                        leading: Image(
+                          image: map.icon,
+                          width: 30,
+                          height: 30,
+                        ),
+                      )
+                  ],
+                ),
+              );
+            });
+      } catch (e) {
+        showError();
       }
-
     }
+
+
+
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -80,22 +89,24 @@ class StoreCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.network(store.image, fit: BoxFit.cover,),
+                Image.network(
+                  store.image,
+                  fit: BoxFit.cover,
+                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8))
-                    ),
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(8))),
                     child: Text(
                       store.statusText,
                       style: TextStyle(
                           color: colorForStatus(store.status),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800
-                      ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800),
                     ),
                   ),
                 )
@@ -112,10 +123,12 @@ class StoreCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(store.name, style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 17,
-                      ),
+                      Text(
+                        store.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 17,
+                        ),
                       ),
                       Text(
                         store.addressText,
@@ -152,7 +165,4 @@ class StoreCard extends StatelessWidget {
       ),
     );
   }
-
-
 }
-
