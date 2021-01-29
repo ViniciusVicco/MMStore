@@ -8,7 +8,9 @@ class CardTextField extends StatelessWidget {
     this.hint,
     this.textInputType,
     this.inputFormatters,
-    this.validator
+    this.validator,
+    this.maxLenght,
+    this.textAlign,
   });
 
   final String tittle;
@@ -17,6 +19,8 @@ class CardTextField extends StatelessWidget {
   final TextInputType textInputType;
   final List<TextInputFormatter> inputFormatters;
   final FormFieldValidator<String> validator;
+  final int maxLenght;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class CardTextField extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if(tittle != null)
             Row(
               children: [
                 Text(
@@ -50,13 +55,15 @@ class CardTextField extends StatelessWidget {
 
             TextFormField(
               style: TextStyle(
-                color: Colors.white,
+                color: tittle == null && state.hasError ? Colors.red : Colors.white,
                 fontWeight: bold ? FontWeight.bold :  FontWeight.w500,
               ),
+              cursorColor: Colors.white,
               decoration: InputDecoration(
+                counterText: "",
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: Colors.white.withAlpha(100),
+                  color: tittle == null && state.hasError ? Colors.red.withAlpha(100) : Colors.white.withAlpha(100),
                 ),
                 border: InputBorder.none,
                 isDense: true,
@@ -64,9 +71,12 @@ class CardTextField extends StatelessWidget {
               ),
               keyboardType: textInputType,
               inputFormatters: inputFormatters,
+
               onChanged: (text){
                 state.didChange(text);
               },
+              maxLength: maxLenght,
+              textAlign: textAlign?? TextAlign.start,
             )
           ],
         ),

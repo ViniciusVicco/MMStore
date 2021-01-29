@@ -63,18 +63,18 @@ class CheckoutScreen extends StatelessWidget {
                         if(formKey.currentState.validate()){
                           print("Enviado");
                         }
-                        checkoutManager.checkout(
-                          onSuccess: (order){
-                            //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
-                            Navigator.popUntil(context, (route) => route.settings.name == '/');
-                            //context.read<PageManager>().setPage(2);
-                            Navigator.of(context).pushNamed('/confirmation', arguments: order);
-                          },
-                          onStockFail: (e) {
-                            goToCartScreen();
-
-                          }
-                        );
+//                        checkoutManager.checkout(
+//                          onSuccess: (order){
+//                            //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
+//                            Navigator.popUntil(context, (route) => route.settings.name == '/');
+//                            //context.read<PageManager>().setPage(2);
+//                            Navigator.of(context).pushNamed('/confirmation', arguments: order);
+//                          },
+//                          onStockFail: (e) {
+//                            goToCartScreen();
+//
+//                          }
+//                        );
 
                       },
                     )

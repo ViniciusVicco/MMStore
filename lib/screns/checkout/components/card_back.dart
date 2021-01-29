@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:michellemirandastore/screns/checkout/components/card_text_field.dart';
+
 class CardBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,12 +12,44 @@ class CardBack extends StatelessWidget {
       child: Container(
         height: 200,
         color: const Color(0xFF1B4B52),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              child: Column(
-
-              ),
+            Container(
+              color: Colors.black,
+              height: 40,
+              margin: EdgeInsets.symmetric(vertical: 16),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 70,
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    margin: const EdgeInsets.only(left: 12),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    color: Colors.grey[500],
+                    child: CardTextField(
+                      tittle: "",
+                      hint: '123',
+                      maxLenght: 3,
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter.digitsOnly,
+                      ],
+                      textAlign: TextAlign.end,
+                      textInputType: TextInputType.number,
+                      validator: (cvv) {
+                        if (cvv.length != 3) return 'Inválido';
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 30,
+                  child: Container(),
+                )
+              ],
             )
           ],
         ),
