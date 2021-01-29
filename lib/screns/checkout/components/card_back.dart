@@ -9,6 +9,15 @@ class CardBack extends StatelessWidget {
       child: Container(
         height: 200,
         color: const Color(0xFF1B4B52),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

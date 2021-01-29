@@ -1,17 +1,15 @@
-import 'dart:math';
-
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/price_card.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/checkout_manager.dart';
-import 'package:michellemirandastore/models/page_manager.dart';
+
 import 'package:provider/provider.dart';
 
 import 'components/credit_card_widget.dart';
 
 class CheckoutScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 
   @override
@@ -52,29 +50,36 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                 );
               }
-              return ListView(
-                children: [
-                  CreditCardWidget(
-                  ),
-                  PriceCard(
-                    buttonText: 'Finalizar Pedido',
-                    onPressed: (){
-                      checkoutManager.checkout(
-                        onSuccess: (order){
-                          //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
-                          Navigator.popUntil(context, (route) => route.settings.name == '/');
-                          //context.read<PageManager>().setPage(2);
-                          Navigator.of(context).pushNamed('/confirmation', arguments: order);
-                        },
-                        onStockFail: (e) {
-                          Navigator.popUntil(context, (route) => route.settings.name == '/cart');
+              return Form(
+                key: formKey,
+                child: ListView(
+                  children: [
+                    CreditCardWidget(
 
+                    ),
+                    PriceCard(
+                      buttonText: 'Finalizar Pedido',
+                      onPressed: (){
+                        if(formKey.currentState.validate()){
+                          print("Enviado");
                         }
-                      );
+                        checkoutManager.checkout(
+                          onSuccess: (order){
+                            //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
+                            Navigator.popUntil(context, (route) => route.settings.name == '/');
+                            //context.read<PageManager>().setPage(2);
+                            Navigator.of(context).pushNamed('/confirmation', arguments: order);
+                          },
+                          onStockFail: (e) {
+                            goToCartScreen();
 
-                    },
-                  )
-                ],
+                          }
+                        );
+
+                      },
+                    )
+                  ],
+                ),
               );
             },
           )),
