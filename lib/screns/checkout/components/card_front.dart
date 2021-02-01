@@ -6,6 +6,13 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:michellemirandastore/screns/checkout/components/card_text_field.dart';
 class CardFront extends StatelessWidget {
 
+  final FocusNode numberFocus;
+  final FocusNode dateFocus;
+  final FocusNode nameFocus;
+  final VoidCallback finished;
+
+  CardFront({this.numberFocus,this.dateFocus,this.nameFocus,this.finished});
+
   final MaskTextInputFormatter dateFormartter = MaskTextInputFormatter(
     mask: '!#/####',
     filter: {'#': RegExp('[0-9]'), '!': RegExp('[0-1]')}
@@ -30,6 +37,10 @@ class CardFront extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CardTextField(
+              onSubmitted: (_){
+                dateFocus.requestFocus();
+              },
+              focusNode: numberFocus,
               tittle: 'Número',
               hint: '0000 0000 0000 0000',
               textInputType: TextInputType.number,
@@ -47,6 +58,10 @@ class CardFront extends StatelessWidget {
 
             ),
             CardTextField(
+              onSubmitted: (_){
+                nameFocus.requestFocus();
+              },
+              focusNode: dateFocus,
               tittle: 'Validade',
               hint: '12/2021',
               textInputType: TextInputType.number,
@@ -60,6 +75,10 @@ class CardFront extends StatelessWidget {
               },
             ),
             CardTextField(
+              focusNode: nameFocus,
+              onSubmitted: (_){
+              finished();
+              },
               tittle: 'Titular',
               hint: 'João da Silva',
               bold: true,

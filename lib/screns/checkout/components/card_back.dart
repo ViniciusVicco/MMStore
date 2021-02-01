@@ -3,6 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:michellemirandastore/screns/checkout/components/card_text_field.dart';
 
 class CardBack extends StatelessWidget {
+
+  final FocusNode cvvFocus;
+
+  CardBack({this.cvvFocus});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -30,6 +35,8 @@ class CardBack extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     color: Colors.grey[500],
                     child: CardTextField(
+                      focusNode: cvvFocus,
+
                       tittle: "",
                       hint: '123',
                       maxLenght: 3,
