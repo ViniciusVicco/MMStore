@@ -5,12 +5,12 @@ import 'package:michellemirandastore/models/checkout_manager.dart';
 
 import 'package:provider/provider.dart';
 
+import 'components/cpf_field.dart';
 import 'components/credit_card_widget.dart';
 
 class CheckoutScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class CheckoutScreen extends StatelessWidget {
             centerTitle: true,
           ),
           body: GestureDetector(
-            onTap: (){
+            onTap: () {
               FocusScope.of(context).unfocus();
             },
             child: Consumer<CheckoutManager>(
               builder: (_, checkoutManager, __) {
-                if(checkoutManager.loading){
+                if (checkoutManager.loading) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -43,13 +43,17 @@ class CheckoutScreen extends StatelessWidget {
                         CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         ),
-                        const SizedBox(height: 16,),
-                        Text("Processando seu pagamento...",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16,
-                        ),)
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Processando seu pagamento...",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                          ),
+                        )
                       ],
                     ),
                   );
@@ -58,14 +62,13 @@ class CheckoutScreen extends StatelessWidget {
                   key: formKey,
                   child: ListView(
                     children: [
-                      CreditCardWidget(
-
-                      ),
+                      CreditCardWidget(),
+                      CpfField(),
                       PriceCard(
                         buttonText: 'Finalizar Pedido',
-                        onPressed: (){
-                          if(formKey.currentState.validate()){
-                            print("Enviado");
+                        onPressed: () {
+                          if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
                           }
 //                        checkoutManager.checkout(
 //                          onSuccess: (order){
@@ -79,7 +82,6 @@ class CheckoutScreen extends StatelessWidget {
 //
 //                          }
 //                        );
-
                         },
                       )
                     ],

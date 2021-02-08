@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/admin_orders_manager.dart';
@@ -21,17 +22,23 @@ import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/product.dart';
 
-
-void main(){
+void main() async {
   runApp(MyApp());
+  try {
+    final response = await CloudFunctions.instance
+        .getHttpsCallable(functionName: 'addMessage')
+        .call(
+      {"teste": "Vinicudo"}
+    );
+    print("DATAAAAAAAAAAAAAAA ${response.data}");
+  } catch (e) {
+    print(e);
+  }
 }
 
 class MyApp extends StatelessWidget {
   @override
-
-  
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -45,13 +52,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
-          update: (_, userManager, cartManager) => cartManager..updateUser(userManager),
+          update: (_, userManager, cartManager) =>
+              cartManager..updateUser(userManager),
         ),
         ChangeNotifierProxyProvider<UserManager, OrdersManager>(
-          create: (_) => OrdersManager(),
-          lazy: false,
-          update: (_, userManager, ordersManager) => ordersManager..updateUser(userManager.user)
-        ),
+            create: (_) => OrdersManager(),
+            lazy: false,
+            update: (_, userManager, ordersManager) =>
+                ordersManager..updateUser(userManager.user)),
         ChangeNotifierProvider(
           create: (_) => HomeManager(),
           lazy: false,
@@ -63,83 +71,63 @@ class MyApp extends StatelessWidget {
           create: (_) => AdminUsersManager(),
           lazy: false,
           update: (_, userManager, adminUsersManager) =>
-          adminUsersManager..updateUser(userManager),
+              adminUsersManager..updateUser(userManager),
         ),
-        ChangeNotifierProxyProvider<UserManager,AdminOrdersManager>(
+        ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
           create: (_) => AdminOrdersManager(),
           lazy: false,
-          update: (_, userManager, adminOrdersManager) =>
-          adminOrdersManager..updateAdmin(
-            adminEnabled: userManager.adminEnabled,
-          ),
+          update: (_, userManager, adminOrdersManager) => adminOrdersManager
+            ..updateAdmin(
+              adminEnabled: userManager.adminEnabled,
+            ),
         ),
       ],
       child: MaterialApp(
         title: 'MM Store',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Colors.black,//Para barras
+          primaryColor: Colors.black, //Para barras
           scaffoldBackgroundColor: Colors.red[200], //Para o fundo de telas
           appBarTheme: const AppBarTheme(
             elevation: 0,
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        onGenerateRoute: (settings){
-          switch(settings.name){
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
             case '/signup':
-              return MaterialPageRoute(
-                builder: (_) => SignUpScreen()
-              );
+              return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/select_product':
-              return MaterialPageRoute(
-                  builder: (_) => SelectProductScreen()
-              );
+              return MaterialPageRoute(builder: (_) => SelectProductScreen());
             case '/edit_product':
               return MaterialPageRoute(
-                  builder: (_) => EditProductScreen(
-                    settings.arguments as Product
-                  )
-              );
+                  builder: (_) =>
+                      EditProductScreen(settings.arguments as Product));
             case '/address':
-              return MaterialPageRoute(
-                  builder: (_) => AddressScreen()
-              );
+              return MaterialPageRoute(builder: (_) => AddressScreen());
             case '/cart':
               return MaterialPageRoute(
-                  builder: (_) => CartScreen(),
+                builder: (_) => CartScreen(),
                 settings: settings,
               );
             case '/confirmation':
               return MaterialPageRoute(
-                builder: (_) => ConfirmationScreen(
-             settings.arguments as Order
-                ),
+                builder: (_) => ConfirmationScreen(settings.arguments as Order),
               );
             case '/login':
-              return MaterialPageRoute(
-                  builder: (_) => LoginScreen()
-              );
+              return MaterialPageRoute(builder: (_) => LoginScreen());
             case '/product':
               return MaterialPageRoute(
-                builder: (_) => ProductScreen(
-                  settings.arguments as Product
-                )
-              );
+                  builder: (_) => ProductScreen(settings.arguments as Product));
             case '/checkout':
-              return MaterialPageRoute(
-                  builder: (_) => CheckoutScreen()
-              );
+              return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/':
             default:
               return MaterialPageRoute(
-                  builder: (_) => BaseScreen(),
-                settings: settings
-              );
+                  builder: (_) => BaseScreen(), settings: settings);
           }
         },
       ),
     );
   }
 }
-
