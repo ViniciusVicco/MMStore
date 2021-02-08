@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CardTextField extends StatelessWidget {
-   CardTextField({
+  CardTextField({
     this.tittle,
     this.bold = false,
     this.hint,
@@ -13,7 +13,9 @@ class CardTextField extends StatelessWidget {
     this.textAlign,
     this.focusNode,
     this.onSubmitted,
-  }) : textInputAction = onSubmitted == null ? TextInputAction.done: TextInputAction.next;
+    this.onSaved,
+  }) : textInputAction =
+            onSubmitted == null ? TextInputAction.done : TextInputAction.next;
 
   final String tittle;
   final bool bold;
@@ -26,6 +28,7 @@ class CardTextField extends StatelessWidget {
   final FocusNode focusNode;
   Function Function(String) onSubmitted;
   final TextInputAction textInputAction;
+  final FormFieldSetter<String> onSaved;
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:credit_card_type_detector/credit_card_type_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:michellemirandastore/models/credit_card.dart';
 import 'package:michellemirandastore/screns/checkout/components/card_text_field.dart';
 class CardFront extends StatelessWidget {
 
@@ -10,8 +11,9 @@ class CardFront extends StatelessWidget {
   final FocusNode dateFocus;
   final FocusNode nameFocus;
   final VoidCallback finished;
+  final CreditCard creditCard;
 
-  CardFront({this.numberFocus,this.dateFocus,this.nameFocus,this.finished});
+  CardFront({this.numberFocus,this.dateFocus,this.nameFocus,this.finished, this.creditCard});
 
   final MaskTextInputFormatter dateFormartter = MaskTextInputFormatter(
     mask: '!#/####',
@@ -55,12 +57,13 @@ class CardFront extends StatelessWidget {
                   return 'Cartão Inválido';
                 return null;
               },
-
+              onSaved: creditCard.setNumber,
             ),
             CardTextField(
               onSubmitted: (_){
                 nameFocus.requestFocus();
               },
+              onSaved: creditCard.setExpirationDate,
               focusNode: dateFocus,
               tittle: 'Validade',
               hint: '12/2021',
@@ -79,6 +82,7 @@ class CardFront extends StatelessWidget {
               onSubmitted: (_){
               finished();
               },
+              onSaved: creditCard.setHolder,
               tittle: 'Titular',
               hint: 'João da Silva',
               bold: true,

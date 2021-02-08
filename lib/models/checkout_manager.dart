@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
+import 'package:michellemirandastore/models/credit_card.dart';
 import 'package:michellemirandastore/models/order.dart';
 import 'package:michellemirandastore/models/product.dart';
 
@@ -23,7 +24,7 @@ class CheckoutManager extends ChangeNotifier{
     print(cartManager.productsPrice);
   }
 
-  Future<void> checkout({Function onStockFail, Function onSuccess}) async{
+  Future<void> checkout({Function onStockFail, Function onSuccess, CreditCard creditCard}) async{
     loading = true;
 
     try {
