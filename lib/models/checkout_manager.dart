@@ -4,6 +4,7 @@ import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/credit_card.dart';
 import 'package:michellemirandastore/models/order.dart';
 import 'package:michellemirandastore/models/product.dart';
+import 'package:michellemirandastore/services/cielo_payment.dart';
 
 class CheckoutManager extends ChangeNotifier{
 
@@ -19,6 +20,8 @@ class CheckoutManager extends ChangeNotifier{
 
 
   final Firestore firestore = Firestore.instance;
+  final CieloPayment cieloPayment = CieloPayment();
+
   void updateCart(CartManager cartManager){
     this.cartManager = cartManager;
     print(cartManager.productsPrice);
@@ -27,27 +30,34 @@ class CheckoutManager extends ChangeNotifier{
   Future<void> checkout({Function onStockFail, Function onSuccess, CreditCard creditCard}) async{
     loading = true;
 
-    try {
-     await _decrementStock();
-    } catch(e){
-      onStockFail(e);
-      debugPrint(e.toString());
-      loading = false;
-      return;
-    }
-
-    //TODO: Processar Pagamento
-
     final orderId = await _getOrderId();
+    cieloPayment.autorize(
+      creditCard: creditCard,
+      price: cartManager.totalPrice,
+      orderId: orderId.toString(),
+      user: cartManager.user,
+    );
 
-    final order = Order.fromCartManager(cartManager);
-    order.orderId = orderId.toString();
-
-    await order.save();
-
-    cartManager.clear();
-
-    onSuccess(order);
+//    try {
+//     await _decrementStock();
+//    } catch(e){
+//      onStockFail(e);
+//      debugPrint(e.toString());
+//      loading = false;
+//      return;
+//    }
+//
+//    //TODO: Processar Pagamento
+//
+//
+//    final order = Order.fromCartManager(cartManager);
+//    order.orderId = orderId.toString();
+//
+//    await order.save();
+//
+//    cartManager.clear();
+//
+//    onSuccess(order);
     loading = false;
 
   }
