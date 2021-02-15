@@ -35,6 +35,7 @@ class CardTextField extends StatelessWidget {
     return FormField<String>(
       initialValue: '',
       validator: validator,
+      onSaved: onSaved,
       builder: (state) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),

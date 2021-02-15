@@ -64,31 +64,28 @@ class CheckoutScreen extends StatelessWidget {
                   key: formKey,
                   child: ListView(
                     children: [
-                      CreditCardWidget(
-                        creditCard: creditCard,
-                      ),
+                      CreditCardWidget(creditCard),
                       CpfField(),
                       PriceCard(
-                        buttonText: 'Finalizar Pedido',
-                        onPressed: () {
-                          if (formKey.currentState.validate()) {
-                            formKey.currentState.save();
-                          }
-                          checkoutManager.checkout(
-                              creditCard: creditCard,
-                              onSuccess: (order) {
-                                //TODO: criar uma página de sucesso informando o produto e para onde ele está indo
-                                Navigator.popUntil(context,
-                                    (route) => route.settings.name == '/');
-                                //context.read<PageManager>().setPage(2);
-                                Navigator.of(context).pushNamed('/confirmation',
-                                    arguments: order);
-                              },
-                              onStockFail: (e) {
-                                goToCartScreen();
-                              });
-                        },
-                      )
+                          buttonText: 'Finalizar Pedido',
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              formKey.currentState.save();
+                              print(creditCard);
+                              checkoutManager.checkout(
+                                  creditCard: creditCard,
+                                  onSuccess: (order) {
+                                    Navigator.popUntil(context,
+                                        (route) => route.settings.name == '/');
+                                    Navigator.of(context).pushNamed(
+                                        '/confirmation',
+                                        arguments: order);
+                                  },
+                                  onStockFail: (e) {
+                                    goToCartScreen();
+                                  });
+                            }
+                          })
                     ],
                   ),
                 );

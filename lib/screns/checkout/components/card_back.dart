@@ -47,7 +47,12 @@ class CardBack extends StatelessWidget {
                       textAlign: TextAlign.end,
                       textInputType: TextInputType.number,
                       validator: (cvv) {
-                        if (cvv.length != 3) return 'Inválido';
+                        if(cvv.isEmpty){
+                          return 'Inválido';
+                        }
+                        if (cvv.length != 3) {
+                          return 'Inválido';
+                        }
                         return null;
                       },
                     ),

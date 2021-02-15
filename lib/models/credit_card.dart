@@ -13,17 +13,17 @@ class CreditCard {
   void setCVV(String cvv) => securityCode = cvv;
   void setNumber(String number) {
     this.number = number;
-    brand = detectCCType(number.replaceAll(' ', '')).toString();
+    brand = detectCCType(number.replaceAll(' ', '')).toString().toUpperCase().split(".").last;
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
-      'cardNumber': number.replaceAll(' ', '').toString(),
+      'cardNumber': number.replaceAll(' ', ''),
       'holder': holder,
       'expirationDate': expirationDate,
+      'securityCode': securityCode,
       'brand': brand,
     };
-
   }
 
   @override

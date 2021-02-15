@@ -8,7 +8,7 @@ import 'package:michellemirandastore/screns/checkout/components/card_front.dart'
 class CreditCardWidget extends StatefulWidget {
 
   final CreditCard creditCard;
-  CreditCardWidget({this.creditCard});
+  const CreditCardWidget(this.creditCard);
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }

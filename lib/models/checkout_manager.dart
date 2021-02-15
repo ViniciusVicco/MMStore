@@ -30,6 +30,7 @@ class CheckoutManager extends ChangeNotifier{
   Future<void> checkout({Function onStockFail, Function onSuccess, CreditCard creditCard}) async{
     loading = true;
 
+    print(creditCard.toJson());
     final orderId = await _getOrderId();
     cieloPayment.autorize(
       creditCard: creditCard,
