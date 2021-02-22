@@ -9,14 +9,14 @@ class CieloPayment {
   void autorize({CreditCard creditCard, num price, String orderId, User user}) async{
     final Map<String, dynamic> dataSale = {
       'merchantOrderId': orderId,
-      'amount': (price*100).toInt(),
+      'amount': (price * 100).toInt(),
       'softDescriptor': 'MM Store',
       'installments': 1,
       'creditCard': creditCard.toJson(),
       'cpf': user.cpf,
       'paymentType': 'CreditCard',
     };
-    final HttpsCallable callable = functions.getHttpsCallable(functionName: 'autorizeCreditCard');
+    final HttpsCallable callable = functions.getHttpsCallable(functionName: 'authorizeCreditCard');
     final response = await callable.call(dataSale);
     print(response.data);
   }

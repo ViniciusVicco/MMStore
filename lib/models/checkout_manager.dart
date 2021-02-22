@@ -29,36 +29,41 @@ class CheckoutManager extends ChangeNotifier{
 
   Future<void> checkout({Function onStockFail, Function onSuccess, CreditCard creditCard}) async{
     loading = true;
-    print(creditCard.toJson());
-    // final orderId = await _getOrderId();
-    // cieloPayment.autorize(
-    //   creditCard: creditCard,
-    //   price: cartManager.totalPrice,
-    //   orderId: orderId.toString(),
-    //   user: cartManager.user,
-    // );
 
-//    try {
-//     await _decrementStock();
-//    } catch(e){
-//      onStockFail(e);
-//      debugPrint(e.toString());
-//      loading = false;
-//      return;
-//    }
-//
+    final orderId = await _getOrderId();
+    print(orderId);
 
-//    //TODO: Processar Pagamento, caputrar pagamento
-//
-//
-//    final order = Order.fromCartManager(cartManager);
-//    order.orderId = orderId.toString();
-//
-//    await order.save();
-//
-//    cartManager.clear();
-//
-//    onSuccess(order);
+    print("${cartManager.totalPrice}, ${cartManager.user}, $creditCard, $orderId");
+
+
+    cieloPayment.autorize(
+      creditCard: creditCard,
+      price: cartManager.totalPrice,
+      orderId: orderId.toString(),
+      user: cartManager.user,
+    );
+
+   // try {
+   //  await _decrementStock();
+   // } catch(e){
+   //   onStockFail(e);
+   //   debugPrint(e.toString());
+   //   loading = false;
+   //   return;
+   // }
+
+
+   //TODO: Processar Pagamento, caputrar pagamento
+
+
+   final order = Order.fromCartManager(cartManager);
+   order.orderId = orderId.toString();
+
+   await order.save();
+
+   cartManager.clear();
+
+   onSuccess(order);
     loading = false;
 
   }
