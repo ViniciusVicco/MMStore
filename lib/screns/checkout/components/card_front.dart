@@ -39,6 +39,7 @@ class CardFront extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CardTextField(
+              initialValue: creditCard.number,
               onSubmitted: (_){
                 dateFocus.requestFocus();
               },
@@ -60,6 +61,7 @@ class CardFront extends StatelessWidget {
               onSaved: creditCard.setNumber,
             ),
             CardTextField(
+              initialValue: creditCard.expirationDate,
               onSubmitted: (_){
                 nameFocus.requestFocus();
               },
@@ -78,6 +80,7 @@ class CardFront extends StatelessWidget {
               },
             ),
             CardTextField(
+              initialValue: creditCard.holder,
               focusNode: nameFocus,
               onSubmitted: (_){
               finished();

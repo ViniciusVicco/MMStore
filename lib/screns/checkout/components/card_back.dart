@@ -36,6 +36,7 @@ class CardBack extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     color: Colors.grey[500],
                     child: CardTextField(
+                      initialValue: creditCard.securityCode,
                       focusNode: cvvFocus,
                       onSaved: creditCard.setCVV,
                       tittle: "",

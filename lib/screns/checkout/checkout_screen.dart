@@ -81,6 +81,14 @@ class CheckoutScreen extends StatelessWidget {
                                         '/confirmation',
                                         arguments: order);
                                   },
+                                  onPayFail: (e){
+                                    scaffoldKey.currentState.showSnackBar(
+                                      SnackBar(
+                                        content: Text("$e"),
+                                        backgroundColor: Colors.red,
+                                      )
+                                    );
+                                  },
                                   onStockFail: (e) {
                                     goToCartScreen();
                                   });
