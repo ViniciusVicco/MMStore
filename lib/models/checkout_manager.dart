@@ -36,9 +36,9 @@ class CheckoutManager extends ChangeNotifier{
     loading = true;
 
     final orderId = await _getOrderId();
-
+    String payId;
     try {
-    String payId = await cieloPayment.autorize(
+    payId = await cieloPayment.autorize(
       creditCard: creditCard,
       price: cartManager.totalPrice,
       orderId: orderId.toString(),
@@ -51,27 +51,32 @@ class CheckoutManager extends ChangeNotifier{
     return;
     }
 
-   // try {
-   //  await _decrementStock();
-   // } catch(e){
-   //   onStockFail(e);
-   //   debugPrint(e.toString());
-   //   loading = false;
-   //   return;
-   // }
+   try {
+    await _decrementStock();
+   } catch(e){
+     onStockFail(e);
+     debugPrint(e.toString());
+     loading = false;
+     return;
+   }
 
 
-   //TODO: Processar Pagamento, caputrar pagamento
+   
+   try {
+     await cieloPayment.capture(payId);
+   }catch(e){
+      onPayFail(e);
+      loading = false;
+      return;
+   }
+   final order = Order.fromCartManager(cartManager);
+   order.orderId = orderId.toString();
 
+   await order.save();
 
-   // final order = Order.fromCartManager(cartManager);
-   // order.orderId = orderId.toString();
-   //
-   // await order.save();
-   //
-   // cartManager.clear();
-   //
-   // onSuccess(order);
+   cartManager.clear();
+
+   onSuccess(order);
     loading = false;
 
   }

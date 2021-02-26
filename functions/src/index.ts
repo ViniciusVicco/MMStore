@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands } from 'cielo';
+import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands, CaptureRequestModel } from 'cielo';
 
 admin.initializeApp();
 
@@ -176,6 +176,62 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
     }
 
 });
+
+
+
+export const captureCreditCard = functions.https.onCall(async (data, context) => {
+    if(data === null){
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Dados não informados"
+            }
+        };
+    }
+
+    if(!context.auth){
+        return {
+            "success": false,
+            "error": {
+                "code": -1,
+                "message": "Nenhum usuário logado"
+            }
+        };
+    }
+    const captureParams: CaptureRequestModel = {
+        paymentId: data.payId,
+    };
+
+    try {
+        const capture = await cielo.creditCard.captureSaleTransaction(captureParams);
+        if(capture.status === 2){
+            return {"sucess": true};
+        } else {
+            return {
+                "success": false,
+                "status": capture.status,
+                "error": {
+                    "code": capture.returnCode,
+                    "message": capture.returnMessage,
+                }
+        };
+        }
+    }
+    catch(error){
+        console.log("Error",error);
+        return {
+            "sucess": false,
+            "error": {
+                "code": error.response[0].Message,
+                "message": error.response[0].Message,
+            }
+        }
+
+    }
+});
+
+
 
 export const getUserData = functions.https.onCall(async (data, context) => {
     if (!context.auth) {
