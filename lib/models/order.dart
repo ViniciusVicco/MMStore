@@ -36,6 +36,7 @@ class Order {
     address = Address.fromMap(doc.data['address'] as Map<String, dynamic>);
     date = doc.data['date'] as Timestamp;
     status = Status.values[doc.data['status'] as int];
+    payId = doc.data['payId'] as String;
   }
 
   void updateFromDocument(DocumentSnapshot doc){
@@ -53,6 +54,7 @@ class Order {
           'address': address.toMap(),
           'status': status.index,
           'date': Timestamp.now(),
+          'payId': payId,
         }
     );
   }
@@ -66,6 +68,8 @@ class Order {
   String toString() {
     return 'Order{firestore: $firestore, orderId: $orderId, items: $items, price: $price, userId: $userId, address: $address, date: $date}';
   }
+
+  String payId;
 
   num price;
 

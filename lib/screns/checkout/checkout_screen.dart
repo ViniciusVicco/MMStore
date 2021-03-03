@@ -82,6 +82,7 @@ class CheckoutScreen extends StatelessWidget {
                                         arguments: order);
                                   },
                                   onPayFail: (e){
+                                    if(!(e == null))
                                     scaffoldKey.currentState.showSnackBar(
                                       SnackBar(
                                         content: Text("$e"),

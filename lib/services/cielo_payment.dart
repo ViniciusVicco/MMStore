@@ -40,12 +40,16 @@ class CieloPayment {
     final Map<String, dynamic> captureData = {
       'payId': payId
     };
-    final HttpsCallable callable = functions.getHttpsCallable(functionName: 'captureCreditCard');
+    final HttpsCallable callable = functions.getHttpsCallable(
+        functionName: 'captureCreditCard'
+    );
     final response = await callable.call(captureData);
     final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
-    if (data['sucess'] as bool) {
+
+    if (data['success'] as bool) {
       return;
     } else {
+      debugPrint('${data['error']['message']}');
       return Future.error(data['error']['message']);
     }
   }

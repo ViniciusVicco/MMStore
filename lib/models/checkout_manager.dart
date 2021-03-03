@@ -61,16 +61,18 @@ class CheckoutManager extends ChangeNotifier{
    }
 
 
-   
-   try {
-     await cieloPayment.capture(payId);
-   }catch(e){
+
+    try {
+      await cieloPayment.capture(payId);
+    } catch (e){
       onPayFail(e);
       loading = false;
       return;
-   }
+    }
+
    final order = Order.fromCartManager(cartManager);
    order.orderId = orderId.toString();
+   order.payId = payId;
 
    await order.save();
 

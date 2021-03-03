@@ -47,14 +47,6 @@ class ImagesForm extends StatelessWidget {
                         icon: Icon(Icons.remove),
                         color: Colors.red,
                         onPressed: (){
-//                        if(state.value.length==1){
-//                          print("Não pode remover a única imagem");
-//                          return;
-//                        }
-//                        else{
-//                          state.value.remove(image);
-//                          state.didChange(state.value);
-//                        }
                           state.value.remove(image);
                           state.didChange(state.value);
                         },
