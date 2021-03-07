@@ -46,8 +46,33 @@ class CieloPayment {
     final response = await callable.call(captureData);
     final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
 
-    if (data['success'] as bool) {
-      return;
+    if (data['success'] == null) {
+      print("Nullo no na captura");
+
+      if (data['success'] as bool) {
+        debugPrint('Captura feita com sucesso');
+      } else {
+        debugPrint('${data['error']['message']}');
+        return Future.error(data['error']['message']);
+      }
+    }
+  }
+
+  Future<void> cancel(String payId) async {
+    final Map<String, dynamic> cancelData = {
+      'payId': payId
+    };
+    final HttpsCallable callable = functions.getHttpsCallable(
+        functionName: 'cancelCreditCard'
+    );
+    final response = await callable.call(cancelData);
+    final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
+    if(data['success'] == null){
+      print("Nullo no cancelamento");
+    }
+    if (data['success'] as bool) {//Problema no metodo de captura, provavelmente function
+      debugPrint('Cancelamento feito com sucesso');
+
     } else {
       debugPrint('${data['error']['message']}');
       return Future.error(data['error']['message']);

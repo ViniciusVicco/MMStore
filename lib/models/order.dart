@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:michellemirandastore/models/address.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/cart_product.dart';
+import 'package:michellemirandastore/services/cielo_payment.dart';
 
 enum Status {
   canceled,
@@ -39,11 +40,13 @@ class Order {
     payId = doc.data['payId'] as String;
   }
 
+  final firestore = Firestore.instance;
+
   void updateFromDocument(DocumentSnapshot doc){
     status = Status.values[doc.data['status'] as int];
   }
 
-  final firestore = Firestore.instance;
+
 
   Future<void> save() async {
     firestore.collection('orders').document(orderId).setData(
@@ -106,13 +109,6 @@ class Order {
       status = Status.values[status.index-1];
       updateStatusQuerry(status.index);
     }: null;
-
-
-  }
-
-  void cancel(){
-    status = Status.canceled;
-    updateStatusQuerry(status.index);
   }
 
   Function() get advance{
@@ -120,9 +116,19 @@ class Order {
         () {
       status = Status.values[status.index+1];
       updateStatusQuerry(status.index);
-        }: null;
-
-
+    }: null;
   }
+
+  Future<void> cancel() async {
+    try {
+      await CieloPayment().cancel(payId);
+      status = Status.canceled;
+      updateStatusQuerry(status.index);
+    } catch(e){
+
+    }
+  }
+
+
 
 }
