@@ -50,7 +50,6 @@ class CieloPayment {
       print("Nullo no na captura");
 
       if (data['success'] as bool) {
-        debugPrint('Captura feita com sucesso');
       } else {
         debugPrint('${data['error']['message']}');
         return Future.error(data['error']['message']);
@@ -71,7 +70,7 @@ class CieloPayment {
       print("Nullo no cancelamento");
     }
     if (data['success'] as bool) {//Problema no metodo de captura, provavelmente function
-      debugPrint('Cancelamento feito com sucesso');
+
 
     } else {
       debugPrint('${data['error']['message']}');

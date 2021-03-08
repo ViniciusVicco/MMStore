@@ -101,10 +101,6 @@ class CheckoutManager extends ChangeNotifier{
   }
 
   Future<void> _decrementStock(){
-    // 1. Ler todos os estoques 3xM	    // 1. Ler todos os estoques 3xM
-    // 2. Decremento localmente os estoques 2xM	    // 2. Decremento localmente os estoques 2xM
-    // 3. Salvar os estoques no firebase 2xM	    // 3. Salvar os estoques no firebase 2xM
-
     return firestore.runTransaction((tx) async {
       final List<Product> productsToUpdate = [];
       final List<Product> productsWithoutStock = [];
