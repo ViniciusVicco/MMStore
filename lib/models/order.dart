@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:michellemirandastore/models/address.dart';
 import 'package:michellemirandastore/models/cart_manager.dart';
 import 'package:michellemirandastore/models/cart_product.dart';
@@ -125,7 +126,8 @@ class Order {
       status = Status.canceled;
       updateStatusQuerry(status.index);
     } catch(e){
-
+      debugPrint('Erro ao cancelar');
+      return Future.error("Falha ao cancelar");
     }
   }
 

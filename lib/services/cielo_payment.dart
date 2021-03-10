@@ -70,7 +70,7 @@ class CieloPayment {
       print("Nullo no cancelamento");
     }
     if (data['success'] as bool) {//Problema no metodo de captura, provavelmente function
-
+      debugPrint('Cancelamento realizado com sucesso');
 
     } else {
       debugPrint('${data['error']['message']}');
