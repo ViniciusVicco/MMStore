@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/common/custom_icon_button.dart';
 import 'package:michellemirandastore/models/home_manager.dart';
@@ -23,6 +22,7 @@ class SectionHeader extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormField(
+              autocorrect: false,
               initialValue: section.name,
               decoration: const InputDecoration(
                   hintText: "Titulo",
