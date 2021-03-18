@@ -1,16 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:michellemirandastore/helpers/validators.dart';
 import 'package:michellemirandastore/models/user.dart';
 import 'package:michellemirandastore/models/user_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:michellemirandastore/helpers/validators.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool senhaOculta = true;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +28,9 @@ class LoginScreen extends StatelessWidget {
       key: scaffoldKey,
       appBar: AppBar(
         title: const CircleAvatar(
-          radius: 25,
-          backgroundImage: AssetImage('assets/iconLoja.jpg'),
+          backgroundColor: Colors.white,
+          radius: 27,
+          backgroundImage: AssetImage('assets/logo.png'),
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -41,11 +52,12 @@ class LoginScreen extends StatelessWidget {
           child: Form(
             key: globalKey,
             child: Consumer<UserManager>(builder: (_, userManager, __) {
-              if(userManager.loadingFace)
+              if (userManager.loadingFace)
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Theme.of(context).scaffoldBackgroundColor),
+                    valueColor: AlwaysStoppedAnimation(
+                        Theme.of(context).scaffoldBackgroundColor),
                   ),
                 );
               return ListView(
@@ -53,7 +65,6 @@ class LoginScreen extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   TextFormField(
-                    // CAMPO E_MAIL
                     enabled: !userManager.loading,
                     controller: emailController,
                     decoration: const InputDecoration(hintText: 'E-mail'),
@@ -70,14 +81,13 @@ class LoginScreen extends StatelessWidget {
                     height: 14,
                   ),
                   TextFormField(
-                    // CAMPO SENHA
                     enabled: !userManager.loading,
                     decoration: const InputDecoration(
                         hintText: 'Senha', alignLabelWithHint: true),
                     controller: passwordController,
                     keyboardType: TextInputType.text,
                     autocorrect: false,
-                    obscureText: true,
+                    obscureText: senhaOculta,
                     validator: (senha) {
                       if (!senhaValid(senha)) {
                         return 'Senha Inválida';
@@ -85,27 +95,33 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Row(children: [
-                      InkWell(
-                        onTap: () {
-                          print("Senha Não oculta");
-                        },
-                        child: Row(
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             IconButton(
-                              icon: Icon(
-                                Icons.remove_red_eye,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              onPressed: () {},
+                              icon: senhaOculta
+                                  ? Icon(
+                                      Icons.lock_open_rounded,
+                                      color: Theme.of(context).primaryColor,
+                                    )
+                                  : Icon(
+                                      Icons.lock_outline,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  this.senhaOculta = !senhaOculta;
+                                });
+                              },
                             ),
                             SizedBox(
                               width: 140,
                               child: Text(
-                                "Ocultar Senha",
+              senhaOculta? "Exibir Senha" : "Ocultar Senha",
                                 style: TextStyle(
                                   color: Theme.of(context).primaryColor,
                                 ),
@@ -113,9 +129,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ]),
-                  ),
+                      ]),
                   SizedBox(
                     height: 10,
                   ),
@@ -146,8 +160,7 @@ class LoginScreen extends StatelessWidget {
                     child: SizedBox(
                       child: userManager.loading
                           ? CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation(Colors.white),
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
                             )
                           : const Text(
                               "Entrar",
@@ -159,23 +172,17 @@ class LoginScreen extends StatelessWidget {
                     ),
                     color: Theme.of(context).primaryColor,
                   ),
-                  SignInButton(Buttons.Facebook,
-                      text: "Entrar Com Facebook",
-                      onPressed: (){
-                       userManager.facebookLogin(
-                           onFail: (e){
-                             scaffoldKey.currentState.showSnackBar(
-                                 SnackBar(
-                                   content: Text('Falha ao entrar: $e'),
-                                   backgroundColor: Colors.red,
-                                 )
-                             );
-                           },
-                           onSuccess: (){
-                             Navigator.of(context).pushNamed('/');
-                             //TODO: AJustar o login com facebook para redirecionar pagina
-                           }
-                       );
+                  SignInButton(Buttons.Facebook, text: "Entrar Com Facebook",
+                      onPressed: () {
+                    userManager.facebookLogin(onFail: (e) {
+                      scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: Text('Falha ao entrar: $e'),
+                        backgroundColor: Colors.red,
+                      ));
+                    }, onSuccess: () {
+                      Navigator.of(context).pushNamed('/');
+                      //TODO: AJustar o login com facebook para redirecionar pagina
+                    });
                   })
                 ],
               );

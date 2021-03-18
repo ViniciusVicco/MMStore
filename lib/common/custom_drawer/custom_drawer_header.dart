@@ -22,7 +22,9 @@ class CustomDrawerHeader extends StatelessWidget {
            fontSize: 34
          ),
          ),
-           Text('Olá, ${userManager.user?.name ?? ''}',
+           Text(userManager.isLoggedIn ?
+           'Olá, ${userManager.user?.name ?? ''}':
+           'Podemos te ajudar ?',
              overflow: TextOverflow.ellipsis, //Limita o nome que será mostrado em tela
              maxLines: 2,
              style: TextStyle(
@@ -45,7 +47,7 @@ class CustomDrawerHeader extends StatelessWidget {
              child: Text(
                userManager.isLoggedIn
                    ? 'Sair'
-                   : 'Entre ou Cadastre-se >',
+                   : 'Entre ou Cadastre-se aqui',
                style: TextStyle(
                  color: Theme.of(context).scaffoldBackgroundColor,
                  fontSize: 16,

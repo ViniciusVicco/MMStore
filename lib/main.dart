@@ -17,6 +17,7 @@ import 'package:michellemirandastore/screns/confirmation/confirmation_screen.dar
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
+import 'package:michellemirandastore/screns/products/products_screen.dart';
 import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
@@ -24,16 +25,8 @@ import 'models/product.dart';
 
 void main() async {
   runApp(MyApp());
-  try {
-    final response = await CloudFunctions.instance
-        .getHttpsCallable(functionName: 'addMessage')
-        .call(
-      {"teste": "Vinicudo"}
-    );
-    print("DATAAAAAAAAAAAAAAA ${response.data}");
-  } catch (e) {
-    print(e);
-  }
+
+
 }
 
 class MyApp extends StatelessWidget {

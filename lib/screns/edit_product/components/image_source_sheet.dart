@@ -18,6 +18,7 @@ class ImageSourceSheet extends StatelessWidget {
 
     Future<void> editImage(String path) async{
       final File croppedFile = await ImageCropper.cropImage(
+        compressQuality: 75,
           sourcePath: path,
           aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
           androidUiSettings: AndroidUiSettings(
@@ -45,7 +46,7 @@ class ImageSourceSheet extends StatelessWidget {
             FlatButton(
               onPressed: () async{
 
-                final PickedFile pickedfile = await picker.getImage(source: ImageSource.camera);
+                final PickedFile pickedfile = await picker.getImage(imageQuality: 25,source: ImageSource.camera);
                 if(pickedfile == null){
                   return;
                 }
@@ -59,7 +60,7 @@ class ImageSourceSheet extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () async{
-                final PickedFile pickedfile = await picker.getImage(source: ImageSource.gallery);
+                final PickedFile pickedfile = await picker.getImage(imageQuality: 25,source: ImageSource.gallery);
                 if(pickedfile == null){
                   return;
                 }
