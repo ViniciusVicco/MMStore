@@ -90,8 +90,8 @@ class SignUpScreen extends StatelessWidget {
                     const SizedBox(height: 16,),
                     RaisedButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      color: Theme.of(context).primaryColor,
-                      disabledColor: Theme.of(context).primaryColor.withAlpha(100),
+                      color: Theme.of(context).accentColor,
+                      disabledColor: Theme.of(context).accentColor.withAlpha(100),
                       textColor: Colors.white,
                       onPressed: userManager.loading ? null :() {
                         if(formKey.currentState.validate()){

@@ -11,7 +11,7 @@ class StoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme.of(context).primaryColor;
+    Color accentColor = Theme.of(context).accentColor;
 
     Color colorForStatus(StoreStatus status) {
       switch (status) {
@@ -148,12 +148,12 @@ class StoreCard extends StatelessWidget {
                   children: [
                     CustomIconButton(
                       iconData: Icons.map,
-                      color: primaryColor,
+                      color: accentColor,
                       onTap: openMap,
                     ),
                     CustomIconButton(
                       iconData: Icons.phone,
-                      color: primaryColor,
+                      color: accentColor,
                       onTap: openPhone,
                     )
                   ],

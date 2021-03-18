@@ -58,7 +58,7 @@ class ImagesForm extends StatelessWidget {
                 Material(
                   color: Colors.grey[100],
                   child: IconButton(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                     iconSize: 50,
                     icon: Icon(Icons.add_a_photo),
                     onPressed: (){
@@ -72,7 +72,7 @@ class ImagesForm extends StatelessWidget {
               ),
               dotSize: 4,
               dotSpacing: 15,
-              dotBgColor: Theme.of(context).primaryColor,
+              dotBgColor: Theme.of(context).accentColor,
               dotColor: Colors.white,
               autoplay: false, // AutoPlay
             ),

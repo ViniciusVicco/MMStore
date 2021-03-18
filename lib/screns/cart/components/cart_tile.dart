@@ -57,7 +57,7 @@ class CartTile extends StatelessWidget {
                                 style: TextStyle(
                                   color: Theme
                                       .of(context)
-                                      .primaryColor,
+                                      .accentColor,
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -85,7 +85,7 @@ class CartTile extends StatelessWidget {
                       children: <Widget>[
                         CustomIconButton(
                         iconData: Icons.add,
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).accentColor,
                           onTap: cartProduct.increment,
                         ),
                         Text(
@@ -94,7 +94,7 @@ class CartTile extends StatelessWidget {
                         ),
                         CustomIconButton(
                         iconData: Icons.remove,
-                    color: cartProduct.quantity > 1 ? Theme.of(context).primaryColor : Colors.red,
+                    color: cartProduct.quantity > 1 ? Theme.of(context).accentColor : Colors.red,
                     onTap: cartProduct.decrement,
                         ),
                     ]

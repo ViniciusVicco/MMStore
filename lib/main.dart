@@ -79,7 +79,8 @@ class MyApp extends StatelessWidget {
         title: 'MM Store',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Colors.black, //Para barras
+          primaryColor: Colors.white,
+          accentColor: Colors.black,//Para barras
           scaffoldBackgroundColor: Colors.red[200], //Para o fundo de telas
           appBarTheme: const AppBarTheme(
             elevation: 0,

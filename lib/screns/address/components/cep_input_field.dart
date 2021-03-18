@@ -74,7 +74,7 @@ class _CepInputFieldState extends State<CepInputField> {
               }
             }: null,
             textColor: Colors.white,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             child: Text(
               'Buscar Cep',
               style: TextStyle(color: Colors.white),
@@ -91,7 +91,7 @@ class _CepInputFieldState extends State<CepInputField> {
               child: Text(
                 'CEP: ${widget.address.zipCode}',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).accentColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
@@ -100,7 +100,7 @@ class _CepInputFieldState extends State<CepInputField> {
             CustomIconButton(
               iconData: Icons.edit,
               size: 24,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).accentColor,
               onTap: () {
                 context.read<CartManager>().removeAddres();
               },

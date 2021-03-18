@@ -106,11 +106,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               icon: senhaOculta
                                   ? Icon(
                                       Icons.lock_open_rounded,
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme.of(context).accentColor,
                                     )
                                   : Icon(
                                       Icons.lock_outline,
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme.of(context).accentColor,
                                     ),
                               onPressed: () {
                                 setState(() {
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
               senhaOculta? "Exibir Senha" : "Ocultar Senha",
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).accentColor,
                                 ),
                               ),
                             ),
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                   ),
                   SignInButton(Buttons.Facebook, text: "Entrar Com Facebook",
                       onPressed: () {

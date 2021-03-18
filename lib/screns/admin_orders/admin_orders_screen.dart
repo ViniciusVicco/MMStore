@@ -106,7 +106,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                     child: Text(
                       'Filtros',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).accentColor,
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
                       ),
@@ -120,7 +120,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                       return CheckboxListTile(
                         title: Text(Order.getStatusText(s)),
                         dense: true,
-                        activeColor: Theme.of(context).primaryColor,
+                        activeColor: Theme.of(context).accentColor,
                         value: ordersManager.statusFilter.contains(s),
                         onChanged: (v){
                           ordersManager.setStatusFilter(

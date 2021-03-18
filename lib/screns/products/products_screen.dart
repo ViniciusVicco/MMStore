@@ -13,10 +13,12 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.transparent,
         title: Consumer<ProductManager>(
           builder: (_,productManager,__){
             if(productManager.search.isEmpty){
-              return const Text('Produtos');
+              return const Text('Produtos',style: TextStyle(color: Colors.white),);
             } else{
               return LayoutBuilder(
                 builder: (_,constraints){
@@ -46,7 +48,7 @@ class ProductsScreen extends StatelessWidget {
             builder: (_, productManager, __){
               if(productManager.search.isEmpty){
                 return IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.search,color: Colors.white,),
                   onPressed: () async {
                     final search = await showDialog<String>(context: context, builder:  (_) => SearchDialog(productManager.search)); //Dialog aparecerá por cima da tela
                     if(search != null){

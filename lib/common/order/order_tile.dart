@@ -17,7 +17,7 @@ class OrderTile extends StatelessWidget {
   final Order order;
   final bool showControls;
   Widget build(BuildContext context) {
-    final primaryCollor = Theme.of(context).primaryColor;
+    final primaryCollor = Theme.of(context).accentColor;
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ExpansionTile(
@@ -92,7 +92,7 @@ class OrderTile extends StatelessWidget {
                       builder: (_) => ExportAddressDialog(address: order.address,scaffoldKey: scaffoldKey,),
                     );
                   },
-                    child: Text("Endereço", style: TextStyle(color: Theme.of(context).primaryColor),),
+                    child: Text("Endereço", style: TextStyle(color: Theme.of(context).accentColor),),
                   ),
 
                 ],

@@ -23,7 +23,7 @@ class ImageSourceSheet extends StatelessWidget {
           aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
           androidUiSettings: AndroidUiSettings(
             toolbarTitle: "Editar Imagem",
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).accentColor,
           ),
         iosUiSettings: const IOSUiSettings(
           title: "Editar Imagem",

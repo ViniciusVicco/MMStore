@@ -19,7 +19,7 @@ class EditProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
+    final accentColor = Theme.of(context).accentColor;
 
     return WillPopScope(
       onWillPop: () {
@@ -92,7 +92,7 @@ class EditProductScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w800,
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).accentColor),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 16, bottom: 8),
@@ -148,8 +148,8 @@ class EditProductScreen extends StatelessWidget {
                                 }
                               } : null,
                               textColor: Colors.white,
-                              color: primaryColor,
-                              disabledColor: primaryColor.withAlpha(100),
+                              color: accentColor,
+                              disabledColor: accentColor.withAlpha(100),
                               child: product.loading
                                   ? CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation(Colors.white),

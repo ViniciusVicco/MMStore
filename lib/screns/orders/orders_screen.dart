@@ -14,8 +14,10 @@ class OrdersScreen extends StatelessWidget {
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text("Meus Pedidos"),
+        title: Text("Meus Pedidos",style: TextStyle(color: Colors.white),),
       ),
       body: Consumer<OrdersManager>(
         builder: (_,ordersManager,__){

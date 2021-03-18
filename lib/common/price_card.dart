@@ -60,7 +60,7 @@ class PriceCard extends StatelessWidget {
                 Text(
                   'R\$ ${totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                     fontSize: 16,
                   ),
                 )
@@ -68,8 +68,8 @@ class PriceCard extends StatelessWidget {
             ),
             const SizedBox(height: 8,),
             RaisedButton(
-              color: Theme.of(context).primaryColor,
-              disabledColor: Theme.of(context).primaryColor.withAlpha(100),
+              color: Theme.of(context).accentColor,
+              disabledColor: Theme.of(context).accentColor.withAlpha(100),
               textColor: Colors.white,
               onPressed: onPressed,
               child: Text(buttonText),

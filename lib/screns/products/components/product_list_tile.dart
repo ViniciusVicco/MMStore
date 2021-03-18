@@ -55,7 +55,7 @@ class ProductListTile extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w800,
-                          color: Theme.of(context).primaryColor
+                          color: Theme.of(context).accentColor
                       ),
                     ),
                     if(!product.hasStock)

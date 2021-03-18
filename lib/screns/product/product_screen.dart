@@ -14,7 +14,7 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
+    final accentColor = Theme.of(context).accentColor;
     return ChangeNotifierProvider.value(
       // Create é pra criar um objeto.
       // .Value é para fornecer um objeto já existente.
@@ -51,7 +51,7 @@ class ProductScreen extends StatelessWidget {
                 images: product.images.map((url) => NetworkImage(url)).toList(),
                 dotSize: 4,
                 dotSpacing: 15,
-                dotBgColor: primaryColor,
+                dotBgColor: accentColor,
                 dotColor: Colors.white,
                 autoplay: false, // AutoPlay
               ),
@@ -85,7 +85,7 @@ class ProductScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
-                      color: primaryColor,
+                      color: accentColor,
                     ),
                   ),
                   if(product.hasStock==false)
@@ -165,7 +165,7 @@ class ProductScreen extends StatelessWidget {
                                     }
                                   }
                                 : null,
-                            color: primaryColor,
+                            color: accentColor,
                             textColor: Colors.white,
                             child: Text(
                               userManager.isLoggedIn

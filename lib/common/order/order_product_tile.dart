@@ -36,7 +36,7 @@ class OrderProductTile extends StatelessWidget {
                   ),
                   Text("R\$  ${(cartProduct.fixedPrice ?? cartProduct.unitPrice.toStringAsFixed(2))}",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).accentColor,
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                     ),

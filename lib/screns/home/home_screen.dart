@@ -31,11 +31,12 @@ class HomeScreen extends StatelessWidget {
           CustomScrollView(
           slivers: [
             SliverAppBar(
+              iconTheme: IconThemeData(color: Colors.white),
               snap: true, // Só funciona com FLoating
               floating: true,
               backgroundColor: Colors.transparent,
               flexibleSpace: const FlexibleSpaceBar(
-                title: Text("Michelle Miranda Store"),
+                title: Text("Michelle Miranda Store", style: TextStyle(color: Colors.white),),
                 centerTitle: true,
               ) ,
               actions: <Widget>[
