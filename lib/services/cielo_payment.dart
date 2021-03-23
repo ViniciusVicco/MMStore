@@ -22,7 +22,7 @@ class CieloPayment {
       };
       final HttpsCallable callable = functions.getHttpsCallable(
           functionName: 'authorizeCreditCard');
-
+      callable.timeout = const Duration(seconds: 60);
       final response = await callable.call(dataSale);
       final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
       if (data['sucess'] as bool) {
@@ -43,6 +43,7 @@ class CieloPayment {
     final HttpsCallable callable = functions.getHttpsCallable(
         functionName: 'captureCreditCard'
     );
+    callable.timeout = const Duration(seconds: 60);
     final response = await callable.call(captureData);
     final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
 
@@ -64,6 +65,7 @@ class CieloPayment {
     final HttpsCallable callable = functions.getHttpsCallable(
         functionName: 'cancelCreditCard'
     );
+    callable.timeout = const Duration(seconds: 60);
     final response = await callable.call(cancelData);
     final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
     if(data['success'] == null){

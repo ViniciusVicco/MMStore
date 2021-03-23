@@ -1,4 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/admim_users_manager.dart';
 import 'package:michellemirandastore/models/admin_orders_manager.dart';
@@ -17,7 +16,6 @@ import 'package:michellemirandastore/screns/confirmation/confirmation_screen.dar
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
-import 'package:michellemirandastore/screns/products/products_screen.dart';
 import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';

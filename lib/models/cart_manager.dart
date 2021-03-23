@@ -177,7 +177,8 @@ class CartManager extends ChangeNotifier {
     if(dis > maxkm){
       return false;
     }
-    deliveryPrice = base + dis * km;
+    // deliveryPrice = base + dis * km;
+    deliveryPrice = 1;
     return true;
   }
 

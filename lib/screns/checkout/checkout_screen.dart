@@ -71,7 +71,6 @@ class CheckoutScreen extends StatelessWidget {
                           onPressed: () {
                             if (formKey.currentState.validate()) {
                               formKey.currentState.save();
-                              print(creditCard);
                               checkoutManager.checkout(
                                   creditCard: creditCard,
                                   onSuccess: (order) {

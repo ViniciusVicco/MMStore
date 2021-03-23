@@ -40,13 +40,6 @@ class HomeScreen extends StatelessWidget {
                 centerTitle: true,
               ) ,
               actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.shopping_cart),
-                  color: Colors.white,
-                  onPressed: () => Navigator.of(context).pushNamed('/cart'),
-
-                ),
-                //TODO: Passar esse consumer pra cima e ajustar o cart pra não ficar quebrado no homepage.
                 Consumer2<UserManager, HomeManager>(
                   builder: (_, userManager, homeManager, __){
                     if(userManager.adminEnabled && !homeManager.loading){
@@ -78,11 +71,17 @@ class HomeScreen extends StatelessWidget {
                       }
 
                     } else {
-                      return Container();
+                     return IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: Colors.white,
+                  onPressed: () => Navigator.of(context).pushNamed('/cart'),
+
+                );
                     }
 
                   },
-                )
+                ),
+               
               ],
             ),
             Consumer<HomeManager>(

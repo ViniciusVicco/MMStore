@@ -1,8 +1,9 @@
-import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
-import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands, CaptureRequestModel, CancelTransactionRequestModel } from 'cielo';
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
-admin.initializeApp();
+import { CieloConstructor, Cielo, TransactionCreditCardRequestModel, EnumBrands, CaptureRequestModel, CancelTransactionRequestModel} from 'cielo';
+
+admin.initializeApp(functions.config().firebase);
 
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
@@ -13,8 +14,8 @@ const merchantKey = functions.config().cielo.merchantkey;
 const cieloParams: CieloConstructor = {
     merchantId: merchantId,
     merchantKey: merchantKey,
-    sandbox: true,
-    debug: true,
+    sandbox: false,
+    debug: false,
 }
 
 const cielo = new Cielo(cieloParams);
@@ -75,12 +76,12 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
             break;
         default:
             return {
-                "sucess": false,
-                "error":{
+                "success": false,
+                "error": {
                     "code": -1,
                     "message": "Cartão não suportado: " + data.creditCard.brand
                 }
-            }
+            };
     }
 
     const saleData: TransactionCreditCardRequestModel = {
@@ -97,7 +98,7 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
                 zipCode: userData.address.zipCode.replace('.', '').replace('-', ''),
                 city: userData.address.city,
                 state: userData.address.state,
-                country: "BRA",
+                country: 'BRA',
                 district: userData.address.district,
             }
         },
@@ -106,7 +107,7 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
             country: 'BRA',
             amount: data.amount,
             installments: data.installments,
-            softDescriptor: data.softDescriptor.substring(0,13),
+            softDescriptor: data.softDescriptor.substring(0, 13),
             type: data.paymentType,
             capture: false,
             creditCard: {
@@ -116,46 +117,44 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
                 securityCode: data.creditCard.securityCode,
                 brand: brand
             }
-
         }
     }
 
     try {
-        
         const transaction = await cielo.creditCard.transaction(saleData);
 
         if(transaction.payment.status === 1){
             return {
-                "sucess": true,
-                "paymentId": transaction.payment.paymentId,
+                "success": true,
+                "paymentId": transaction.payment.paymentId
             }
         } else {
             let message = '';
-            switch(transaction.payment.returnCode){
-                    case '5':
-                        message = 'Não Autorizada';
-                        break;
-                    case '57':
-                        message = 'Cartão expirado';
-                        break;
-                    case '78':
-                        message = 'Cartão bloqueado';
-                        break;
-                    case '99':
-                        message = 'Esgotou o tempo da transação';
-                        break;
-                    case '77':
-                        message = 'Cartão cancelado';
-                        break;
-                    case '70':
-                        message = 'Problemas com o Cartão de Crédito'
-                        break;
-                    default:
-                        message = transaction.payment.returnMessage;
-                        break;
+            switch(transaction.payment.returnCode) {
+                case '5':
+                    message = 'Não Autorizada';
+                    break;
+                case '57':
+                    message = 'Cartão expirado';
+                    break;
+                case '78':
+                    message = 'Cartão bloqueado';
+                    break;
+                case '99':
+                    message = 'Timeout';
+                    break;
+                case '77':
+                    message = 'Cartão cancelado';
+                    break;
+                case '70':
+                    message = 'Problemas com o Cartão de Crédito';
+                    break;
+                default:
+                    message = transaction.payment.returnMessage;
+                    break;
             }
             return {
-                "sucess": false,
+                "success": false,
                 "status": transaction.payment.status,
                 "error": {
                     "code": transaction.payment.returnCode,
@@ -163,21 +162,18 @@ export const authorizeCreditCard = functions.https.onCall(async (data, context) 
                 }
             }
         }
-    } catch(error){
-        console.log("Error",error);
+    } catch (error){
+        console.log("Error ", error);
         return {
-            "sucess": false,
+            "success": false,
             "error": {
-                "code": error.response[0].Message,
-                "message": error.response[0].Message,
+                "code": error.response[0].Code,
+                "message": error.response[0].Message
             }
-        }
-
+        };
     }
 
 });
-
-
 
 export const captureCreditCard = functions.https.onCall(async (data, context) => {
     if(data === null){
@@ -232,7 +228,6 @@ export const captureCreditCard = functions.https.onCall(async (data, context) =>
 
 });
 
-
 export const cancelCreditCard = functions.https.onCall(async (data, context) => {
     if(data === null){
         return {
@@ -260,7 +255,7 @@ export const cancelCreditCard = functions.https.onCall(async (data, context) => 
 
     try {
         const cancel = await cielo.creditCard.cancelTransaction(cancelParams);
-
+        
         if(cancel.status === 10 || cancel.status === 11){
             return {"success": true};
         } else {
@@ -278,7 +273,7 @@ export const cancelCreditCard = functions.https.onCall(async (data, context) => 
         return {
             "success": false,
             "error": {
-                "code": error.respose[0].Code,
+                "code": error.response[0].Code,
                 "message": error.response[0].Message
             }
         };
@@ -288,11 +283,14 @@ export const cancelCreditCard = functions.https.onCall(async (data, context) => 
 
 
 
+export const helloWorld = functions.https.onCall((data, context) => {
+  return {data: "Hellow from Cloud Functions!!!"};
+});
 
-export const getUserData = functions.https.onCall(async (data, context) => {
-    if (!context.auth) {
+export const getUserData = functions.https.onCall( async (data, context) => {
+    if(!context.auth){
         return {
-            "data": "Nenhum usuário logado",
+            "data": "Nenhum usuário logado"
         };
     }
 
@@ -301,22 +299,80 @@ export const getUserData = functions.https.onCall(async (data, context) => {
     const snapshot = await admin.firestore().collection("users").doc(context.auth.uid).get();
 
     console.log(snapshot.data());
+
     return {
         "data": snapshot.data()
     };
 });
 
-
-export const addMessage = functions.https.onCall(async (data, context) => {
+export const addMessage = functions.https.onCall( async (data, context) => {
     console.log(data);
 
     const snapshot = await admin.firestore().collection("messages").add(data);
 
-    return { "sucess": snapshot.id };
+    return {"success": snapshot.id};
 });
 
-
-export const onNewOrder = functions.firestore.document("/orders/{orderId}").onCreate((snapshot, context) => {
+export const onNewOrder = functions.firestore.document("/orders/{orderId}").onCreate(async (snapshot, context) => {
     const orderId = context.params.orderId;
-    console.log(orderId);
+    
+    const querySnapshot = await admin.firestore().collection("admins").get();
+
+    const admins = querySnapshot.docs.map(doc => doc.id);
+
+    let adminsTokens: string[] = [];
+    for(let i = 0; i < admins.length; i++){
+        const tokensAdmin: string[] = await getDeviceTokens(admins[i]);
+        adminsTokens = adminsTokens.concat(tokensAdmin);
+    }
+
+    await sendPushFCM(
+        adminsTokens,
+        'Novo Pedido',
+        'Nova venda realizada. Pedido: ' + orderId
+    );
 });
+
+const orderStatus = new Map([
+    [0, "Cancelado"],
+    [1, "Em Preparação"],
+    [2, "Em Transporte"],
+    [3, "Entregue"]
+])
+
+export const onOrderStatusChanged = functions.firestore.document("/orders/{orderId}").onUpdate(async (snapshot, context) => {
+    const beforeStatus = snapshot.before.data().status;
+    const afterStatus = snapshot.after.data().status;
+
+    if(beforeStatus !== afterStatus){
+        const tokensUser = await getDeviceTokens(snapshot.after.data().user)
+
+        await sendPushFCM(
+            tokensUser,
+            'Pedido: ' + context.params.orderId,
+            'Status atualizado para: ' + orderStatus.get(afterStatus),
+        )
+    }
+});
+
+async function getDeviceTokens(uid: string){
+    const querySnapshot = await admin.firestore().collection("users").doc(uid).collection("tokens").get();
+
+    const tokens = querySnapshot.docs.map(doc => doc.id);
+
+    return tokens;
+}
+
+async function sendPushFCM(tokens: string[], title: string, message: string){
+    if(tokens.length > 0){
+        const payload = {
+            notification: {
+                title: title,
+                body: message,
+                click_action: 'FLUTTER_NOTIFICATION_CLICK'
+            }
+        };
+        return admin.messaging().sendToDevice(tokens, payload);
+    }
+    return;
+}
