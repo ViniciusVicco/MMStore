@@ -7,7 +7,8 @@ import 'package:screenshot/screenshot.dart';
 class ExportAddressDialog extends StatelessWidget {
   final Address address;
   final ScreenshotController screenShotController = ScreenshotController();
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); TODO: Descomentar caso não funcione
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   ExportAddressDialog({this.address, this.scaffoldKey});
 
@@ -28,11 +29,11 @@ class ExportAddressDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        FlatButton(
+        TextButton(
             onPressed: () async {
               final file = await screenShotController.capture();
               await GallerySaver.saveImage(file.path);
-              scaffoldKey.currentState.showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content:
                       Text("Etiqueta do Endereço exportada para galeria")));
               Navigator.of(context).pop();

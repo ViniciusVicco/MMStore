@@ -32,14 +32,17 @@ class LoginCard extends StatelessWidget {
                   ),
                 ),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: (){
                   Navigator.of(context).pushNamed('/login');
                 },
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
+                  style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+  ),
                 child: const Text(
-                    'LOGIN'
+                    'LOGIN', style: TextStyle(
+                      color: Colors.white
+                    ),
                 ),
               ),
             ],

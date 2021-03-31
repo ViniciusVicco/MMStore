@@ -35,14 +35,14 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> {
           ],
         ),
         actions: [
-          FlatButton(
+          TextButton(
               onPressed: loading
                   ? null
                   : () {
                       Navigator.of(context).pop();
                     },
               child: const Text("Voltar")),
-          FlatButton(
+          TextButton(
               onPressed: loading
                   ? null
                   : () async {
@@ -63,8 +63,7 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> {
                       }
 
                     },
-              textColor: Colors.red,
-              child: const Text("Cancelar Pedido")),
+              child: const Text("Cancelar Pedido",style: TextStyle(color: Colors.red),)),
         ],
       ),
     );

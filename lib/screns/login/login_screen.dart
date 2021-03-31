@@ -34,14 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         centerTitle: true,
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(context).pushReplacementNamed('/signup');
             },
-            textColor: Colors.white,
             child: const Text(
               "CRIAR CONTA",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 15, color: Colors.black),
             ),
           )
         ],
@@ -121,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: 140,
                               child: Text(
-              senhaOculta? "Exibir Senha" : "Ocultar Senha",
+                                senhaOculta ? "Exibir Senha" : "Ocultar Senha",
                                 style: TextStyle(
                                   color: Theme.of(context).accentColor,
                                 ),
@@ -133,11 +132,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  RaisedButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Theme.of(context).accentColor),
+                    ),
                     onPressed: userManager.loading
                         ? null
                         : () {
+                            FocusScope.of(context).requestFocus(FocusNode());
+
                             if (globalKey.currentState.validate()) {
                               userManager.signIn(
                                   user: User(
@@ -148,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.of(context).pop();
                                   },
                                   onFail: (e) {
-                                    scaffoldKey.currentState.showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text("Falha ao entrar: $e"),
                                         backgroundColor: Colors.red,
@@ -170,12 +174,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                     ),
-                    color: Theme.of(context).accentColor,
                   ),
                   SignInButton(Buttons.Facebook, text: "Entrar Com Facebook",
                       onPressed: () {
                     userManager.facebookLogin(onFail: (e) {
-                      scaffoldKey.currentState.showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Falha ao entrar: $e'),
                         backgroundColor: Colors.red,
                       ));

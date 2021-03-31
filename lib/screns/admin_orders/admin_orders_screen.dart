@@ -4,7 +4,6 @@ import 'package:michellemirandastore/common/custom_icon_button.dart';
 import 'package:michellemirandastore/common/empty_cart_card.dart';
 import 'package:michellemirandastore/common/order/order_tile.dart';
 
-
 import 'package:michellemirandastore/models/admin_orders_manager.dart';
 import 'package:michellemirandastore/models/order.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,7 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
   final PanelController panelController = PanelController();
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool filterOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +81,9 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
                           );
                         }),
                   ),
-                const SizedBox(height: 120,),
+                const SizedBox(
+                  height: 120,
+                ),
               ],
             ),
             minHeight: 40,
@@ -91,46 +92,57 @@ class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    if(panelController.isPanelClosed){
+                  onTap: () {
+                    setState(() {             
+                    if (panelController.isPanelClosed) {
                       panelController.open();
+                      filterOpen = true;
                     } else {
                       panelController.close();
+                      filterOpen = false;
                     }
+                    });
                   },
                   child: Container(
                     color: Colors.white,
                     height: 40,
                     constraints: const BoxConstraints.expand(height: 40),
                     alignment: Alignment.center,
-                    child: Text(
-                      'Filtros',
-                      style: TextStyle(
-                        color: Theme.of(context).accentColor,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Filtros',
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Icon(
+                          filterOpen ? Icons.expand_more : Icons.expand_less,
+                        )
+                      ],
                     ),
                   ),
                 ),
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Status.values.map((s){
-                      return CheckboxListTile(
-                        title: Text(Order.getStatusText(s)),
-                        dense: true,
-                        activeColor: Theme.of(context).accentColor,
-                        value: ordersManager.statusFilter.contains(s),
-                        onChanged: (v){
-                          ordersManager.setStatusFilter(
-                            status: s,
-                            enabled: v,
-                          );
-                        },
-                      );
-                    }).toList()
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: Status.values.map((s) {
+                        return CheckboxListTile(
+                          title: Text(Order.getStatusText(s)),
+                          dense: true,
+                          activeColor: Theme.of(context).accentColor,
+                          value: ordersManager.statusFilter.contains(s),
+                          onChanged: (v) {
+                            ordersManager.setStatusFilter(
+                              status: s,
+                              enabled: v,
+                            );
+                          },
+                        );
+                      }).toList()),
                 )
               ],
             ),

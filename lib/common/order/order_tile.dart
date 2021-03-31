@@ -9,8 +9,8 @@ import 'order_product_tile.dart';
 
 
 class OrderTile extends StatelessWidget {
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  // GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   OrderTile({this.order, this.showControls, this.scaffoldKey});
@@ -73,7 +73,7 @@ class OrderTile extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
-                  FlatButton(onPressed: (){
+                  TextButton(onPressed: (){
                     showDialog(context: context,
                     barrierDismissible: false,
                     builder: (_) => CancelOrderDialog(order,),
@@ -81,13 +81,13 @@ class OrderTile extends StatelessWidget {
                   },
                       child: const Text("Cancelar", style: TextStyle(color: Colors.red),),
                   ),
-                  FlatButton(onPressed: order.back,
+                  TextButton(onPressed: order.back,
                     child: const Text("Recuar",),
                   ),
-                  FlatButton(onPressed: order.advance,
+                  TextButton(onPressed: order.advance,
                     child: const Text("Avançar",),
                   ),
-                  FlatButton(onPressed: (){
+                  TextButton(onPressed: (){
                     showDialog(context: context,
                       builder: (_) => ExportAddressDialog(address: order.address,scaffoldKey: scaffoldKey,),
                     );

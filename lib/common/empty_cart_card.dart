@@ -33,9 +33,11 @@ class EmptyCartCard extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          RaisedButton(
-            child: Text("Selecionar Produtos"),
-            color: Colors.white,
+          ElevatedButton(
+            child: Text("Selecionar Produtos", style: TextStyle(color: Colors.black),),
+              style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  ),
             onPressed: () { Navigator.of(context).pushNamed('/products');}
           )
         ],
