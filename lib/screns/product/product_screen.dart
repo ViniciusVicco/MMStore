@@ -152,7 +152,7 @@ class ProductScreen extends StatelessWidget {
                       builder: (_, userManager, product, __) {
                         return SizedBox(
                           height: 44,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: product.selectedSize != null
                                 ? () {
                                     if (userManager.isLoggedIn) {
@@ -165,8 +165,9 @@ class ProductScreen extends StatelessWidget {
                                     }
                                   }
                                 : null,
-                            color: accentColor,
-                            textColor: Colors.white,
+               style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+  ),
                             child: Text(
                               userManager.isLoggedIn
                                   ? 'Adicionar ao Carrinho'

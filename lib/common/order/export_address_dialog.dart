@@ -7,7 +7,6 @@ import 'package:screenshot/screenshot.dart';
 class ExportAddressDialog extends StatelessWidget {
   final Address address;
   final ScreenshotController screenShotController = ScreenshotController();
-  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); TODO: Descomentar caso não funcione
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   ExportAddressDialog({this.address, this.scaffoldKey});

@@ -43,17 +43,20 @@ class ItemTile extends StatelessWidget {
                     )
                     : null,
                 actions: [
-                  FlatButton(
-                    textColor: Colors.red,
+                  TextButton(
+            
                     onPressed: (){
                       context.read<Section>().removeItem(item);
                       Navigator.of(context).pop();
                     },
                     child: Text(
                         "Excluir",
+                        style: TextStyle(
+                          color: Colors.red
+                        ),
                     ),
                   ),
-                  FlatButton(
+                  TextButton(
                    onPressed: () async {
                      if(product != null){
                        item.product = null;

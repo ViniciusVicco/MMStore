@@ -38,7 +38,7 @@ class AddressInputField extends StatelessWidget {
                   validator: emptyValidator,
                   onSaved: (t) => address.number = t,
                   inputFormatters: [
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly
                   ],
                   keyboardType: TextInputType.number,
                 ),
@@ -96,16 +96,16 @@ class AddressInputField extends StatelessWidget {
             backgroundColor: Colors.black,
             valueColor: AlwaysStoppedAnimation(Colors.pink[50]),
           ),
-          RaisedButton(
-            color: Colors.black,
-            disabledColor: Colors.grey,
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.black)       ),
             onPressed: !cartManager.loading? () async {
               if(Form.of(context).validate()){
                 Form.of(context).save(); // Chama o onSaved e salva cada valor de texto na variável passada. ex: onSaved: (t) => addressdistrict = t,
                 try {
                   await context.read<CartManager>().setAddress(address);
                 } catch (e){
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$e'),
                       backgroundColor: Colors.red,
@@ -126,7 +126,7 @@ class AddressInputField extends StatelessWidget {
             enabled: true,
             initialValue: address.district,
             decoration: const InputDecoration(
-                isDense: true, labelText: 'Bairro', hintText: 'Asa Norte'),
+                isDense: true, labelText: 'Bairro', hintText: 'ex: Asa Norte'),
             validator: emptyValidator,
             onSaved: (t) => address.district = t,
           ),

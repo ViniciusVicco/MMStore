@@ -6,8 +6,10 @@ class ConfirmDialog extends StatelessWidget {
     return AlertDialog(
       title: const Text('Produto cadastrado!'),
       actions: [
-        FlatButton(
-          textColor: Colors.blue,
+        ElevatedButton(
+               style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
+    ,),
           onPressed: (){
             Navigator.of(context).pushNamed('/');
           },

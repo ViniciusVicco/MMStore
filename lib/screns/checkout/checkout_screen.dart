@@ -82,7 +82,7 @@ class CheckoutScreen extends StatelessWidget {
                                   },
                                   onPayFail: (e){
                                     if(!(e == null))
-                                    scaffoldKey.currentState.showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text("$e"),
                                         backgroundColor: Colors.red,

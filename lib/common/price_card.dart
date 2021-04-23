@@ -69,7 +69,7 @@ class PriceCard extends StatelessWidget {
             const SizedBox(height: 8,),
             ElevatedButton(
             style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
   ),
               onPressed: onPressed,
               child: Text(buttonText, style: TextStyle(color: Colors.white),),

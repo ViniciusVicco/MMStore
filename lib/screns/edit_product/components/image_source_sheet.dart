@@ -43,7 +43,7 @@ class ImageSourceSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FlatButton(
+            TextButton(
               onPressed: () async{
 
                 final PickedFile pickedfile = await picker.getImage(imageQuality: 25,source: ImageSource.camera);
@@ -58,7 +58,7 @@ class ImageSourceSheet extends StatelessWidget {
               color: Colors.grey,
               height: 20,
             ),
-            FlatButton(
+            TextButton(
               onPressed: () async{
                 final PickedFile pickedfile = await picker.getImage(imageQuality: 25,source: ImageSource.gallery);
                 if(pickedfile == null){

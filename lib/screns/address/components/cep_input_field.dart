@@ -48,7 +48,8 @@ class _CepInputFieldState extends State<CepInputField> {
             },
             // Bloqueando caracteres:
             inputFormatters: [
-              WhitelistingTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.digitsOnly,
+      
               // Aqui só permite a entrada de digitos: 1 , 2 , a ,c d
               CepInputFormatter(),
               // Aqui é a mascara p/ o Cep
@@ -59,7 +60,7 @@ class _CepInputFieldState extends State<CepInputField> {
               valueColor: AlwaysStoppedAnimation(Colors.pink[50]),
               backgroundColor: Colors.black,
             ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: !cartManager.loading ? () async {
               if (Form.of(context).validate()) {
                 try {
@@ -73,8 +74,9 @@ class _CepInputFieldState extends State<CepInputField> {
                 print(cepController.text);
               }
             }: null,
-            textColor: Colors.white,
-            color: Theme.of(context).accentColor,
+  style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+  ),
             child: Text(
               'Buscar Cep',
               style: TextStyle(color: Colors.white),

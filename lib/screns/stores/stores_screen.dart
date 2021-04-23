@@ -29,7 +29,6 @@ class StoresScreen extends StatelessWidget {
               return StoreCard(storesManager.stores[index]);
             }
           );
-          return Container();
         },
       ),
     );

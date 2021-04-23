@@ -30,7 +30,7 @@ class CpfField extends StatelessWidget {
               ),
               keyboardType: TextInputType.number,
               inputFormatters: [
-                WhitelistingTextInputFormatter.digitsOnly,
+                        FilteringTextInputFormatter.digitsOnly,
                 CpfInputFormatter(),
               ],
               validator: (cpf){

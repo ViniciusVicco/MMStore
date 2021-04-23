@@ -9,7 +9,7 @@ class AddSectionWidget extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: FlatButton(
+          child: TextButton(
             onPressed: ()  {
             homeManager.addSection(Section(type: 'List'));
             },
@@ -22,7 +22,7 @@ class AddSectionWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: FlatButton(
+          child: TextButton(
             onPressed: ()  {
               homeManager.addSection(Section(type: 'Staggered'));
             },

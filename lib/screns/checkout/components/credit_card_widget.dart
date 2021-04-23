@@ -79,7 +79,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                 cvvFocus: cvvFocus,
               ),
             ),
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   cardKey.currentState.toggleCard();
                 },

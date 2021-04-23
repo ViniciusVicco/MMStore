@@ -132,7 +132,7 @@ class EditProductScreen extends StatelessWidget {
                         builder: (_, product, __) {
                           return SizedBox(
                             height: 44,
-                            child: RaisedButton(
+                            child: ElevatedButton(
                               onPressed: !product.loading ? () async {
                                 if(formKey.currentState.validate()){
                                   formKey.currentState.save();
@@ -147,9 +147,9 @@ class EditProductScreen extends StatelessWidget {
                                 });
                                 }
                               } : null,
-                              textColor: Colors.white,
-                              color: accentColor,
-                              disabledColor: accentColor.withAlpha(100),
+             style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+  ),
                               child: product.loading
                                   ? CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation(Colors.white),

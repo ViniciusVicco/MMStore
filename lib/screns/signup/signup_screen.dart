@@ -97,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                         if(formKey.currentState.validate()){
                           formKey.currentState.save();
                           if(!senhasIguais(user.password, user.confirmedPassword)){
-                            scaffoldKey.currentState.showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: const Text('Senhas não coincidem!', style: TextStyle(fontSize: 15),),
                                   backgroundColor: Colors.red,
@@ -112,7 +112,7 @@ class SignUpScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               },
                               onFail: (e){
-                                scaffoldKey.currentState.showSnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("Erro ao acesar $e"),
                                     )

@@ -26,8 +26,8 @@ class StoreCard extends StatelessWidget {
       }
     }
     void showError(){
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
-    }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Este dispositivo não possui essa função"), backgroundColor: Colors.red,));
+    } 
 
     void openPhone() async {
       if (await canLaunch('tel: ${store.cleanPhone}')) {
