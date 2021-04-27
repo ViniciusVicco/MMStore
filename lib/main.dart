@@ -16,6 +16,7 @@ import 'package:michellemirandastore/screns/confirmation/confirmation_screen.dar
 import 'package:michellemirandastore/screns/edit_product/edit_product_screen.dart';
 import 'package:michellemirandastore/screns/login/login_screen.dart';
 import 'package:michellemirandastore/screns/product/product_screen.dart';
+import 'package:michellemirandastore/screns/recover_password/recover_password_screen.dart';
 import 'package:michellemirandastore/screns/select_product/select_product_screen.dart';
 import 'package:michellemirandastore/screns/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
@@ -100,6 +101,11 @@ class MyApp extends StatelessWidget {
             case '/cart':
               return MaterialPageRoute(
                 builder: (_) => CartScreen(),
+                settings: settings,
+              );
+              case '/recover':
+                            return MaterialPageRoute(
+                builder: (_) => RecoverPassowrd(),
                 settings: settings,
               );
             case '/confirmation':

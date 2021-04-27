@@ -63,10 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(16),
                 shrinkWrap: true,
                 children: [
-                  TextFormField(
+                 Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Theme.of(context).scaffoldBackgroundColor)
+                    ),
+                    child: TextFormField(
                     enabled: !userManager.loading,
                     controller: emailController,
-                    decoration: const InputDecoration(hintText: 'E-mail'),
+                    decoration: const InputDecoration(
+                      hintText: 'E-mail',
+                      contentPadding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                        border: InputBorder.none,
+                      ),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: true,
                     validator: (email) {
@@ -76,61 +85,59 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
+                 ),
                   const SizedBox(
                     height: 14,
                   ),
-                  TextFormField(
-                    enabled: !userManager.loading,
-                    decoration: const InputDecoration(
-                        hintText: 'Senha', alignLabelWithHint: true),
-                    controller: passwordController,
-                    keyboardType: TextInputType.text,
-                    autocorrect: false,
-                    obscureText: senhaOculta,
-                    validator: (senha) {
-                      if (!senhaValid(senha)) {
-                        return 'Senha Inválida';
-                      }
-                      return null;
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Theme.of(context).scaffoldBackgroundColor)
+                    ),
+                    child: TextFormField(
+                      enabled: !userManager.loading,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                        border: InputBorder.none,
+                          suffixIcon: IconButton(
+                            icon: senhaOculta
+                                ? Icon(
+                                    Icons.lock_open_rounded,
+                                    color: Theme.of(context).accentColor,
+                                  )
+                                : Icon(
+                                    Icons.lock_outline,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                this.senhaOculta = !senhaOculta;
+                              });
+                            },
+                          ),
+                          hintText: 'Senha',
+                          alignLabelWithHint: true),
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      autocorrect: false,
+                      obscureText: senhaOculta,
+                      validator: (senha) {
+                        if (!senhaValid(senha)) {
+                          return 'Senha Inválida';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                              icon: senhaOculta
-                                  ? Icon(
-                                      Icons.lock_open_rounded,
-                                      color: Theme.of(context).accentColor,
-                                    )
-                                  : Icon(
-                                      Icons.lock_outline,
-                                      color: Theme.of(context).accentColor,
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  this.senhaOculta = !senhaOculta;
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              width: 140,
-                              child: Text(
-                                senhaOculta ? "Exibir Senha" : "Ocultar Senha",
-                                style: TextStyle(
-                                  color: Theme.of(context).accentColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]),
-                  SizedBox(
-                    height: 10,
+                
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {
+                          Navigator.of(context).pushNamed('/recover');
+                      },
+                      child: Text("Esqueci minha senha", style: TextStyle(),),
+                    ),
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
