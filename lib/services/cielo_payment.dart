@@ -6,10 +6,10 @@ import 'package:michellemirandastore/models/credit_card.dart';
 import 'package:michellemirandastore/models/user.dart';
 
 class CieloPayment {
-
   final CloudFunctions functions = CloudFunctions.instance;
 
-  Future<String> autorize({CreditCard creditCard, num price, String orderId, User user}) async {
+  Future<String> authorize(
+      {CreditCard creditCard, num price, String orderId, User user}) async {
     try {
       final Map<String, dynamic> dataSale = {
         'merchantOrderId': orderId,
@@ -20,64 +20,53 @@ class CieloPayment {
         'cpf': user.cpf,
         'paymentType': 'CreditCard',
       };
-      final HttpsCallable callable = functions.getHttpsCallable(
-          functionName: 'authorizeCreditCard');
+
+      final HttpsCallable callable =
+          functions.getHttpsCallable(functionName: 'authorizeCreditCard');
       callable.timeout = const Duration(seconds: 60);
       final response = await callable.call(dataSale);
       final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
-      if (data['sucess'] as bool) {
-        return data['paymentId'] as String;
-      } else {
-        return Future.error(data['error']['message']);
-      }
-    } catch (e){
-      debugPrint('$e');
-      return Future.error('Falha ao processar transação. Tente novamente');
-    }
-  }
-
-  Future<void> capture(String payId) async {
-    final Map<String, dynamic> captureData = {
-      'payId': payId
-    };
-    final HttpsCallable callable = functions.getHttpsCallable(
-        functionName: 'captureCreditCard'
-    );
-    callable.timeout = const Duration(seconds: 60);
-    final response = await callable.call(captureData);
-    final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
-
-    if (data['success'] == null) {
-      print("Nullo no na captura");
-
       if (data['success'] as bool) {
+        return data['paymentId'] as String;
       } else {
         debugPrint('${data['error']['message']}');
         return Future.error(data['error']['message']);
       }
+    } catch (e) {
+      debugPrint('$e');
+      return Future.error('Falha ao processar transação. Tente novamente.');
     }
   }
 
-  Future<void> cancel(String payId) async {
-    final Map<String, dynamic> cancelData = {
-      'payId': payId
-    };
-    final HttpsCallable callable = functions.getHttpsCallable(
-        functionName: 'cancelCreditCard'
-    );
+  Future<void> capture(String payId) async {
+    final Map<String, dynamic> captureData = {'payId': payId};
+    final HttpsCallable callable =
+        functions.getHttpsCallable(functionName: 'captureCreditCard');
     callable.timeout = const Duration(seconds: 60);
-    final response = await callable.call(cancelData);
+    final response = await callable.call(captureData);
     final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
-    if(data['success'] == null){
-      print("Nullo no cancelamento");
-    }
-    if (data['success'] as bool) {//Problema no metodo de captura, provavelmente function
-      debugPrint('Cancelamento realizado com sucesso');
 
+    if (data['success'] as bool) {
+      debugPrint('Captura realizada com sucesso');
     } else {
       debugPrint('${data['error']['message']}');
       return Future.error(data['error']['message']);
     }
   }
 
+  Future<void> cancel(String payId) async {
+    final Map<String, dynamic> cancelData = {'payId': payId};
+    final HttpsCallable callable =
+        functions.getHttpsCallable(functionName: 'cancelCreditCard');
+    callable.timeout = const Duration(seconds: 60);
+    final response = await callable.call(cancelData);
+    final data = Map<String, dynamic>.from(response.data as LinkedHashMap);
+
+    if (data['success'] as bool) {
+      debugPrint('Cancelamento realizado com sucesso');
+    } else {
+      debugPrint('${data['error']['message']}');
+      return Future.error(data['error']['message']);
+    }
+  }
 }
