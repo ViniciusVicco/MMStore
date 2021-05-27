@@ -7,7 +7,10 @@ class LoginCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        color: Colors.red[100],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        color: Colors.white,
         margin: const EdgeInsets.all(16),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
@@ -33,16 +36,16 @@ class LoginCard extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pushNamed('/login');
                 },
-                  style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-  ),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                ),
                 child: const Text(
-                    'LOGIN', style: TextStyle(
-                      color: Colors.white
-                    ),
+                  'LOGIN',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ],

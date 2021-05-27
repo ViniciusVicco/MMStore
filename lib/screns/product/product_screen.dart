@@ -79,16 +79,16 @@ class ProductScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    product.deleted?
-                        'Produto Removido ou indiposnível':
-                    'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                    product.deleted
+                        ? 'Produto Removido ou indiposnível'
+                        : 'R\$ ${product.basePrice.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                       color: accentColor,
                     ),
                   ),
-                  if(product.hasStock==false)
+                  if (product.hasStock == false)
                     Text(
                       'Sem Estoque',
                       style: TextStyle(
@@ -119,10 +119,9 @@ class ProductScreen extends StatelessWidget {
                       child: Text(
                         'Indisponível',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.red
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.red),
                       ),
                     )
                   else ...[
@@ -165,14 +164,16 @@ class ProductScreen extends StatelessWidget {
                                     }
                                   }
                                 : null,
-               style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-  ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black),
+                            ),
                             child: Text(
                               userManager.isLoggedIn
                                   ? 'Adicionar ao Carrinho'
                                   : 'Entre para adicionar produtos ao Carrinho',
-                              style: TextStyle(fontSize: 16),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                         );

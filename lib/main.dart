@@ -24,8 +24,6 @@ import 'models/product.dart';
 
 void main() async {
   runApp(MyApp());
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -79,8 +77,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.white,
-          accentColor: Colors.black,//Para barras
-          scaffoldBackgroundColor: Colors.red[200], //Para o fundo de telas
+          accentColor: Colors.black, //Para barras
+          backgroundColor: Color(0xFF963955),
+          scaffoldBackgroundColor: Color(0xFFBD486B), //Para o fundo de telas
+          hoverColor: Color(0xFFBD486B),
           appBarTheme: const AppBarTheme(
             elevation: 0,
           ),
@@ -103,8 +103,8 @@ class MyApp extends StatelessWidget {
                 builder: (_) => CartScreen(),
                 settings: settings,
               );
-              case '/recover':
-                            return MaterialPageRoute(
+            case '/recover':
+              return MaterialPageRoute(
                 builder: (_) => RecoverPassowrd(),
                 settings: settings,
               );

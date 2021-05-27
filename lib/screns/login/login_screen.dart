@@ -63,42 +63,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(16),
                 shrinkWrap: true,
                 children: [
-                 Container(
+                  Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Theme.of(context).scaffoldBackgroundColor)
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Theme.of(context).scaffoldBackgroundColor)),
                     child: TextFormField(
-                    enabled: !userManager.loading,
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      hintText: 'E-mail',
-                      contentPadding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                      enabled: !userManager.loading,
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        hintText: 'E-mail',
+                        contentPadding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                         border: InputBorder.none,
                       ),
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: true,
-                    validator: (email) {
-                      if (!emailValid(email)) {
-                        return 'E-mail inválido';
-                      }
-                      return null;
-                    },
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: true,
+                      validator: (email) {
+                        if (!emailValid(email)) {
+                          return 'E-mail inválido';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                 ),
                   const SizedBox(
                     height: 14,
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Theme.of(context).scaffoldBackgroundColor)
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Theme.of(context).scaffoldBackgroundColor)),
                     child: TextFormField(
                       enabled: !userManager.loading,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                        border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                          border: InputBorder.none,
                           suffixIcon: IconButton(
                             icon: senhaOculta
                                 ? Icon(
@@ -129,14 +129,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       onPressed: () {
-                          Navigator.of(context).pushNamed('/recover');
+                        Navigator.of(context).pushNamed('/recover');
                       },
-                      child: Text("Esqueci minha senha", style: TextStyle(),),
+                      child: Text(
+                        "Esqueci minha senha",
+                        style: TextStyle(
+                            color: Theme.of(context).scaffoldBackgroundColor),
+                      ),
                     ),
                   ),
                   ElevatedButton(

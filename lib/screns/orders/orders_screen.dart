@@ -6,25 +6,29 @@ import 'package:michellemirandastore/common/order/order_tile.dart';
 import 'package:michellemirandastore/models/orders_manager.dart';
 import 'package:provider/provider.dart';
 
-
-
 class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       drawer: CustomDrawer(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text("Meus Pedidos",style: TextStyle(color: Colors.white),),
+        title: Text(
+          "Meus Pedidos",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Consumer<OrdersManager>(
-        builder: (_,ordersManager,__){
-          if(ordersManager.user == null){
-    return LoginCard(tittle: "de pedidos",);
-    }
-          if(ordersManager.orders.isEmpty){
+        builder: (_, ordersManager, __) {
+          if (ordersManager.user == null) {
+            return LoginCard(
+              tittle: "de pedidos",
+            );
+          }
+          if (ordersManager.orders.isEmpty) {
             return EmptyCartCard(
               title: "Nenhuma Pedido Encontrado",
               iconData: Icons.backpack_outlined,
@@ -37,13 +41,13 @@ class OrdersScreen extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: ordersManager.orders.length,
-                  itemBuilder: (_, index){
-                  return OrderTile(
+                    itemCount: ordersManager.orders.length,
+                    itemBuilder: (_, index) {
+                      return OrderTile(
                         order: ordersManager.orders.reversed.toList()[index],
-                    showControls: false,
+                        showControls: false,
                       );
-                }),
+                    }),
               ),
             ],
           );
