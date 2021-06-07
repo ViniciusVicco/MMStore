@@ -24,7 +24,7 @@ class UserManager extends ChangeNotifier {
   bool _loadingFace = false;
   bool get loadingFace => _loadingFace;
 
-  set loadingFace(bool value){
+  set loadingFace(bool value) {
     _loadingFace = value;
     notifyListeners();
   }
@@ -38,6 +38,17 @@ class UserManager extends ChangeNotifier {
       await _loadCurrentUser(firebaseUser: result.user);
 
       onSucess();
+    } on PlatformException catch (e) {
+      onFail(getErrorString(e.code));
+    }
+    loading = false;
+  }
+
+  Future<void> recoverPassword(
+      {String email, Function onFail, Function onSuccess}) async {
+    loading = true;
+    try {
+      await auth.sendPasswordResetEmail(email: email);
     } on PlatformException catch (e) {
       onFail(getErrorString(e.code));
     }
@@ -99,10 +110,9 @@ class UserManager extends ChangeNotifier {
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final credential = FacebookAuthProvider.getCredential(
-          accessToken: result.accessToken.token
-        );
+            accessToken: result.accessToken.token);
         final authResult = await auth.signInWithCredential(credential);
-        if(authResult.user != null){
+        if (authResult.user != null) {
           final firebaseUser = authResult.user;
 
           user = User(
@@ -112,7 +122,6 @@ class UserManager extends ChangeNotifier {
           );
 
           await user.saveData();
-
         }
         break;
       case FacebookLoginStatus.cancelledByUser:
