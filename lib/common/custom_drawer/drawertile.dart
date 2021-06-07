@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:michellemirandastore/models/page_manager.dart';
 import 'package:provider/provider.dart';
+
 class DrawerTile extends StatelessWidget {
   final IconData iconData;
   final String title;
   final int page;
-  const DrawerTile({this.iconData,this.title,this.page});
+  const DrawerTile({this.iconData, this.title, this.page});
 
   @override
   Widget build(BuildContext context) {
-  final int curPage = context.watch<PageManager>().page; //Pega o índice da página atual
+    final int curPage =
+        context.watch<PageManager>().page; //Pega o índice da página atual
     return InkWell(
-      onTap: (){
+      onTap: () {
         context.read<PageManager>().setPage(page);
       },
       child: SizedBox(
@@ -21,15 +23,17 @@ class DrawerTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Icon(
-              iconData,
+                iconData,
                 size: 32,
-                color: curPage == page ? Colors.pink : Colors.grey[800],
+                color: curPage == page ? Colors.pink : Colors.black,
               ),
             ),
-            Text(title,
+            Text(
+              title,
               style: TextStyle(
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
-                color: Colors.grey[700],
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],

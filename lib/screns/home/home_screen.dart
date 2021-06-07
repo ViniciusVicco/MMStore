@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                       return SectionList(section);
                     default:
                       return Container(
-                        child: Text("Deu ruim"),
+                        child: Text("Ocorreu um problema"),
                       );
                   }
                 }).toList();

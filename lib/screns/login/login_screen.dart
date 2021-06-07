@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).accentColor),
+                          Theme.of(context).hoverColor),
                     ),
                     onPressed: userManager.loading
                         ? null
