@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       key: scaffoldKey,
       appBar: AppBar(
         title: const CircleAvatar(
